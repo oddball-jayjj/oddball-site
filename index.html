@@ -1,0 +1,1257 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="오드볼 냉동생지 — 스콘·피낭시에·마들렌·에그타르트·쿠키. 카페·베이커리 납품과 OEM, 오븐 기종별 굽는 법과 굽기 문제 해결 안내.">
+<meta property="og:title" content="오드볼 디저트 · 냉동생지">
+<meta property="og:description" content="냉동실에서 꺼내 오븐에 넣기만 하세요. 카페·베이커리 납품, OEM, 제품별 굽기 가이드.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F4C342">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23F4C342'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' font-family='sans-serif' font-weight='700' fill='%23352600'%3Eo%3C/text%3E%3C/svg%3E">
+<title>오드볼 디저트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky tab bar over one column; each tab is a page section. The oven readout (dark panel, amber digits) is the signature element. */
+:root{
+  --bg:#F3F4F6; --surface:#FFFFFF; --ink:#1C2230; --muted:#5A6374; --line:#DADEE6;
+  --butter:#F4C342; --butter-ink:#352600; --crust:#94491A; --dough:#E8C48E; --dough-edge:#B9844A;
+  --lcd-bg:#161A22; --lcd-fg:#FFB443; --lcd-dim:#8A6C3A;
+  --ok:#2C7A4B; --warn:#B4531A; --soft:#EEF0F4; --scrim:rgba(17,20,27,.55);
+  --f-display:"Do Hyeon","IBM Plex Sans KR",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11141B; --surface:#1A1E28; --ink:#E8EBF1; --muted:#A1A9B8; --line:#2C3240;
+  --butter:#F4C342; --butter-ink:#2A1E00; --crust:#E9A46F; --dough:#D3AE78; --dough-edge:#8F6334;
+  --lcd-bg:#0A0C11; --lcd-fg:#FFB443; --lcd-dim:#7A6038;
+  --ok:#6CC892; --warn:#F09A62; --soft:#222735; --scrim:rgba(0,0,0,.65); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11141B; --surface:#1A1E28; --ink:#E8EBF1; --muted:#A1A9B8; --line:#2C3240;
+  --butter:#F4C342; --butter-ink:#2A1E00; --crust:#E9A46F; --dough:#D3AE78; --dough-edge:#8F6334;
+  --lcd-bg:#0A0C11; --lcd-fg:#FFB443; --lcd-dim:#7A6038;
+  --ok:#6CC892; --warn:#F09A62; --soft:#222735; --scrim:rgba(0,0,0,.65); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;margin:0;word-break:keep-all;overflow-wrap:anywhere}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.2;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--crust)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--butter);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);font-size:26px;letter-spacing:.02em;background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
+.logo span{color:var(--crust)}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;white-space:nowrap;font-weight:500;color:var(--muted)}
+.tab:hover{color:var(--ink);background:var(--soft)}
+.tab[aria-current="page"]{color:var(--butter-ink);background:var(--butter)}
+@media (max-width:720px){.bar .wrap{gap:4px;padding-block:8px}.tabs{margin-left:0;width:100%}}
+
+main{padding-block:32px 64px}
+section[data-page]{display:grid;gap:28px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--crust)}
+.lead{color:var(--muted);max-width:62ch}
+.h-page{font-size:clamp(30px,5vw,42px)}
+.h-sec{font-size:26px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;padding:12px 18px;font-weight:600;cursor:pointer;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--butter);color:var(--butter-ink);border-color:var(--butter)}
+.btn.primary:hover{filter:brightness(.96)}
+.btn.small{padding:8px 14px;font-size:14px}
+.btn[aria-disabled="true"],.btn:disabled{opacity:.5;pointer-events:none}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:16px;align-content:start;min-width:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+
+/* LCD */
+.lcd{background:var(--lcd-bg);color:var(--lcd-fg);border-radius:14px;padding:18px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:14px;font-family:var(--f-mono);box-shadow:inset 0 0 0 1px rgba(255,180,67,.15)}
+.lcd .k{font-size:11px;letter-spacing:.12em;color:var(--lcd-dim);font-family:var(--f-body);font-weight:600}
+.lcd .v{font-size:27px;line-height:1.15;font-variant-numeric:tabular-nums;text-shadow:0 0 12px rgba(255,180,67,.35)}
+.lcd .v small{font-size:14px;margin-left:2px}
+.lcd .sub{font-size:12px;color:var(--lcd-dim);font-family:var(--f-body)}
+.lcd .cut{display:grid;align-content:center;color:var(--lcd-dim);font-family:var(--f-body);font-size:13px}
+
+/* home */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(36px,6.4vw,60px)}
+.hero h1 em{font-style:normal;color:var(--crust)}
+.hero .lead{margin-top:14px;font-size:17px}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-card{display:grid;gap:12px;min-width:0}
+.hero-photo{aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--soft);position:relative}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo .art{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);place-items:center;padding:18px}
+.hero-photo .art svg{width:78%;height:auto}
+.cap{font-size:13px;color:var(--muted)}
+@media (max-width:820px){.hero{grid-template-columns:1fr}}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.strip>div{background:var(--surface);padding:16px 18px;display:grid;gap:2px;min-width:0}
+.strip b{font-family:var(--f-display);font-size:20px;font-weight:400}
+.strip span{font-size:13px;color:var(--muted)}
+@media (max-width:760px){.strip{grid-template-columns:1fr 1fr}}
+.plain{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.plain li{display:grid;gap:2px;padding-left:14px;border-left:3px solid var(--butter)}
+.plain span{color:var(--muted);font-size:15px}
+.banner{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.banner p{color:var(--muted)}
+.lineup{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.lineup button{display:grid;gap:6px;justify-items:center;padding:14px 8px;border:1px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer}
+.lineup button:hover{border-color:var(--ink)}
+.lineup svg{width:64px;height:64px}
+.lineup b{font-weight:600;font-size:15px}
+.lineup span{font-size:12px;color:var(--muted)}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;counter-increment:s}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--butter);color:var(--butter-ink);display:grid;place-items:center;font-weight:600;font-family:var(--f-mono);font-size:14px}
+.steps b{display:block}
+.steps span{color:var(--muted);font-size:15px}
+.tip{border-left:3px solid var(--butter);padding:4px 0 4px 14px;color:var(--muted);font-size:15px}
+
+/* catalog */
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.filters button,.seg button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:15px}
+.filters button[aria-pressed="true"],.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.card .body{padding:16px 18px 18px;display:grid;gap:10px;align-content:start}
+.card h3{font-size:24px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.card h3 small{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.card p.d{color:var(--muted);font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:13px;padding:3px 9px;border-radius:999px;background:var(--soft);color:var(--ink);font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;gap:6px}
+.chip i{width:10px;height:10px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.card .spec{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* gallery */
+.gal{position:relative;aspect-ratio:4/3;background:var(--soft);overflow:hidden;max-width:100%}
+.gal .track{display:flex;height:100%;transition:transform .35s ease}
+.gal .slide{flex:0 0 100%;height:100%;display:grid;place-items:center;position:relative}
+.gal .slide img{width:100%;height:100%;object-fit:cover;display:block}
+.gal .slide svg{width:46%;height:auto;max-height:80%}
+.gal .slide .fl{position:absolute;left:12px;bottom:10px;font-size:12px;padding:2px 8px;border-radius:999px;background:var(--surface);color:var(--muted)}
+.gal .ai{position:absolute;right:10px;top:10px;font-size:11px;padding:2px 8px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff}
+.gal .nav{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:0;background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center;opacity:.92;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.gal .nav.prev{left:8px}.gal .nav.next{right:8px}
+.gal .dots{position:absolute;bottom:10px;right:12px;display:flex;gap:5px}
+.gal .dots span{width:7px;height:7px;border-radius:50%;background:var(--surface);opacity:.55}
+.gal .dots span.on{opacity:1;background:var(--butter)}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.thumbs button{flex:0 0 64px;height:48px;border-radius:8px;border:2px solid transparent;background:var(--soft);padding:0;overflow:hidden;cursor:pointer;display:grid;place-items:center}
+.thumbs button[aria-current="true"]{border-color:var(--butter)}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.thumbs svg{width:34px;height:34px}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;background:var(--scrim);display:grid;place-items:center;padding:16px}
+.sheet{position:relative;align-items:start;background:var(--surface);border-radius:16px;width:min(920px,100%);max-height:calc(100% - 16px);overflow:auto;display:grid;grid-template-columns:1.1fr 1fr;min-width:0}
+.sheet .media{padding:16px;display:grid;gap:10px;align-content:start;min-width:0}
+.sheet .media .gal{border-radius:12px}
+.sheet .info{padding:28px 20px 24px;display:grid;gap:14px;align-content:start;min-width:0}
+.sheet .close{position:absolute;top:10px;right:10px;z-index:3;border:0;background:var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.2);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px}
+@media (max-width:760px){.sheet{grid-template-columns:1fr}}
+.tablebox{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:600;background:var(--soft);white-space:nowrap}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.wide table{min-width:560px}
+
+/* bake */
+.picker{display:grid;gap:8px}
+.picker .label{font-size:13px;font-weight:600;color:var(--muted)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.adj td:first-child{font-weight:600;white-space:nowrap}
+.badge{font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.badge.real{border-color:var(--ok);color:var(--ok)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+
+/* diagnosis */
+.diag{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:start}
+@media (max-width:820px){.diag{grid-template-columns:1fr}}
+.trail{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;gap:2px}
+.trail button{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:center;text-align:left;background:none;border:0;border-radius:8px;padding:8px;cursor:pointer;min-width:0}
+.trail button:hover:not(:disabled){background:var(--soft)}
+.trail button:disabled{cursor:default;opacity:.45}
+.trail .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:11px;font-family:var(--f-mono)}
+.trail .done .dot{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.trail .cur .dot{border-color:var(--butter);background:var(--butter);color:var(--butter-ink)}
+.trail .t{font-size:12px;color:var(--muted);display:block}
+.trail .a{font-size:14px;font-weight:500;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:820px){.trail{display:flex;overflow-x:auto;gap:4px}.trail button{flex:0 0 auto;max-width:160px}}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:18px;min-width:0}
+.stage h2{font-size:28px}
+.count{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px 16px;cursor:pointer;display:grid;gap:2px;min-width:0}
+.opt:hover{border-color:var(--ink)}
+.opt[aria-pressed="true"]{border-color:var(--butter);box-shadow:inset 0 0 0 2px var(--butter)}
+.opt b{font-weight:600}
+.opt span{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cause{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.cause .rank{font-family:var(--f-mono);font-size:13px;padding:2px 8px;border-radius:6px;background:var(--soft);height:fit-content;white-space:nowrap}
+.cause.top .rank{background:var(--butter);color:var(--butter-ink)}
+.cause h3{font-family:var(--f-body);font-weight:600;font-size:17px;text-wrap:pretty}
+.cause .fix{margin-top:6px;font-weight:600;color:var(--ok)}
+.cause .why{margin-top:4px;color:var(--muted);font-size:15px}
+.cause.info .rank{background:transparent;border:1px solid var(--line)}
+@media (max-width:480px){.cause{grid-template-columns:1fr;gap:8px}.cause .rank{justify-self:start}.stage{padding:16px}}
+.cause-list{display:grid;gap:10px}
+.okbox{padding:16px;border-radius:12px;background:var(--soft)}
+.box{display:grid;gap:10px;padding:16px;border-radius:12px;border:1px solid var(--line)}
+.box pre{margin:0;white-space:pre-wrap;font-family:var(--f-body);font-size:14px;background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:12px;color:var(--muted)}
+.toast{font-size:14px;color:var(--ok)}
+.err{font-size:14px;color:var(--warn)}
+
+/* forms */
+form.f{display:grid;gap:12px}
+.f label{font-size:13px;font-weight:600;color:var(--muted)}
+.f label .req{color:var(--warn)}
+.f input:not([type=checkbox]):not([type=file]),.f textarea,.f select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.f input[aria-invalid="true"]{border-color:var(--warn)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.fgrid>div,.f>div.fld{display:grid;gap:4px;min-width:0}
+.drop{border:1.5px dashed var(--line);border-radius:12px;padding:18px;display:grid;gap:6px;justify-items:center;text-align:center;background:var(--bg);cursor:pointer}
+.drop.has{border-style:solid;border-color:var(--ok)}
+.drop input{position:absolute;width:1px;height:1px;opacity:0}
+.drop b{font-weight:600}
+.drop span{font-size:13px;color:var(--muted)}
+.consent{display:flex;gap:8px;align-items:flex-start;font-weight:400!important;font-size:14px!important}
+.consent input{margin-top:4px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* community */
+.board{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px;align-content:start;min-width:0}
+.board .hd{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.board h3{font-size:21px}
+.board .hd span{font-size:13px;color:var(--muted)}
+.posts{list-style:none;margin:0;padding:0;display:grid}
+.posts li{border-top:1px solid var(--line)}
+.posts a{display:grid;gap:2px;padding:10px 2px;text-decoration:none;color:var(--ink)}
+.posts a:hover b{text-decoration:underline}
+.posts b{font-weight:500;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.posts small{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.posts .pk{font-size:11px;padding:0 6px;border-radius:999px;background:var(--butter);color:var(--butter-ink);margin-right:6px;font-weight:600}
+.posts .empty{padding:12px 2px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+.skel{height:14px;border-radius:6px;background:var(--soft);margin:12px 0}
+
+/* faq */
+.faq{display:grid;gap:8px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 18px}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";font-family:var(--f-mono);color:var(--muted)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 0 16px;color:var(--muted)}
+.phone{font-family:var(--f-mono);font-size:22px;letter-spacing:.02em;user-select:all}
+
+footer{border-top:1px solid var(--line);padding-block:24px;color:var(--muted);font-size:13px}
+footer .foot{display:grid;grid-template-columns:1.2fr 1fr auto;gap:24px;align-items:start}
+footer .logo{font-size:22px;cursor:default}
+.fnav{display:flex;flex-direction:column;gap:6px}
+.fnav button{background:none;border:0;padding:0;text-align:left;cursor:pointer;color:var(--muted);font-size:13px}
+.fnav button:hover{color:var(--ink)}
+@media (max-width:640px){footer .foot{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <button class="logo" data-go="home" aria-label="오드볼 홈">oddball<span>.</span></button>
+    <nav class="tabs" aria-label="메뉴">
+      <button class="tab" data-go="home">소개</button>
+      <button class="tab" data-go="catalog">제품</button>
+      <button class="tab" data-go="bake">굽는 법</button>
+      <button class="tab" data-go="help">문제 해결</button>
+      <button class="tab" data-go="order">거래·주문</button>
+      <button class="tab" data-go="community">커뮤니티</button>
+      <button class="tab" data-go="contact">문의</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 소개 -->
+  <section data-page="home">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">ODDBALL DESSERT · FROZEN DOUGH</p>
+        <h1>냉동실에서 꺼내<br><em>오븐에 넣기만</em> 하세요</h1>
+        <p class="lead">오드볼 디저트는 경기도 화성 공장에서 스콘, 쿠키, 휘낭시에, 마들렌, 에그타르트, 바스크 치즈케이크 반죽을 만듭니다. 카페와 베이커리가 매장 오븐으로 바로 구울 수 있게, 굽는 법까지 함께 드려요.</p>
+        <div class="cta">
+          <button class="btn primary" data-go="order">거래처 등록하기</button>
+          <button class="btn" data-go="catalog">제품 보기</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-photo" id="heroPhoto"></div>
+        <div class="lcd" aria-label="스콘 우녹스 오븐 기준">
+          <div><div class="k">PREHEAT</div><div class="v">200<small>°C</small></div></div>
+          <div><div class="k">BAKE</div><div class="v">180<small>°C</small></div></div>
+          <div><div class="k">TIME</div><div class="v">25–30<small>분</small></div></div>
+        </div>
+        <p class="cap">스콘 · 우녹스 컨벡션오븐 기준</p>
+      </div>
+    </div>
+
+    <div class="strip" id="strip"></div>
+
+    <div>
+      <div class="row" style="justify-content:space-between;margin-bottom:12px"><h2 class="h-sec">제품 라인업</h2><button class="btn small" data-go="catalog">전체 카탈로그</button></div>
+      <div class="lineup" id="lineup"></div>
+    </div>
+
+    <div class="two">
+      <div class="panel">
+        <p class="eyebrow">FOR CAFÉS &amp; BAKERIES</p>
+        <h2 class="h-sec">거래는 이렇게 시작해요</h2>
+        <ol class="steps">
+          <li><div><b>거래처 등록</b><span>사업자등록증과 기본 정보를 홈페이지에서 보내 주세요.</span></div></li>
+          <li><div><b>마켓봄 앱으로 주문</b><span>등록이 끝나면 발주 프로그램 사용법을 안내해 드려요.</span></div></li>
+          <li><div><b>냉동 택배 수령</b><span>드라이아이스와 보냉박스로 얼린 상태 그대로 보내 드려요.</span></div></li>
+        </ol>
+        <button class="btn primary" data-go="order" style="justify-self:start">거래처 등록하기</button>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">WHY FROZEN DOUGH</p>
+        <h2 class="h-sec">매장에서는 굽기만</h2>
+        <ul class="plain">
+          <li><b>인건비와 시간 절약</b><span>반죽, 휴지, 성형 없이 해동 후 바로 굽습니다.</span></li>
+          <li><b>갓 구운 상태로 판매</b><span>필요한 만큼만 구워 폐기를 줄이고 늘 따뜻하게 내놓을 수 있어요.</span></li>
+          <li><b>늘 같은 맛</b><span>공장에서 같은 레시피로 만들어 매장마다, 날마다 맛이 같아요.</span></li>
+          <li><b>OEM 주문제작</b><span>쓰시던 반죽을 그대로 주문제작해 드려요. 최소 수량은 상담해 주세요.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="banner">
+      <div><h2 class="h-sec">다른 매장은 어떻게 구울까요?</h2><p>오븐별 굽기 후기와 메뉴·데코 아이디어를 네이버 카페에서 나눠요.</p></div>
+      <button class="btn" data-go="community">커뮤니티 보기</button>
+    </div>
+
+    <div class="banner">
+      <div><h2 class="h-sec">속이 안 익거나, 겉만 타나요?</h2><p>증상과 오븐 기종을 고르면 원인과 해결 방법을 바로 알려 드려요.</p></div>
+      <button class="btn primary" data-go="help">문제 해결 시작</button>
+    </div>
+  </section>
+
+  <!-- 제품 -->
+  <section data-page="catalog" hidden>
+    <div><p class="eyebrow">CATALOG</p><h1 class="h-page">제품</h1><p class="lead">모든 제품은 냉동 상태로 배송돼요. 받은 즉시 -18°C 이하 냉동실에 보관해 주세요. 가격은 거래처 등록 후 마켓봄 앱에서 확인할 수 있어요.</p></div>
+    <div class="filters" id="filters" role="group" aria-label="제품 분류"></div>
+    <div class="grid" id="catalogGrid"></div>
+    <div class="banner">
+      <div><h2 class="h-sec">찾는 제품이 없나요?</h2><p>쓰시던 반죽의 OEM 주문제작과 기성품 추가 의뢰도 상담해 드려요.</p></div>
+      <button class="btn" data-go="contact">주문제작 문의</button>
+    </div>
+  </section>
+
+  <!-- 굽는 법 -->
+  <section data-page="bake" hidden>
+    <div><p class="eyebrow">HOW TO BAKE</p><h1 class="h-page">굽는 법</h1><p class="lead">오드볼 매장 테스트 기준(우녹스 컨벡션오븐)이에요. 오븐마다 화력이 달라서 첫 판은 상태를 보며 조절해 주세요.</p></div>
+    <div class="panel">
+      <div class="picker"><div class="label">제품</div><div class="seg" id="bakeProduct"></div></div>
+      <div class="lcd" id="bakeLcd"></div>
+      <div class="two">
+        <div style="display:grid;gap:12px;align-content:start">
+          <b>굽기 전 확인</b>
+          <ul class="plain" id="bakeNotes"></ul>
+        </div>
+        <div style="display:grid;gap:12px;align-content:start" id="bakeStore"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 class="h-sec">오븐별 조절</h2>
+      <div class="tablebox wide"><table class="adj" id="adjTable"></table></div>
+      <p class="cap"><span class="badge real">오드볼 안내</span> 표시는 오드볼이 직접 확인한 기준, <span class="badge">참고</span> 표시는 일반적인 출발점이에요. 결과가 다르면 문제 해결 탭에서 진단해 보세요.</p>
+    </div>
+  </section>
+
+  <!-- 문제 해결 -->
+  <section data-page="help" hidden>
+    <div><p class="eyebrow">TROUBLESHOOTING</p><h1 class="h-page">문제 해결</h1><p class="lead">구울 때 했던 그대로 골라 주세요. 마지막에 원인과 해결 방법이 나와요.</p></div>
+    <div class="diag">
+      <div class="trail" id="trail"></div>
+      <div class="stage" id="stage" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 거래·주문 -->
+  <section data-page="order" hidden>
+    <div><p class="eyebrow">WHOLESALE</p><h1 class="h-page">거래·주문</h1><p class="lead">처음 거래하시는 매장은 거래처 등록부터 해 주세요. 등록이 끝나면 발주 프로그램(마켓봄) 사용 방법을 안내해 드려요.</p></div>
+
+    <div class="panel" id="regPanel">
+      <div><p class="eyebrow">STEP 1</p><h2 class="h-sec">신규 거래처 등록</h2></div>
+      <form class="f" id="regForm" novalidate>
+        <div class="fld">
+          <label for="reg-cert">사업자등록증 <span class="req">*</span></label>
+          <label class="drop" id="regDrop" for="reg-cert">
+            <input type="file" id="reg-cert" accept="image/*,application/pdf">
+            <b id="regFileName">사진이나 PDF를 선택해 주세요</b>
+            <span>휴대폰으로 찍은 사진도 괜찮아요 · 10MB 이하</span>
+          </label>
+        </div>
+        <div class="fgrid">
+          <div><label for="reg-company">업체명 <span class="req">*</span></label><input id="reg-company" maxlength="100" autocomplete="organization"></div>
+          <div><label for="reg-industry">업종 <span class="req">*</span></label><select id="reg-industry"><option>한식</option><option>중식</option><option>일식</option><option>양식</option><option>패스트푸드</option><option>주점</option><option selected>카페/베이커리</option><option>대형식당</option><option>숙박</option><option>급식</option><option>비식당</option></select></div>
+          <div><label for="reg-ceo">대표자명</label><input id="reg-ceo" maxlength="30"></div>
+          <div><label for="reg-biz">사업자번호 <span class="req">*</span></label><input id="reg-biz" inputmode="numeric" maxlength="12" placeholder="000-00-00000"></div>
+          <div><label for="reg-email">이메일 <span class="req">*</span></label><input id="reg-email" type="email" maxlength="200" autocomplete="email" placeholder="세금계산서 받으실 주소"></div>
+          <div><label for="reg-manager">담당자 성함 <span class="req">*</span></label><input id="reg-manager" maxlength="50" autocomplete="name"></div>
+          <div><label for="reg-phone">담당자 연락처 <span class="req">*</span></label><input id="reg-phone" type="tel" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="010-0000-0000"></div>
+        </div>
+        <div class="fld">
+          <label for="reg-zip">제품 받으실 주소 <span class="req">*</span></label>
+          <div class="row"><input id="reg-zip" inputmode="numeric" maxlength="5" placeholder="우편번호" style="max-width:140px"><button class="btn small" type="button" id="zipBtn">우편번호 검색</button></div>
+          <div id="zipLayer" hidden style="border:1px solid var(--line);border-radius:10px;overflow:hidden;height:420px;position:relative"></div>
+          <input id="reg-address" maxlength="300" autocomplete="address-line1" placeholder="도로명 또는 지번 주소">
+          <input id="reg-detail" maxlength="200" autocomplete="address-line2" placeholder="상세주소 (동·호수, 층)">
+        </div>
+        <div class="fld"><label for="reg-memo">요청 사항 (선택)</label><textarea id="reg-memo" rows="2" maxlength="1000" placeholder="관심 있는 제품, 예상 주문량 등"></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="reg-website">웹사이트</label><input id="reg-website" tabindex="-1" autocomplete="off"></div>
+        <label class="consent" for="reg-agree"><input type="checkbox" id="reg-agree"> 거래처 등록과 세금계산서 발행을 위해 위 정보와 사업자등록증을 수집·이용하는 데 동의합니다. (보관: 거래 종료 후 5년 또는 관련 법령에서 정한 기간)</label>
+        <div class="row"><button class="btn primary" type="submit" id="regSubmit">등록 신청 보내기</button><span class="err" id="regMsg" role="status"></span></div>
+      </form>
+    </div>
+
+    <div class="two">
+      <div class="panel">
+        <p class="eyebrow">STEP 2</p>
+        <h2 class="h-sec">마켓봄으로 주문하기</h2>
+        <ol class="steps">
+          <li><div><b>마켓봄 앱 설치</b><span>플레이스토어나 앱스토어에서 '마켓봄'을 받아 로그인해 주세요.</span></div></li>
+          <li><div><b>유통사 확인</b><span>유통사가 '오드볼디저트'인지 확인하고, 아니면 유통사 변경을 눌러 주세요.</span></div></li>
+          <li><div><b>택배 주문하기</b><span>카테고리에서 원하는 품목과 수량을 담고 주문하기를 눌러 주세요.</span></div></li>
+          <li><div><b>예치금으로 결제</b><span>결제 수단에서 예치금을 고르고, 주문 금액만큼 예치금을 충전해 주세요.</span></div></li>
+          <li><div><b>입금 후 주문 계속하기</b><span>안내받은 계좌로 입금한 뒤 주문 계속하기를 누르고, 목록을 확인해 다시 결제하면 끝이에요.</span></div></li>
+        </ol>
+      </div>
+      <div class="panel">
+        <p class="eyebrow">PAYMENT</p>
+        <h2 class="h-sec">결제와 배송</h2>
+        <dl class="kv">
+          <dt>결제</dt><dd>계좌이체, 네이버페이(예치금 충전)</dd>
+          <dt>세금계산서</dt><dd>월말 일괄 발행</dd>
+          <dt>배송</dt><dd>냉동 택배 (드라이아이스 · 보냉박스)</dd>
+          <dt>샘플</dt><dd>스콘 · 르뱅쿠키 · 스모어쿠키 샘플 세트로 먼저 맛보실 수 있어요</dd>
+        </dl>
+        <div class="tip">주문이 어려우시면 문자나 전화 주세요.<br><span class="phone" data-phone></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 커뮤니티 -->
+  <section data-page="community" hidden>
+    <div class="row" style="justify-content:space-between;align-items:end;gap:16px">
+      <div><p class="eyebrow">COMMUNITY · NAVER CAFE</p><h1 class="h-page">오븐 연구소</h1><p class="lead">오븐별 굽기 기록, 베이킹 실패 원인, 레시피를 함께 모으는 네이버 카페예요. 글을 누르면 카페로 이동해요.</p></div>
+      <a class="btn primary" id="cafeLink" target="_blank" rel="noopener">카페 바로가기</a>
+    </div>
+    <div class="grid" id="boardGrid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))"></div>
+    <p class="cap" id="feedNote"></p>
+  </section>
+
+  <!-- 문의 -->
+  <section data-page="contact" hidden>
+    <div><p class="eyebrow">CONTACT</p><h1 class="h-page">문의</h1><p class="lead">자주 묻는 질문을 먼저 확인해 주세요. 주문제작, 납품, 재료 대량 구매는 문자나 전화가 가장 빨라요.</p></div>
+    <div class="two">
+      <div class="panel">
+        <h2 class="h-sec">문자 · 전화</h2>
+        <p class="phone" data-phone></p>
+        <div class="row"><button class="btn small" data-copyphone>번호 복사</button><a class="btn small primary" id="kakaoLink" target="_blank" rel="noopener">카카오톡 채널</a><span class="toast" id="phoneToast"></span></div>
+        <p class="cap">디저트 생지 주문제작, 구매, 기타 문의 모두 받아요.</p>
+      </div>
+      <div class="panel">
+        <h2 class="h-sec">OEM · 주문제작</h2>
+        <ul class="plain">
+          <li><b>제과 반죽 OEM</b><span>쓰시던 반죽을 그대로 주문제작해 드려요. 최소 수량과 소분 가능 여부는 상담해 주세요.</span></li>
+          <li><b>기성품 추가 의뢰</b><span>원하시는 제품을 말씀해 주시면 제조 공정과 대량 생산 가능 여부를 확인한 뒤 검토해요.</span></li>
+          <li><b>대용량 반죽</b><span>카스테라 반죽 등 대용량 납품도 진행하고 있어요.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="faq" id="faq"></div>
+    <div class="panel"><h2 class="h-sec">질문 남기기</h2><p class="lead">FAQ에 없는 내용은 여기에 남겨 주세요. 연락처를 적어 주시면 답변드려요.</p><div id="contactForm"></div></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="logo" aria-hidden="true">oddball<span>.</span></div>
+      <div>냉동생지 제조 · 카페·베이커리 납품 · OEM</div>
+    </div>
+    <div>
+      <div>주식회사 오드볼 · 대표 정유경</div>
+      <div>사업자등록번호 467-81-03567</div>
+      <div>경기도 화성시 봉담읍 동화북길 9, 1층</div>
+      <div>문의 <span data-phone></span></div>
+    </div>
+    <div class="fnav">
+      <button data-go="catalog">제품</button><button data-go="bake">굽는 법</button><button data-go="help">문제 해결</button><button data-go="order">거래·주문</button><button data-go="community">커뮤니티</button><button data-go="contact">문의</button>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:16px">© <span id="year"></span> Oddball Co., Ltd.</div>
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle"></div>
+
+<script>
+/* =====================================================================
+   설정
+   ===================================================================== */
+const CONFIG = {
+  PHONE: "010-4680-6804",
+  KAKAO_URL: "",   // 카카오톡 채널 주소 (예: https://pf.kakao.com/_xxxxx)
+  /* 네이버 카페: 카페 주소와 게시판 주소를 넣으면 버튼이 연결됩니다.
+     게시판 주소는 카페에서 게시판을 열고 주소창을 복사하세요. */
+  CAFE_URL: "https://cafe.naver.com/ovenlabkr",
+  CAFE_BOARDS: {
+    notice: "https://cafe.naver.com/f-e/cafes/31811540/menus/13",   // 공지사항
+    recipe: "https://cafe.naver.com/f-e/cafes/31811540/menus/11",   // 연구소 공식 레시피
+    oven:   "https://cafe.naver.com/f-e/cafes/31811540/menus/17",   // 오븐별 굽기 기록
+    frozen: "https://cafe.naver.com/f-e/cafes/31811540/menus/10",   // 냉동생지로 굽기
+    qna:    "",   // 궁금해요 - 베이킹 실패 (주소 생기면 입력)
+    diary:  ""    // 베린이 성장일기 (주소 생기면 입력)
+  },
+  SUPABASE_URL: "https://gtmpahrfruujzwaddulf.supabase.co",
+  SUPABASE_KEY: "sb_publishable_ZIW91D3Fq6EbM8YTYenYVw_kQHWRrkZ"   // 공개용 키 (기록 추가만 가능)
+};
+
+/* 제품 사진: images 폴더에 넣고 경로를 적으면 됩니다. 제품당 2~5장 권장, 첫 장이 대표 사진.
+   사진이 3장보다 적으면 맛별 그림이 뒤에 채워집니다. */
+const PHOTOS = {
+  // 예: financier: ["images/financier-1.jpg", "images/financier-2.jpg"],
+};
+/* AI로 만든 연출 이미지 (실물 사진으로 바꾸면 여기서 지우세요) */
+const AI_PHOTOS = [];
+const HERO_PHOTO = "";   // 예: "images/hero.jpg"
+
+/* =====================================================================
+   제품 카탈로그 (마켓봄 상품 리스트 기준, 가격 제외)
+   ===================================================================== */
+const GROUPS = [
+  {id:"all", name:"전체"},
+  {id:"cookie", name:"쿠키·스콘"},
+  {id:"gateau", name:"구움과자"},
+  {id:"cake", name:"타르트·케이크"},
+  {id:"crumble", name:"크럼블"},
+  {id:"etc", name:"샘플·토핑"},
+  {id:"material", name:"베이킹 재료"}
+];
+const CATALOG = [
+  {id:"scone", g:"cookie", name:"스콘", en:"SCONE", shape:"scone", bake:"scone",
+   desc:"겉은 바삭하고 속은 결이 살아 있는 버터 스콘. 개별 성형 생지와 통반죽으로 공급해요.",
+   flavors:["플레인","초코칩","더블초코","얼그레이"],
+   specs:[["개별 생지","80g × 12개","1팩"],["개별 생지","100g × 10개","1팩"],["통반죽","1kg","1팩"]]},
+  {id:"levain", g:"cookie", name:"르뱅쿠키", en:"LEVAIN COOKIE", shape:"cookie", bake:"cookie",
+   desc:"두툼하고 속이 촉촉한 르뱅 스타일 쿠키. 데코는 반죽 상태에서 올려 함께 구워요.",
+   flavors:["플레인","초코","말차","오레오","로투스","레드벨벳","그레놀라","피넛버터","황치즈"],
+   specs:[["개별 생지","85g × 12개","1팩"],["통반죽","1kg","1팩 · 플레인 외 8종"]]},
+  {id:"smore", g:"cookie", name:"스모어쿠키", en:"S'MORE COOKIE", shape:"smore", bake:"cookie",
+   desc:"구운 직후 마시멜로 데코로 완성하는 스모어 쿠키.",
+   flavors:["플레인","초코","말차","오레오","로투스","레드벨벳","황치즈"],
+   specs:[["개별 생지","85g × 12개","1팩"]]},
+  {id:"financier", g:"gateau", name:"휘낭시에", en:"FINANCIER", shape:"financier", bake:"financier",
+   desc:"태운 버터 향이 진한 휘낭시에 반죽. 몰드에 짜서 굽기만 하면 돼요.",
+   flavors:["플레인","초코","시나몬","오레오","로투스","말차초코칩","아몬드땅콩","얼그레이","황치즈","흑임자"],
+   specs:[["반죽","520g","1팩"],["대용량 반죽","1200g","시나몬 · 말차초코 · 오레오 · 흑임자"]]},
+  {id:"madeleine", g:"gateau", name:"마들렌", en:"MADELEINE", shape:"madeleine", bake:"madeleine",
+   desc:"배꼽이 봉긋 솟는 마들렌 반죽. 몰드의 80~90%만 채워 구워요.",
+   flavors:["플레인","초코","얼그레이","말차","레몬","황치즈"],
+   specs:[["반죽","420g","1팩"]]},
+  {id:"biscotti", g:"gateau", name:"비스코티", en:"BISCOTTI", shape:"biscotti", bake:"biscotti",
+   desc:"두 번 구워 단단하고 고소한 견과 비스코티. 견과 믹스도 상담해 드려요.",
+   flavors:["아몬드","피스타치오","호두","캐슈넛","마카다미아","피칸","헤이즐넛","초코 아몬드","초코 헤이즐넛"],
+   specs:[["반죽","350g","1팩"]]},
+  {id:"eggtart", g:"cake", name:"에그타르트", en:"EGG TART", shape:"eggtart", bake:"eggtart",
+   desc:"페이스트리 쉘 생지와 커스터드 필링을 따로 공급해 매장에서 채워 구워요.",
+   flavors:["쉘 생지","필링 플레인"],
+   specs:[["쉘 생지","600g","1개"],["필링 (플레인)","1kg","1팩"]]},
+  {id:"basque", g:"cake", name:"바스크 치즈케이크", en:"BASQUE CHEESECAKE", shape:"basque", bake:"basque",
+   desc:"겉은 진하게 그을리고 속은 크리미한 바스크 치즈케이크 반죽.",
+   flavors:["플레인","초코"],
+   specs:[["반죽","700g","1팩"],["박스","700g × 20개","플레인 · 초코"],["박스","1kg × 10개","플레인"],["박스","1100g × 10개","플레인"]]},
+  {id:"sand", g:"cookie", name:"샌드쿠키", en:"SAND COOKIE", shape:"sand",
+   desc:"오븐·프레스기용 샌드쿠키 반죽. 조각형, 판형, 통반죽으로 공급하고 주문제작도 가능해요.",
+   flavors:["A 플레인","A 초코","B 플레인","쌀가루 플레인"],
+   specs:[["A형 조각","3.5×3.5cm 60조각 × 4개입","1팩 (4kg)"],["A형 박스","16kg","플레인 · 초코"],["A형 판 (5mm)","250×300mm × 8장","1팩 (약 4kg) · 플레인 · 초코"],["B형 박스","11.5g · 13g · 16.5g × 60개, 16장","플레인"],["쌀가루 통반죽","16kg","1박스"]]},
+  {id:"chocolat", g:"cake", name:"쇼콜라", en:"CHOCOLAT", shape:"cake",
+   desc:"진한 초콜릿 케이크 반죽이에요.",
+   flavors:["쇼콜라"],
+   specs:[["반죽","840g","1팩"]]},
+  {id:"crumble", g:"crumble", name:"소보로가루", en:"CRUMBLE", shape:"crumble",
+   desc:"휘낭시에, 머핀, 빵 위에 올려 함께 굽는 소보로 크럼블이에요.",
+   flavors:["플레인"],
+   specs:[["크럼블","500g","1팩"]]},
+  {id:"sample", g:"etc", name:"샘플 세트", en:"SAMPLE", shape:"box",
+   desc:"첫 거래 전에 맛과 굽기를 확인해 볼 수 있는 샘플 구성이에요.",
+   flavors:["스콘 샘플","르뱅쿠키 샘플","스모어쿠키 샘플"],
+   specs:[["스콘","플레인 2 · 얼그레이 2 · 초코칩 2 · 더블초코칩 2","개당 80g"],["르뱅쿠키","플레인 · 오레오 · 초코 · 레드벨벳 · 피넛버터 · 로투스","각 1개"],["스모어쿠키","플레인 · 말차 · 로투스 · 오레오 · 초코 · 레드벨벳","각 1개"]]},
+  {id:"topping", g:"etc", name:"딜버터", en:"DILL BUTTER", shape:"butter",
+   desc:"빵과 스콘에 곁들이는 딜 버터예요.",
+   flavors:["딜"],
+   specs:[["딜버터","200g","1팩"]]},
+  {id:"m-choco", g:"material", name:"초콜릿", en:"CHOCOLATE", shape:"choco",
+   desc:"제과용 초콜릿이에요. 대량 구매는 문의해 주세요.",
+   flavors:["다크초코칩"],
+   specs:[["선인 다크초코칩","1kg",""],["선인 다크초코칩","10kg",""]]},
+  {id:"m-butter", g:"material", name:"버터", en:"BUTTER", shape:"butter",
+   desc:"오드볼 반죽에 쓰는 발효 버터예요.",
+   flavors:["락틱버터"],
+   specs:[["앵커 락틱버터","10kg",""]]},
+  {id:"m-powder", g:"material", name:"가루류", en:"POWDER", shape:"sack",
+   desc:"카카오파우더, 아몬드가루 등 제과용 가루예요. 밀가루·설탕 대량 구매도 문의해 주세요.",
+   flavors:["카카오파우더","아몬드가루","베이킹파우더"],
+   specs:[["칼리바우트 벤스도르프 카카오파우더 (무가당)","2.5kg",""],["칼리바우트 벤스도르프 카카오파우더 (무가당)","25kg",""],["아몬드가루 95%","10kg","박스"],["아몬드가루 100%","11.34kg","박스"],["선인 베이킹파우더","1kg",""]]},
+  {id:"m-nuts", g:"material", name:"견과류", en:"NUTS", shape:"nuts",
+   desc:"제과용 견과류예요. 소포장부터 벌크까지 있어요.",
+   flavors:["아몬드","헤이즐넛","피칸","마카다미아","땅콩","피스타치오"],
+   specs:[["아몬드 (생통)","1kg",""],["헤이즐넛 (분태)","1kg",""],["피칸 (반태)","1kg",""],["마카다미아 (반태)","1kg",""],
+     ["땅콩 (분태 · 볶음 · 벌크)","20kg",""],["땅콩 (구움 · 벌크)","13.61kg",""],["하이올레익 볶음땅콩","13.61kg",""],
+     ["탈각 피스타치오","2kg · 5kg · 13.61kg",""],["탈각 피스타치오 (프라이믹스)","12kg",""]]},
+  {id:"m-paste", g:"material", name:"페이스트·크림", en:"PASTE", shape:"jar",
+   desc:"견과 페이스트와 필링용 크림이에요.",
+   flavors:["땅콩","피스타치오","아몬드","헤이즐넛"],
+   specs:[["땅콩 페이스트","1.3kg · 5kg",""],["피스타치오 페이스트","1.3kg · 5kg",""],["아몬드 페이스트","1.3kg · 5kg",""],["헤이즐넛 페이스트","1.3kg · 5kg",""],["이캄 피스타치오 크림","6kg",""],["선인 바닐프로 200","500ml",""]]},
+  {id:"m-supply", g:"material", name:"부자재", en:"SUPPLIES", shape:"bag",
+   desc:"매장 작업용 부자재예요.",
+   flavors:["짤주머니"],
+   specs:[["짤주머니 14인치","100매입",""],["짤주머니 16인치","100매입",""],["짤주머니 18인치","100매입",""]]}
+];
+
+/* =====================================================================
+   굽는 법 (오드볼 노션 안내 · 우녹스 컨벡션오븐 기준)
+   steps: [온도, 시간] 또는 "cut"(비스코티 중간 컷팅)
+   ===================================================================== */
+const BAKE = {
+  scone:{name:"스콘", pre:200, steps:[[180,25,30]], notes:["손으로 반죽을 너무 치대지 말아 주세요."], store:"scone"},
+  cookie:{name:"르뱅·스모어쿠키", pre:200, steps:[[180,15,17]], thaw:[1,30],
+    notes:["실온에서 1~30분 해동한 뒤 구워 주세요.","예쁜 모양을 내려면 구운 직후 동그란 링이나 주걱으로 모양을 잡아 주세요.","스모어쿠키는 오븐에서 꺼낸 직후 데코해 주세요.","르뱅쿠키는 반죽 상태에서 데코한 뒤 함께 구워 주세요."], store:"cookie"},
+  financier:{name:"휘낭시에", pre:210, steps:[[190,10,10],[170,6,6]],
+    notes:["몰드의 80~90%만 채워 주세요.","과자나 소보로가루 데코는 반죽 위에 올려 함께 구워 주세요.","패닝할 때 반죽 온도가 8~12°C면 배꼽이 가장 예쁘게 나와요."], store:"financier"},
+  madeleine:{name:"마들렌", pre:220, steps:[[200,4,4],[180,8,8]], notes:["몰드의 80~90%만 채워 주세요."]},
+  eggtart:{name:"에그타르트", pre:200, steps:[[180,40,40]], notes:["쉘 생지에 필링을 채워 구워 주세요."]},
+  biscotti:{name:"비스코티", pre:190, steps:[[170,30,30],"cut",[170,8,8]],
+    notes:["1차로 구운 뒤 컷팅하고 다시 구워요. 컷팅할 때 부서지지 않게 조심해 주세요.","두께는 0.8~1.2cm가 적당해요. 기호에 맞게 슬라이스해 주세요."]},
+  basque:{name:"바스크 치즈케이크", pre:230, steps:[[210,20,20],[200,10,10],[190,13,13]], thaw:"full",
+    notes:["반죽을 완전히 해동한 뒤 구워 주세요. 시간이 없으면 미지근한 물에 담가 두었다가 작업해도 괜찮아요.","구운 뒤 식혀서 냉장이나 냉동으로 4시간 이상 숙성한 뒤 잘라 주세요.","더 크리미하게 드시려면 총 굽는 시간을 25~30분 안으로 줄여 주세요."]},
+};
+const STORE = {
+  scone:{keep:"상온 3~5일 · 냉동 2~3주", eat:"냉동 상태에서 꺼내 170°C 오븐에 3~5분"},
+  cookie:{keep:"상온 3~5일 · 냉동 2~3주", eat:"냉동 상태에서 꺼내 170°C 오븐에 3~5분"},
+  financier:{keep:"상온 2~5일 · 냉동 2~3주", eat:"바삭하게: 냉동 상태에서 170°C 3~5분 / 꾸덕하게: 실온에서 살짝 해동"}
+};
+const OVENS = [
+  {id:"conv", name:"업소용 컨벡션", sub:"우녹스 등", real:true, adj:"기준 그대로", tip:"팬 바람 때문에 뒤쪽이 먼저 색이 나요. 굽는 시간의 절반쯤에 팬을 앞뒤로 돌려 주세요."},
+  {id:"home", name:"가정용 오븐", sub:"스메그·미니오븐 등", real:true, adj:"전체 온도 10~20°C 낮게", tip:"스메그 등 가정용 오븐은 전체적으로 10~20°C 낮춰서 구워 주세요. 표시 온도와 실제 온도가 다를 수 있어 오븐 온도계가 있으면 좋아요."},
+  {id:"lw", name:"광파오븐", sub:"삼성·LG 광파·스팀오븐", real:false, adj:"오븐(컨벡션) 모드 · 온도 10~20°C 낮게", tip:"광파오븐은 반드시 '오븐' 또는 '컨벡션' 모드로 구워 주세요. 그릴·전자레인지 모드는 윗면만 타거나 속이 질겨져요."},
+  {id:"air", name:"에어프라이어", sub:"바스켓형·오븐형", real:false, adj:"온도 20°C 낮게 · 시간 10~20% 짧게", tip:"열선이 가까워 윗면이 먼저 익어요. 색이 충분히 나면 종이호일을 살짝 덮고 남은 시간을 구워 주세요."},
+  {id:"deck", name:"데크오븐", sub:"윗불·아랫불 따로", real:false, adj:"윗불 기준 온도 · 아랫불 10~20°C 낮게", tip:"아랫불이 강하면 바닥이 먼저 타요. 바닥이 진하면 팬을 두 장 겹치거나 아랫불을 낮춰 주세요."},
+  {id:"etc", name:"기타 / 잘 모르겠어요", sub:"가정용 오븐 기준으로 안내", real:false, adj:"가정용 오븐과 같이", tip:"오븐 기종을 모를 때는 가정용 오븐 기준으로 시작하고, 첫 판은 한두 개만 구워 상태를 확인해 주세요."}
+];
+
+const FAQ = [
+  ["반죽은 얼마나 보관할 수 있나요?","권장 소비기한은 제조일로부터 90일이에요. -18°C 이하 냉동실에 보관하고, 가급적 2~4주 동안 쓸 만큼만 주문해 주세요."],
+  ["구운 제품은 어떻게 보관하나요?","직사광선을 피해 서늘한 곳에 두세요. 스콘·쿠키는 상온 3~5일, 휘낭시에는 상온 2~5일, 냉동하면 2~3주까지 괜찮아요. 냉동한 제품은 170°C 오븐에 3~5분 데우면 갓 구운 식감이 돌아와요."],
+  ["해동한 반죽을 다시 얼려도 되나요?","다시 얼리면 버터가 녹았다 굳으면서 결과 모양이 무너져요. 구울 만큼만 꺼내 주세요."],
+  ["스메그 오븐을 쓰는데 굽는 법이 다른가요?","굽는 법은 우녹스 컨벡션오븐 기준이에요. 스메그 등 가정용 오븐은 전체적으로 10~20°C 낮춰서 구워 주세요."],
+  ["가격은 어디서 보나요?","거래처 등록 후 발주 프로그램(마켓봄)에서 거래처 단가로 확인할 수 있어요."],
+  ["결제는 어떻게 하나요?","계좌이체와 네이버페이(예치금 충전)로 결제하실 수 있고, 세금계산서는 월말에 일괄 발행해 드려요."],
+  ["영양정보나 알레르기 정보가 필요해요.","재료 변경이나 레시피 수정으로 바뀌었을 수 있어서, 최신 정보는 문자나 전화로 요청해 주세요."],
+  ["샘플을 먼저 받아볼 수 있나요?","스콘, 르뱅쿠키, 스모어쿠키 샘플 세트가 있어요. 거래처 등록 후 마켓봄에서 주문하실 수 있어요."]
+];
+
+/* =====================================================================
+   맛별 색 · 제품 그림
+   ===================================================================== */
+const FLAVOR = [
+  [/더블초코|카카오|초코$|^초코|쇼콜라/, "#6B4026", "#3E2416"],
+  [/초코칩/, "#E2BC86", "#4A2C1A"],
+  [/말차|녹차/, "#8FA75B", "#4E6B2A"],
+  [/레드벨벳/, "#A8343A", "#F2E6DA"],
+  [/오레오/, "#3A3434", "#EDEAE4"],
+  [/로투스|시나몬/, "#B5733A", "#7A4620"],
+  [/황치즈/, "#E8B93B", "#B8861B"],
+  [/흑임자/, "#55514D", "#2B2826"],
+  [/얼그레이/, "#BCA78E", "#6B5A47"],
+  [/레몬/, "#EBD46A", "#C7A92C"],
+  [/피넛|땅콩/, "#C98F4A", "#8A5A26"],
+  [/그레놀라/, "#C8A06A", "#7C5A2E"],
+  [/피스타치오/, "#C9C27A", "#7E8B3A"],
+  [/필링/, "#F4C342", "#C7841A"],
+  [/쌀가루/, "#F0E3C8", "#C7AF84"]
+];
+function flavorColor(f){ for(const [re,a,b] of FLAVOR) if(re.test(f)) return [a,b]; return ["var(--dough)","var(--dough-edge)"]; }
+function art(shape, f="플레인"){
+  const [m,a] = flavorColor(f), d="var(--dough)", e="var(--dough-edge)", c="var(--crust)", y="var(--butter)";
+  const S = {
+    scone:`<path d="M10 46 Q12 18 32 14 Q52 18 54 46 Q32 54 10 46Z" fill="${m}" stroke="${e}" stroke-width="2"/><path d="M22 30 q5 4 10 0 M34 24 q4 3 8 0" stroke="${a}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`,
+    cookie:`<path d="M12 34 Q10 14 30 12 Q52 12 53 32 Q54 52 32 53 Q12 52 12 34Z" fill="${m}" stroke="${e}" stroke-width="2"/><rect x="22" y="22" width="7" height="6" rx="1.5" fill="${a}"/><rect x="36" y="30" width="7" height="6" rx="1.5" fill="${a}"/><rect x="25" y="39" width="6" height="5" rx="1.5" fill="${a}"/>`,
+    smore:`<path d="M12 36 Q10 16 30 14 Q52 14 53 34 Q54 52 32 53 Q12 52 12 36Z" fill="${m}" stroke="${e}" stroke-width="2"/><path d="M20 26 Q32 14 44 26 Q46 34 38 33 Q32 38 26 33 Q18 34 20 26Z" fill="#FBF6EE" stroke="${e}" stroke-width="1.5"/><path d="M26 25 q6-5 12 0" stroke="${c}" stroke-width="2" fill="none" opacity=".7"/>`,
+    financier:`<rect x="8" y="22" width="48" height="22" rx="4" fill="${m}" stroke="${e}" stroke-width="2"/><rect x="12" y="25" width="40" height="5" rx="2" fill="${a}" opacity=".45"/>`,
+    madeleine:`<path d="M8 38 Q32 4 56 38 Q32 52 8 38Z" fill="${m}" stroke="${e}" stroke-width="2"/><path d="M32 16 V44 M22 20 L26 44 M42 20 L38 44 M14 28 L20 42 M50 28 L44 42" stroke="${a}" stroke-width="1.6" fill="none" opacity=".7"/>`,
+    eggtart:`<circle cx="32" cy="32" r="23" fill="${d}" stroke="${e}" stroke-width="2"/><circle cx="32" cy="32" r="16" fill="${f.includes("쉘")?d:y}" stroke="${f.includes("쉘")?e:"none"}"/><circle cx="27" cy="29" r="3" fill="${c}" opacity="${f.includes("쉘")?0:.7}"/><circle cx="37" cy="35" r="2.4" fill="${c}" opacity="${f.includes("쉘")?0:.6}"/>`,
+    basque:`<path d="M10 44 L32 14 L54 44 Z" fill="#F3E3C0" stroke="${e}" stroke-width="2"/><path d="M10 44 L32 14 L54 44" fill="none" stroke="${f.includes("초코")?"#3E2416":"#5A3418"}" stroke-width="6" stroke-linejoin="round"/>${f.includes("초코")?`<path d="M18 40 L32 21 L46 40Z" fill="#7A4A2E"/>`:""}`,
+    biscotti:`<g transform="rotate(-18 32 32)"><rect x="8" y="22" width="22" height="16" rx="6" fill="${f.includes("초코")?"#6B4026":d}" stroke="${e}" stroke-width="2"/><rect x="34" y="26" width="22" height="16" rx="6" fill="${f.includes("초코")?"#6B4026":d}" stroke="${e}" stroke-width="2"/><circle cx="16" cy="29" r="3" fill="${/피스타치오/.test(f)?"#9DB04E":"#E9D9B4"}" stroke="${e}"/><circle cx="23" cy="33" r="2.5" fill="${/피스타치오/.test(f)?"#9DB04E":"#E9D9B4"}" stroke="${e}"/><circle cx="44" cy="33" r="3" fill="${/피스타치오/.test(f)?"#9DB04E":"#E9D9B4"}" stroke="${e}"/></g>`,
+    sand:`<rect x="12" y="14" width="40" height="12" rx="3" fill="${m}" stroke="${e}" stroke-width="2"/><rect x="14" y="26" width="36" height="8" fill="#FBF6EE" stroke="${e}" stroke-width="1.5"/><rect x="12" y="34" width="40" height="12" rx="3" fill="${m}" stroke="${e}" stroke-width="2"/><path d="M18 20 h6 M30 20 h6 M42 20 h4" stroke="${a}" stroke-width="2" stroke-linecap="round" opacity=".6"/>`,
+    box:`<rect x="10" y="22" width="44" height="28" rx="3" fill="${d}" stroke="${e}" stroke-width="2"/><path d="M10 30 H54" stroke="${e}" stroke-width="2"/><rect x="28" y="22" width="8" height="28" fill="${y}" opacity=".9"/><circle cx="20" cy="16" r="6" fill="${m}" stroke="${e}" stroke-width="1.5"/><circle cx="44" cy="16" r="6" fill="#6B4026" stroke="${e}" stroke-width="1.5"/>`,
+    jar:`<rect x="18" y="12" width="28" height="8" rx="2" fill="${c}"/><path d="M16 22 H48 V50 Q48 54 44 54 H20 Q16 54 16 50 Z" fill="${m}" stroke="${e}" stroke-width="2"/><rect x="21" y="30" width="22" height="12" rx="2" fill="var(--surface)" opacity=".85"/>`,
+    cake:`<ellipse cx="32" cy="42" rx="22" ry="8" fill="#3E2416"/><rect x="10" y="26" width="44" height="16" fill="#5A3420"/><ellipse cx="32" cy="26" rx="22" ry="8" fill="#6B4026" stroke="#3E2416" stroke-width="1.5"/><path d="M22 24 q4 3 8 0 M34 27 q4 3 8 0" stroke="#A9744F" stroke-width="1.6" fill="none"/>`,
+    crumble:`<path d="M10 34 H54 Q52 52 32 52 Q12 52 10 34Z" fill="var(--surface)" stroke="${e}" stroke-width="2"/><circle cx="20" cy="31" r="4" fill="${d}" stroke="${e}"/><circle cx="28" cy="28" r="5" fill="#E9C68E" stroke="${e}"/><circle cx="37" cy="30" r="4" fill="${d}" stroke="${e}"/><circle cx="45" cy="31" r="3.5" fill="#E9C68E" stroke="${e}"/><circle cx="33" cy="24" r="3" fill="${d}" stroke="${e}"/>`,
+    butter:`<path d="M10 30 L22 22 H54 L42 30 Z" fill="#FFF3C4" stroke="#C9A43A" stroke-width="1.5"/><rect x="10" y="30" width="32" height="16" fill="#F7E08A" stroke="#C9A43A" stroke-width="1.5"/><path d="M42 30 L54 22 V38 L42 46 Z" fill="#E9CC6A" stroke="#C9A43A" stroke-width="1.5"/>${f==="딜"?`<path d="M18 38 q4-6 8 0 M28 38 q4-6 8 0" stroke="#5E8A3A" stroke-width="2" fill="none"/>`:""}`,
+    choco:`<rect x="12" y="16" width="40" height="32" rx="3" fill="#5A3420" stroke="#3E2416" stroke-width="2"/><path d="M25.3 16 V48 M38.6 16 V48 M12 32 H52" stroke="#3E2416" stroke-width="2"/><path d="M15 19 h7 M28 19 h7 M42 19 h7" stroke="#8A5A3C" stroke-width="1.5"/>`,
+    nuts:`<ellipse cx="22" cy="30" rx="8" ry="11" fill="#D2A672" stroke="${e}" stroke-width="1.5" transform="rotate(-20 22 30)"/><circle cx="40" cy="26" r="8" fill="#A9743F" stroke="${e}" stroke-width="1.5"/><path d="M28 44 q6-10 14 0 q-7 6-14 0Z" fill="#9DB04E" stroke="#6E7F2E" stroke-width="1.5"/><ellipse cx="48" cy="44" rx="6" ry="4" fill="#E9D9B4" stroke="${e}"/>`,
+    bag:`<path d="M14 14 L50 14 L34 54 Q32 57 30 54 Z" fill="#F3F1EC" stroke="${e}" stroke-width="2" stroke-linejoin="round"/><path d="M18 22 H46" stroke="${e}" stroke-width="1.5" opacity=".6"/>`,
+    sack:`<path d="M18 18 Q32 10 46 18 L50 50 Q32 56 14 50 Z" fill="#E9DDC7" stroke="${e}" stroke-width="2"/><path d="M22 18 Q32 24 42 18" stroke="${e}" stroke-width="2" fill="none"/><circle cx="26" cy="38" r="4" fill="${m}" stroke="${e}"/><circle cx="36" cy="40" r="4" fill="${a}"/><ellipse cx="32" cy="32" rx="3" ry="4" fill="${c}" opacity=".7"/>`
+  };
+  return `<svg viewBox="0 0 64 64" aria-hidden="true">${S[shape]||S.box}</svg>`;
+}
+
+/* =====================================================================
+   공통 헬퍼 · 기록 저장
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const byId = (arr,id) => arr.find(x=>x.id===id);
+const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function uuid(){ try{ return crypto.randomUUID(); }catch(e){ return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0;return (c==="x"?r:(r&3|8)).toString(16);}); } }
+const VISITOR = (()=>{ let v=null; try{ v=localStorage.getItem("ob_vid"); if(!v){ v=uuid(); localStorage.setItem("ob_vid",v); } }catch(e){ v=v||uuid(); } return v; })();
+async function save(table, row){
+  if(!CONFIG.SUPABASE_URL) return false;
+  try{
+    const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/${table}`, {method:"POST",
+      headers:{"apikey":CONFIG.SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"}, body:JSON.stringify(row)});
+    return res.ok;
+  }catch(e){ return false; }
+}
+const track = (event, detail) => save("page_events", {visitor_id:VISITOR, event, detail});
+
+/* =====================================================================
+   라우팅
+   ===================================================================== */
+const PAGES = ["home","catalog","bake","help","order","community","contact"];
+let current = "home";
+function go(page, push=true){
+  if(!PAGES.includes(page)) page="home";
+  current = page;
+  document.querySelectorAll("[data-page]").forEach(s=>s.hidden = s.dataset.page!==page);
+  document.querySelectorAll(".tab").forEach(t=>{ if(t.dataset.go===page) t.setAttribute("aria-current","page"); else t.removeAttribute("aria-current"); });
+  if(push && window.top===window && location.hash.slice(1)!==page){ try{ history.replaceState(null,"","#"+page); }catch(e){} }
+  try{ window.scrollTo({top:0}); }catch(e){}
+  track("view",{page});
+  if(page==="community") loadFeed();
+}
+window.addEventListener("hashchange", ()=>{ const h=location.hash.slice(1); if(PAGES.includes(h) && h!==current) go(h,false); });
+
+/* =====================================================================
+   갤러리 (사진 2~5장 + 맛별 그림)
+   ===================================================================== */
+function slidesFor(p){
+  const photos = (PHOTOS[p.id]||[]).slice(0,5).map(src=>({src}));
+  const out = photos.slice();
+  for(const f of p.flavors){ if(out.length>=Math.max(3,photos.length)) break; out.push({svg:art(p.shape,f), label:f}); }
+  return out.slice(0,5);
+}
+function slideHTML(s, alt){
+  if(s.src) return `<div class="slide"><img src="${s.src}" alt="${esc(alt)}" loading="lazy">${AI_PHOTOS.includes(s.src)?`<span class="ai">연출 이미지</span>`:""}</div>`;
+  return `<div class="slide">${s.svg}<span class="fl">${esc(s.label)}</span></div>`;
+}
+function galleryHTML(p, key){
+  const sl = slidesFor(p);
+  return `<div class="gal" data-gal="${key}" data-i="0" data-n="${sl.length}">
+    <div class="track">${sl.map(s=>slideHTML(s,p.name)).join("")}</div>
+    ${sl.length>1?`<button class="nav prev" data-gnav="-1" aria-label="이전 사진">‹</button><button class="nav next" data-gnav="1" aria-label="다음 사진">›</button>
+    <div class="dots">${sl.map((_,i)=>`<span class="${i?"":"on"}"></span>`).join("")}</div>`:""}
+  </div>`;
+}
+function galGo(g, i){
+  const n = +g.dataset.n; i = (i+n)%n; g.dataset.i = i;
+  g.querySelector(".track").style.transform = `translateX(-${i*100}%)`;
+  g.querySelectorAll(".dots span").forEach((d,k)=>d.classList.toggle("on",k===i));
+  const th = document.querySelector(`[data-thumbs="${g.dataset.gal}"]`);
+  if(th) th.querySelectorAll("button").forEach((b,k)=>b.setAttribute("aria-current", k===i));
+}
+document.addEventListener("click", e=>{
+  const nb = e.target.closest("[data-gnav]");
+  if(nb){ e.stopPropagation(); const g=nb.closest(".gal"); galGo(g, +g.dataset.i + +nb.dataset.gnav); return; }
+  const tb = e.target.closest("[data-thumb]");
+  if(tb){ const g=document.querySelector(`[data-gal="${tb.closest("[data-thumbs]").dataset.thumbs}"]`); galGo(g, +tb.dataset.thumb); }
+}, true);
+let touchX=null;
+document.addEventListener("touchstart", e=>{ if(e.target.closest(".gal")) touchX=e.touches[0].clientX; }, {passive:true});
+document.addEventListener("touchend", e=>{ const g=e.target.closest(".gal"); if(g && touchX!==null){ const dx=e.changedTouches[0].clientX-touchX; if(Math.abs(dx)>40) galGo(g, +g.dataset.i + (dx<0?1:-1)); } touchX=null; });
+
+/* =====================================================================
+   소개
+   ===================================================================== */
+function renderHome(){
+  $("#heroPhoto").innerHTML = HERO_PHOTO ? `<img src="${HERO_PHOTO}" alt="오드볼 디저트 제품">`
+    : `<div class="art">${[["scone","플레인"],["cookie","초코"],["financier","플레인"],["madeleine","레몬"],["eggtart","필링"],["smore","말차"],["basque","플레인"],["biscotti","피스타치오"],["cake","쇼콜라"]].map(([sh,f])=>art(sh,f)).join("")}</div>`;
+  const lines = CATALOG.filter(p=>p.g!=="material" && p.g!=="etc");
+  const flavors = lines.reduce((n,p)=>n+p.flavors.length,0);
+  $("#strip").innerHTML = `
+    <div><b>화성 자체 공장</b><span>직접 생산 · 냉동 보관</span></div>
+    <div><b>${lines.length}개 라인 · ${flavors}가지 맛</b><span>스콘 · 쿠키 · 구움과자 · 케이크</span></div>
+    <div><b>제품별 굽기 가이드</b><span>매장 테스트 기준 온도·시간</span></div>
+    <div><b>냉동 택배</b><span>드라이아이스 · 보냉박스 포장</span></div>`;
+  $("#lineup").innerHTML = lines.map(p=>`<button data-open="${p.id}">${art(p.shape, p.flavors[0])}<b>${p.name}</b><span>${p.flavors.length}가지</span></button>`).join("");
+}
+
+/* =====================================================================
+   카탈로그
+   ===================================================================== */
+let group = "all";
+function renderCatalog(){
+  $("#filters").innerHTML = GROUPS.map(g=>`<button data-group="${g.id}" aria-pressed="${g.id===group}">${g.name}</button>`).join("");
+  const list = CATALOG.filter(p=>group==="all"||p.g===group);
+  $("#catalogGrid").innerHTML = list.map(p=>{
+    const shown = p.flavors.slice(0,6), more = p.flavors.length-shown.length;
+    return `<article class="card">
+      ${galleryHTML(p, "c-"+p.id)}
+      <div class="body">
+        <h3>${p.name}<small>${p.en}</small></h3>
+        <p class="d">${p.desc}</p>
+        <div class="chips">${shown.map(f=>`<span class="chip"><i style="background:${flavorColor(f)[0]}"></i>${f}</span>`).join("")}${more>0?`<span class="chip">+${more}</span>`:""}</div>
+        <p class="spec">${p.specs.slice(0,2).map(s=>`${s[0]} ${s[1]}`).join(" · ")}${p.specs.length>2?` 외 ${p.specs.length-2}종`:""}</p>
+        <div class="actions"><button class="btn small primary" data-open="${p.id}">자세히</button>${p.bake?`<button class="btn small" data-bake="${p.bake}">굽는 법</button>`:""}</div>
+      </div>
+    </article>`;
+  }).join("");
+}
+function openProduct(id){
+  const p = byId(CATALOG,id); if(!p) return;
+  const sl = slidesFor(p), key="m-"+p.id, m=$("#modal");
+  m.innerHTML = `<div class="sheet">
+    <div class="media">${galleryHTML(p,key)}
+      ${sl.length>1?`<div class="thumbs" data-thumbs="${key}">${sl.map((s,i)=>`<button data-thumb="${i}" aria-current="${i===0}" aria-label="사진 ${i+1}">${s.src?`<img src="${s.src}" alt="">`:s.svg}</button>`).join("")}</div>`:""}
+    </div>
+    <div class="info">
+      <button class="close" data-close aria-label="닫기">×</button>
+      <div><p class="eyebrow">${p.en}</p><h2 id="mTitle" style="font-size:32px">${p.name}</h2></div>
+      <p class="lead">${p.desc}</p>
+      <div><b style="display:block;margin-bottom:8px">${p.g==="material"?"분류":"맛"}</b><div class="chips">${p.flavors.map(f=>`<span class="chip"><i style="background:${flavorColor(f)[0]}"></i>${f}</span>`).join("")}</div></div>
+      <div class="tablebox"><table><thead><tr><th>구분</th><th>규격</th><th>단위·비고</th></tr></thead><tbody>
+        ${p.specs.map(s=>`<tr><td>${s[0]}</td><td>${s[1]}</td><td>${s[2]||"—"}</td></tr>`).join("")}
+      </tbody></table></div>
+      <div class="row">${p.bake?`<button class="btn" data-bake="${p.bake}">굽는 법 보기</button>`:""}<button class="btn primary" data-go="order">거래처 등록</button></div>
+    </div></div>`;
+  m.hidden = false; document.body.style.overflow="hidden";
+  m.querySelector("[data-close]").focus();
+  track("product_view",{product:id});
+}
+function closeModal(){ const m=$("#modal"); if(m.hidden) return; m.hidden=true; m.innerHTML=""; document.body.style.overflow=""; }
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeModal(); });
+
+/* =====================================================================
+   굽는 법
+   ===================================================================== */
+let bakeSel = "scone";
+const totalMin = b => b.steps.filter(s=>s!=="cut").reduce((a,s)=>a+s[1],0);
+const totalMax = b => b.steps.filter(s=>s!=="cut").reduce((a,s)=>a+s[2],0);
+const rng = (a,b) => a===b ? `${a}` : `${a}–${b}`;
+function bakeLcd(b){
+  return `<div><div class="k">PREHEAT</div><div class="v">${b.pre}<small>°C</small></div><div class="sub">예열</div></div>` +
+    b.steps.map((s,i)=> s==="cut" ? `<div class="cut">꺼내서<br>컷팅</div>` :
+      `<div><div class="k">STEP ${b.steps.slice(0,i+1).filter(x=>x!=="cut").length}</div><div class="v">${s[0]}<small>°C</small></div><div class="sub">${rng(s[1],s[2])}분</div></div>`).join("") +
+    (b.steps.filter(s=>s!=="cut").length>1 ? `<div><div class="k">TOTAL</div><div class="v">${rng(totalMin(b),totalMax(b))}<small>분</small></div><div class="sub">총 굽는 시간</div></div>` : "");
+}
+function renderBake(){
+  const b = BAKE[bakeSel];
+  $("#bakeProduct").innerHTML = Object.entries(BAKE).map(([k,v])=>`<button aria-pressed="${k===bakeSel}" data-bp="${k}">${v.name}</button>`).join("");
+  $("#bakeLcd").innerHTML = bakeLcd(b);
+  $("#bakeNotes").innerHTML = (b.notes.length?b.notes:["특별한 주의사항은 없어요."]).map(n=>`<li><span style="color:var(--ink)">${n}</span></li>`).join("");
+  const st = STORE[b.store];
+  $("#bakeStore").innerHTML = `<b>보관과 먹는 법</b><dl class="kv">
+      <dt>반죽</dt><dd>제조일로부터 90일 (권장) · -18°C 이하 냉동</dd>
+      ${st?`<dt>구운 뒤</dt><dd>${st.keep}</dd><dt>데우기</dt><dd>${st.eat}</dd>`:`<dt>구운 뒤</dt><dd>직사광선을 피해 서늘한 곳에 보관해 주세요.</dd>`}
+    </dl>`;
+  $("#adjTable").innerHTML = `<thead><tr><th>오븐</th><th>${b.name} 기준</th><th>조절</th><th></th><th>다른 매장 후기</th></tr></thead><tbody>` +
+    OVENS.filter(o=>o.id!=="etc").map(o=>{ const g=guide(bakeSel,o.id);
+      const t = g.deck ? `윗불 ${g.temp} / 아랫불 ${g.bottom}°C` : (g.lo!==g.hi ? `${g.lo}–${g.hi}°C` : `${g.temp}°C`);
+      return `<tr><td>${o.name}</td><td class="num">${t} · ${rng(g.tmin,g.tmax)}분</td><td>${o.adj}</td><td><span class="badge ${o.real?"real":""}">${o.real?"오드볼 안내":"참고"}</span></td><td>${boardUrl(o.id)?`<a href="${esc(boardUrl(o.id))}" target="_blank" rel="noopener">카페에서 보기</a>`:`<button class="btn small" data-go="community" style="padding:4px 10px">커뮤니티</button>`}</td></tr>`; }).join("") + `</tbody>`;
+}
+
+/* 오븐별 기준 (진단에도 사용) */
+function guide(pid, ovenId){
+  const b = BAKE[pid], t = b.steps[0][0], tmin = totalMin(b), tmax = totalMax(b);
+  switch(ovenId){
+    case "home": case "lw": case "etc": return {temp:t-15, lo:t-20, hi:t-10, tmin, tmax};
+    case "air": return {temp:t-20, lo:t-20, hi:t-20, tmin:Math.round(tmin*0.8), tmax:Math.round(tmax*0.9)};
+    case "deck": return {temp:t, bottom:t-15, lo:t, hi:t, tmin, tmax, deck:true};
+    default: return {temp:t, lo:t, hi:t, tmin, tmax};
+  }
+}
+
+/* =====================================================================
+   문제 해결 (진단)
+   ===================================================================== */
+const SYMPTOMS = [
+  {id:"raw",    name:"속이 안 익어요",         sub:"가운데가 질척하거나 흐물해요", products:"all"},
+  {id:"top",    name:"겉이 타요",              sub:"윗면 색이 너무 진해요", products:"all"},
+  {id:"bottom", name:"바닥이 타요",            sub:"윗면은 괜찮은데 바닥만 진해요", products:"all"},
+  {id:"pale",   name:"색이 안 나요",           sub:"다 구웠는데 하얗고 창백해요", products:"all"},
+  {id:"flat",   name:"안 부풀어요",            sub:"납작하거나 배꼽이 안 나와요", products:["scone","madeleine","financier"]},
+  {id:"spread", name:"너무 퍼져요",            sub:"옆으로 퍼지고 모양이 무너져요", products:["cookie","scone"]},
+  {id:"dry",    name:"딱딱하고 퍽퍽해요",      sub:"식으니 너무 단단해요", products:"all"},
+  {id:"tart",   name:"필링이 넘치거나 꺼져요", sub:"에그타르트 커스터드 문제", products:["eggtart"]},
+  {id:"uneven", name:"한쪽만 진해요",          sub:"판 안에서 색이 고르지 않아요", products:"all"}
+];
+const THAW = [
+  {id:"0",name:"해동 없이 바로",mid:0},{id:"lt10",name:"10분 미만",mid:5},{id:"10",name:"10~30분",mid:20},
+  {id:"30",name:"30분~1시간",mid:45},{id:"60",name:"1시간 이상",mid:90},{id:"fr",name:"냉장고에서 몇 시간",sub:"냉장 해동",mid:null}
+];
+const PREHEAT = [{id:"yes",name:"했어요",sub:"온도 도달 후 넣음"},{id:"no",name:"안 했어요",sub:"켜자마자 넣음"},{id:"unk",name:"잘 모르겠어요"}];
+const TEMPS = [{id:"150",name:"150°C 이하",v:150},{id:"160",name:"160°C",v:160},{id:"170",name:"170°C",v:170},{id:"180",name:"180°C",v:180},
+  {id:"190",name:"190°C",v:190},{id:"200",name:"200°C",v:200},{id:"210",name:"210°C",v:210},{id:"220",name:"220°C 이상",v:220},{id:"unk",name:"잘 모르겠어요",v:null}];
+const TIMES = [{id:"lt10",name:"10분 미만",mid:7},{id:"10",name:"10~15분",mid:12.5},{id:"15",name:"15~20분",mid:17.5},{id:"20",name:"20~30분",mid:25},
+  {id:"30",name:"30~40분",mid:35},{id:"40",name:"40~50분",mid:45},{id:"50",name:"50분 이상",mid:55},{id:"unk",name:"잘 모르겠어요",mid:null}];
+const LOAD = [{id:"ok",name:"간격을 두고 적당히",sub:"생지끼리 3cm 이상"},{id:"full",name:"빽빽하게 가득",sub:"거의 붙어 있었어요"}];
+const DPRODUCTS = Object.entries(BAKE).map(([id,b])=>({id,name:b.name}));
+
+const sel = {}; let stepIdx = 0;
+const STEPS = [
+  {id:"symptom",t:"증상",q:()=>"어떤 문제가 있나요?",opts:()=>SYMPTOMS},
+  {id:"product",t:"제품",q:()=>"어떤 제품인가요?",opts:()=>{ const s=byId(SYMPTOMS,sel.symptom); return DPRODUCTS.filter(p=>!s||s.products==="all"||s.products.includes(p.id)); }},
+  {id:"oven",t:"오븐",q:()=>"어떤 오븐으로 구웠나요?",opts:()=>OVENS},
+  {id:"thaw",t:"해동",q:()=>"굽기 전에 실온에 얼마나 두었나요?",opts:()=>THAW},
+  {id:"preheat",t:"예열",q:()=>"오븐을 미리 예열했나요?",opts:()=>PREHEAT},
+  {id:"temp",t:"온도",q:()=>sel.oven==="deck"?"윗불 온도는 몇 도였나요?":"몇 도로 구웠나요? (가장 오래 구운 온도)",opts:()=>TEMPS},
+  {id:"time",t:"시간",q:()=>"총 몇 분 구웠나요?",opts:()=>TIMES},
+  {id:"load",t:"양",q:()=>"한 번에 얼마나 올렸나요?",opts:()=>LOAD}
+];
+const LISTS = {symptom:SYMPTOMS, product:DPRODUCTS, oven:OVENS, thaw:THAW, preheat:PREHEAT, temp:TEMPS, time:TIMES, load:LOAD};
+const nameOf = k => sel[k] ? byId(LISTS[k],sel[k]).name : "";
+
+function diagnose(){
+  const pid=sel.product, b=BAKE[pid], o=sel.oven, g=guide(pid,o), s=sel.symptom;
+  const tb=byId(THAW,sel.thaw), tp=byId(TEMPS,sel.temp), tm=byId(TIMES,sel.time);
+  const oven=byId(OVENS,o), homeLike = o==="home"||o==="lw"||o==="etc";
+  const tempTxt = g.deck ? `윗불 ${g.temp}°C / 아랫불 ${g.bottom}°C` : (g.lo!==g.hi?`${g.lo}~${g.hi}°C`:`${g.temp}°C`);
+  const timeTxt = `${rng(g.tmin,g.tmax).replace("–","~")}분`;
+  let thaw="ok";
+  if(b.thaw==="full"){ thaw = (tb.mid===null || tb.mid>=45) ? "ok" : "under"; }
+  else if(Array.isArray(b.thaw)){ if(tb.mid===null) thaw="fridge"; else if(tb.mid>b.thaw[1]+15) thaw="over"; }
+  else if(tb.mid===null) thaw = pid==="eggtart" ? "over" : "fridge";
+  let temp="unk"; if(tp.v!==null){ temp = tp.v < g.lo-10 ? "low" : tp.v > g.hi+10 ? "high" : "ok"; }
+  let time="unk"; if(tm.mid!==null){ time = tm.mid < g.tmin-2 ? "short" : tm.mid > g.tmax+4 ? "long" : "ok"; }
+  const pre=sel.preheat, full=sel.load==="full";
+  const C=[], add=(w,title,fix,why,info=false)=>C.push({w,title,fix,why,info});
+  const R = {
+    tempLow:w=>add(w,"온도가 낮아요",`${tempTxt}로 맞춰 주세요`,`${b.name}은(는) ${oven.name} 기준 ${tempTxt}에서 구워요. 온도가 낮으면 색이 나기 전에 수분만 빠져요.`),
+    tempHigh:w=>add(w,"온도가 높아요",`${tempTxt}로 낮춰 주세요`,homeLike?"스메그 등 가정용 오븐은 우녹스 기준보다 10~20°C 낮춰서 구워야 해요.":"겉이 먼저 익어 색이 나니 속이 익기 전에 꺼내게 돼요."),
+    timeShort:w=>add(w,"굽는 시간이 짧아요",`총 ${timeTxt} 구워 주세요`,"색만 보고 일찍 꺼내면 가운데가 덜 익을 수 있어요."),
+    timeLong:w=>add(w,"너무 오래 구웠어요",`총 ${timeTxt}에서 꺼내 주세요`,"권장 시간을 넘기면 수분이 빠져 단단해지고 색이 진해져요."),
+    preNo:w=>add(w,"예열 없이 넣었어요",`빈 오븐을 ${b.pre}°C${homeLike?"(가정용은 10~20°C 낮게)":""}로 예열한 뒤 넣어 주세요`,"예열 없이 넣으면 처음 몇 분 동안 반죽이 데워지기만 하고 부풀거나 익지 않아요."),
+    preUnk:w=>add(w,"예열을 꼭 해 주세요",`예열 ${b.pre}°C, 온도 도달 알림이 울린 뒤 넣어 주세요`,"많은 오븐이 켜고 10분 이상 지나야 설정 온도에 도달해요."),
+    full:w=>add(w,"한 번에 너무 많이 올렸어요",o==="air"?"바스켓 바닥의 절반만 채워 주세요":"생지끼리 3cm 이상 간격을 두세요","생지가 붙어 있으면 뜨거운 바람이 사이로 지나가지 못해 옆면과 속이 덜 익어요."),
+    thawOver:w=>add(w,"해동을 너무 오래 했어요", Array.isArray(b.thaw)?`실온 해동은 ${b.thaw[0]}~${b.thaw[1]}분만 해 주세요`:"해동 시간을 줄여 차가운 상태에서 넣어 주세요","반죽 속 버터가 녹으면 굽는 동안 모양을 잡지 못하고 퍼지거나 주저앉아요."),
+    fridge:w=>add(w,"냉장 해동으로 반죽이 너무 부드러워졌어요", Array.isArray(b.thaw)?`실온에서 ${b.thaw[0]}~${b.thaw[1]}분만 해동해 주세요`:"냉동 상태에서 짧게 해동해 주세요","냉장고에서 오래 두면 버터까지 말랑해져 오븐에서 모양을 유지하기 어려워요.")
+  };
+  if(s==="raw"){
+    if(thaw==="under") add(10,"해동이 덜 됐어요","반죽을 완전히 해동한 뒤 구워 주세요. 급하면 미지근한 물에 담가 두었다가 작업해도 괜찮아요","속이 얼어 있으면 겉은 익어도 가운데는 차갑게 남아요.");
+    if(temp==="high" && time!=="long") add(9,"온도가 높아 겉만 먼저 익었어요",`${tempTxt}로 낮추고 총 ${timeTxt} 구워 주세요`,"높은 온도에서는 겉 색이 빨리 나서 속이 익기 전에 꺼내게 돼요.");
+    if(temp==="low") R.tempLow(8);
+    if(time==="short") R.timeShort(8);
+    if(pre==="no") R.preNo(7); else if(pre==="unk") R.preUnk(3);
+    if(full) R.full(6);
+    if(o==="air") add(5,"에어프라이어는 윗면부터 익어요","온도를 낮추고 시간을 2~3분 늘려 주세요. 색이 나면 종이호일을 덮어 주세요","열선이 가까워 겉이 먼저 색이 나요.");
+    if(homeLike) add(3,"표시 온도와 실제 온도가 다를 수 있어요","오븐 온도계로 실제 온도를 확인해 주세요","가정용·광파 오븐은 실제 온도가 설정과 10~20°C 차이 나는 경우가 많아요.");
+    if(pid==="basque") add(4,"바스크는 숙성 후에 잘라야 해요","구운 뒤 식혀서 냉장·냉동 4시간 이상 숙성한 뒤 잘라 주세요","바로 자르면 속이 흐르는 것처럼 보여요. 크리미한 식감이 원래 특징이에요.",true);
+    if(pid==="eggtart") add(2,"가운데가 살짝 흔들리는 건 정상일 수 있어요","가장자리가 굳었으면 꺼내서 식혀 보세요","커스터드는 식으면서 굳어요.",true);
+    if(pid==="scone"||pid==="cookie") add(2,"꺼낸 뒤 잔열로 더 익어요","팬 위에서 5분 두었다가 확인해 주세요","오븐에서 막 꺼냈을 때는 속이 덜 익어 보여도 식으면서 자리를 잡아요.",true);
+  }
+  if(s==="top"){
+    if(temp==="high") R.tempHigh(9);
+    if(time==="long") R.timeLong(8);
+    if(o==="air") add(8,"에어프라이어 열선이 가까워요","온도를 낮추고, 색이 나면 종이호일을 덮어 주세요","바스켓 위쪽 열선과 반죽 사이가 가까워 윗면이 먼저 타요.");
+    if(o==="lw") add(7,"그릴 모드로 구웠을 수 있어요","'오븐' 또는 '컨벡션' 모드로 바꿔 주세요","광파·그릴 모드는 위에서만 강하게 가열해요.");
+    if(o==="deck") add(7,"윗불이 강해요",`윗불을 ${g.temp-10}°C로 낮춰 주세요`,"데크오븐은 천장과 반죽 사이가 가까워 윗불 영향이 커요.");
+    if(o==="home"||o==="etc") add(6,"가정용 오븐은 온도를 낮춰야 해요",`우녹스 기준보다 10~20°C 낮게(${tempTxt}) 구워 주세요. 가운데 칸을 써 주세요`,"스메그 등 가정용 오븐은 같은 설정에서도 더 세게 구워져요.");
+    if(pid==="basque") add(2,"바스크는 겉이 진하게 그을리는 게 정상이에요","너무 쓰게 탔다면 마지막 단계 온도를 10°C 낮춰 보세요","바스크 치즈케이크 특유의 짙은 색이에요.",true);
+  }
+  if(s==="bottom"){
+    if(o==="deck") add(9,"아랫불이 강해요",`아랫불을 ${g.bottom-10}°C로 낮추거나 팬을 두 장 겹쳐 주세요`,"데크 바닥 돌판의 열이 팬을 통해 바로 전달돼요.");
+    if(o==="air") add(8,"바스켓 바닥에 바로 닿았어요","구멍 뚫린 종이호일을 깔아 주세요","바스켓 망이 달궈지면 닿은 부분이 먼저 타요.");
+    if(homeLike) add(7,"맨 아래 칸에서 구웠을 수 있어요","가운데 칸으로 옮겨 주세요","아래 열선에 가까우면 바닥만 진해져요.");
+    if(temp==="high") R.tempHigh(6);
+    if(time==="long") R.timeLong(5);
+    add(4,"어두운 색 팬은 열을 더 받아요","밝은 색 팬이나 종이호일·실리콘 매트를 써 주세요","검은 코팅 팬은 바닥 색이 훨씬 빨리 나요.");
+  }
+  if(s==="pale"){
+    if(temp==="low") R.tempLow(9);
+    if(pre==="no") R.preNo(8); else if(pre==="unk") R.preUnk(3);
+    if(time==="short") R.timeShort(8);
+    if(full) R.full(6);
+    if(homeLike) add(4,"표시 온도와 실제 온도가 다를 수 있어요","오븐 온도계로 실제 온도를 확인해 주세요","설정값보다 실제 온도가 낮으면 색이 잘 나지 않아요.");
+    if(pid==="financier"||pid==="madeleine") add(5,"첫 단계 온도가 중요해요",`예열 ${b.pre}°C 후 ${b.steps[0][0]}°C ${b.steps[0][1]}분, 이어서 ${b.steps[1][0]}°C ${b.steps[1][1]}분으로 구워 주세요`,"처음 높은 온도에서 가장자리 색과 모양이 잡혀요.");
+  }
+  if(s==="flat"){
+    if(pre==="no") R.preNo(9); else if(pre==="unk") R.preUnk(3);
+    if(temp==="low") R.tempLow(8);
+    if(thaw==="fridge") R.fridge(6);
+    if(pid==="financier") add(9,"패닝할 때 반죽 온도가 중요해요","반죽 온도가 8~12°C일 때 몰드에 짜 주세요. 몰드는 80~90%만 채워 주세요","반죽이 너무 따뜻하면 배꼽이 생기지 않고 납작해져요.");
+    if(pid==="madeleine") add(9,"처음 4분이 배꼽을 만들어요",`예열 ${b.pre}°C → 200°C 4분 → 180°C 8분으로 구워 주세요. 몰드는 80~90%만 채워 주세요`,"차가운 반죽이 뜨거운 틀에서 가장자리부터 굳어야 가운데가 솟아올라요.");
+    if(pid==="scone") add(8,"반죽을 너무 치댔을 수 있어요","손으로 반죽을 너무 치대지 말아 주세요","반죽을 오래 만지면 버터가 녹아 결이 생기지 않아요.");
+    add(2,"굽는 중에 문을 자주 열었나요?","처음 5~7분은 문을 열지 말아 주세요","문을 열 때마다 내부 온도가 20~30°C 떨어져요.",true);
+  }
+  if(s==="spread"){
+    if(thaw==="over") R.thawOver(10);
+    if(thaw==="fridge") R.fridge(8);
+    if(temp==="low") R.tempLow(8);
+    if(pre==="no") R.preNo(8); else if(pre==="unk") R.preUnk(3);
+    add(5,"뜨거운 팬에 바로 올렸을 수 있어요","연속으로 구울 땐 팬을 식히거나 팬을 번갈아 써 주세요","달궈진 팬에 올리면 바닥 버터가 먼저 녹아 퍼져요.");
+    if(pid==="cookie") add(4,"구운 직후 모양을 잡아 주세요","오븐에서 꺼내자마자 동그란 링이나 주걱으로 모양을 잡아 주세요","쿠키는 꺼낸 직후 말랑할 때 모양을 다듬을 수 있어요.");
+    if(full) add(3,"반죽끼리 붙어 퍼졌어요","반죽끼리 5cm 이상 간격을 두세요","쿠키는 구우면서 옆으로 커져요.");
+  }
+  if(s==="dry"){
+    if(time==="long") R.timeLong(10);
+    if(temp==="low" && time!=="short") add(8,"낮은 온도에서 오래 구웠어요",`${tempTxt}에서 총 ${timeTxt}로 짧게 구워 주세요`,"색이 날 때까지 오래 두는 동안 속 수분이 빠져요.");
+    if(temp==="high") R.tempHigh(5);
+    if(o==="air") add(6,"에어프라이어 바람이 수분을 빼앗아요","시간을 1~2분 줄이고, 색이 나면 바로 꺼내 주세요","강한 바람이 표면을 빠르게 말려요.");
+    add(4,"구운 뒤 보관 방법도 중요해요","완전히 식힌 뒤 밀폐 용기에 담아 주세요. 오래 둘 땐 냉동하고, 170°C에서 3~5분 데우면 돼요","공기에 그대로 두면 몇 시간 안에 수분이 날아가요.");
+    if(pid==="basque") add(5,"크리미한 식감을 원하면 시간을 줄여요","총 굽는 시간을 25~30분 안으로 줄여 주세요","오드볼 기준(총 43분)은 단단하게 자르기 좋은 정도예요.");
+  }
+  if(s==="tart"){
+    if(thaw==="over") add(10,"필링이 녹아 흘렀어요","쉘과 필링을 녹이지 말고 바로 채워 구워 주세요","말랑해진 쉘은 굽는 중 필링이 옆으로 새어 나와요.");
+    if(temp==="high") add(8,"온도가 높아 필링이 끓었어요",`${tempTxt}로 낮춰 주세요`,"커스터드가 끓으면 부풀어 넘쳤다가 식으면서 꺼져요.");
+    if(time==="long") add(7,"너무 오래 구웠어요",`총 ${timeTxt}에서 꺼내 주세요`,"오래 구우면 필링이 부풀었다가 꺼지면서 주름이 생겨요.");
+    add(5,"필링을 너무 많이 채웠을 수 있어요","쉘 높이의 80~90%까지만 채워 주세요","가득 채우면 끓어오르면서 넘쳐요.");
+    add(2,"식으면서 살짝 꺼지는 건 정상이에요","오목하게 살짝 내려앉는 정도는 괜찮아요","커스터드가 식으며 수축해요.",true);
+  }
+  if(s==="uneven"){
+    if(o==="conv") add(8,"팬 바람이 한쪽으로 강해요","굽는 시간 절반쯤에 팬을 앞뒤로 돌려 주세요","컨벡션 팬과 가까운 뒤쪽이 먼저 색이 나요.");
+    if(homeLike) add(8,"오븐 안에 뜨거운 쪽이 있어요","절반쯤에 팬을 돌리고, 가운데 칸에서 구워 주세요","가정용 오븐은 열선 위치 때문에 안쪽과 바깥쪽 온도 차이가 커요.");
+    if(o==="air") add(8,"가운데와 가장자리 바람이 달라요","절반쯤에 위치를 바꿔 주세요","에어프라이어는 가운데 바람이 약해요.");
+    if(o==="deck") add(8,"입구 쪽 온도가 낮아요","절반쯤에 팬을 돌리고, 문은 빨리 닫아 주세요","데크오븐은 문 쪽이 안쪽보다 온도가 낮아요.");
+    if(full) R.full(6);
+  }
+  C.sort((a,b)=>(a.info-b.info)||(b.w-a.w));
+  return {causes:C, hasMain:C.some(c=>!c.info)};
+}
+
+function renderTrail(){
+  $("#trail").innerHTML = STEPS.map((st,i)=>{
+    const done=!!sel[st.id], cur=i===stepIdx && stepIdx<STEPS.length;
+    const reach = i===0 || STEPS.slice(0,i).every(x=>sel[x.id]);
+    return `<button class="${done?"done":""} ${cur?"cur":""}" data-step="${i}" ${reach?"":"disabled"}><span class="dot">${done?"✓":i+1}</span><span style="min-width:0"><span class="t">${st.t}</span><span class="a">${done?nameOf(st.id):"—"}</span></span></button>`;
+  }).join("");
+}
+function renderStage(){
+  renderTrail();
+  if(stepIdx>=STEPS.length) return renderResult();
+  const st=STEPS[stepIdx], opts=st.opts();
+  $("#stage").innerHTML = `<div class="count">${stepIdx+1} / ${STEPS.length}</div><h2>${st.q()}</h2>
+    <div class="opts">${opts.map(o=>`<button class="opt" data-pick="${o.id}" aria-pressed="${sel[st.id]===o.id}"><b>${o.name}</b>${o.sub?`<span>${o.sub}</span>`:""}</button>`).join("")}</div>
+    <div class="row">${stepIdx>0?`<button class="btn small" data-back>이전</button>`:""}${sel.symptom?`<button class="btn small" data-reset>처음부터</button>`:""}</div>`;
+}
+let lastKey="", diagId=null;
+function renderResult(){
+  const r=diagnose(), b=BAKE[sel.product], oven=byId(OVENS,sel.oven), g=guide(sel.product,sel.oven);
+  const key=STEPS.map(st=>sel[st.id]).join("|");
+  if(key!==lastKey){ lastKey=key; diagId=uuid(); const main=r.causes.filter(c=>!c.info);
+    save("diagnosis_logs",{id:diagId,visitor_id:VISITOR,symptom:sel.symptom,product:sel.product,oven:sel.oven,thaw:sel.thaw,preheat:sel.preheat,temp:sel.temp,bake_time:sel.time,load:sel.load,
+      top_cause:main[0]?main[0].title:"권장 범위 안",causes:r.causes.map(c=>({title:c.title,fix:c.fix,info:c.info})),user_agent:navigator.userAgent.slice(0,400)}); }
+  const summary = STEPS.map(st=>`${st.t}: ${nameOf(st.id)}`).join("\n");
+  const t = g.deck?`${g.temp}/${g.bottom}`:(g.lo!==g.hi?`${g.lo}–${g.hi}`:`${g.temp}`);
+  $("#stage").innerHTML = `<div class="count">진단 결과</div><h2>${b.name} · ${nameOf("symptom")}</h2>
+    ${r.hasMain?"":`<div class="okbox">고르신 조건은 권장 범위 안이에요. 아래 기준대로 한 판만 다시 구워 보시고, 그래도 같으면 사진과 함께 문의해 주세요.</div>`}
+    <div class="cause-list">${r.causes.map((c,i)=>`<div class="cause ${!c.info&&i===0?"top":""} ${c.info?"info":""}"><span class="rank">${c.info?"참고":`원인 ${i+1}`}</span><div><h3>${c.title}</h3><p class="fix">${c.fix}</p><p class="why">${c.why}</p></div></div>`).join("")}</div>
+    <div><p class="eyebrow" style="margin-bottom:8px">${oven.name} 권장 설정 ${oven.real?"":"(참고)"}</p>
+      <div class="lcd"><div><div class="k">PREHEAT</div><div class="v">${b.pre}<small>°C</small></div><div class="sub">우녹스 기준</div></div>
+      <div><div class="k">${g.deck?"TOP / BOTTOM":"BAKE"}</div><div class="v">${t}<small>°C</small></div><div class="sub">${oven.adj}</div></div>
+      <div><div class="k">TIME</div><div class="v">${rng(g.tmin,g.tmax)}<small>분</small></div><div class="sub">총 굽는 시간</div></div></div></div>
+    <p class="tip">${oven.tip}</p>
+    <div class="row"><span class="cap">같은 오븐을 쓰는 다른 매장은 어떻게 구웠을까요?</span>${boardUrl(sel.oven)?`<a class="btn small" href="${esc(boardUrl(sel.oven))}" target="_blank" rel="noopener">카페 후기 보기</a>`:`<button class="btn small" data-go="community">커뮤니티 보기</button>`}</div>
+    <div class="box" id="feedback"><b>이 방법으로 해결됐나요?</b><div class="row"><button class="btn small" data-helped="yes">네, 해결됐어요</button><button class="btn small" data-helped="no">아니요</button></div></div>
+    <div class="box"><b>문자로 문의하기</b><p class="cap">아래 내용을 복사해 구운 사진과 함께 보내 주세요. <span data-phone></span></p>
+      <pre id="summary">[오드볼 굽기 문의]\n${summary}</pre>
+      <div class="row"><button class="btn small" data-copy>내용 복사</button><span class="toast" id="toast"></span></div></div>
+    <div class="row"><button class="btn small" data-back>이전</button><button class="btn small" data-reset>다른 문제 진단하기</button></div>`;
+  fillPhones();
+}
+
+/* =====================================================================
+   질문 폼 (진단 후 · 문의 탭)
+   ===================================================================== */
+function questionForm(id){
+  return `<form class="f" data-qform="${id}">
+    <div class="fld"><label for="${id}-q">${id==="diag"?"어떤 점이 해결되지 않았나요?":"질문 내용"}</label><textarea id="${id}-q" rows="3" maxlength="2000" placeholder="예: 해동을 30분 했는데도 가운데가 질척해요"></textarea></div>
+    <div class="fgrid"><div><label for="${id}-shop">매장 이름 (선택)</label><input id="${id}-shop" maxlength="100"></div>
+      <div><label for="${id}-contact">연락처 (선택)</label><input id="${id}-contact" maxlength="100" placeholder="답변받을 번호나 이메일"></div></div>
+    <label class="consent" for="${id}-agree"><input type="checkbox" id="${id}-agree"> 답변을 위해 연락처를 수집·이용하는 데 동의합니다. (보관: 답변 후 1년)</label>
+    <div class="row"><button class="btn primary small" type="submit">질문 보내기</button><span class="err" data-qmsg></span></div></form>`;
+}
+async function submitQuestion(form){
+  const id=form.dataset.qform, v=k=>form.querySelector(`#${id}-${k}`), msg=form.querySelector("[data-qmsg]");
+  const question=v("q").value.trim(), contact=v("contact").value.trim(), agree=v("agree").checked;
+  if(!question){ msg.textContent="질문 내용을 적어 주세요."; return; }
+  if(contact && !agree){ msg.textContent="연락처를 남기시려면 수집 동의에 체크해 주세요."; return; }
+  msg.textContent="보내는 중…";
+  const ok = await save("customer_questions",{diagnosis_id:id==="diag"?diagId:null,visitor_id:VISITOR,helped:id==="diag"?false:null,question,shop_name:v("shop").value.trim()||null,contact:contact||null,privacy_consent:agree});
+  if(ok) form.innerHTML=`<div class="okbox">질문을 받았어요. ${contact?"남겨 주신 연락처로 답변드릴게요.":"연락처가 없으면 답변을 드릴 수 없으니, 급하면 문자로 문의해 주세요."}</div>`;
+  else msg.textContent=`전송하지 못했어요. 잠시 후 다시 시도하거나 ${CONFIG.PHONE}로 문자 주세요.`;
+}
+
+/* =====================================================================
+   거래처 등록
+   ===================================================================== */
+const regFile = $("#reg-cert");
+regFile.addEventListener("change", ()=>{
+  const f=regFile.files[0];
+  $("#regFileName").textContent = f ? f.name : "사진이나 PDF를 선택해 주세요";
+  $("#regDrop").classList.toggle("has", !!f);
+});
+$("#zipBtn").addEventListener("click", ()=>{
+  const layer=$("#zipLayer");
+  const open=()=>{ layer.hidden=false; layer.innerHTML="";
+    new daum.Postcode({ width:"100%", height:"100%",
+      oncomplete:d=>{ $("#reg-zip").value=d.zonecode; $("#reg-address").value=d.roadAddress||d.jibunAddress; layer.hidden=true; $("#reg-detail").focus(); }
+    }).embed(layer); };
+  if(window.daum && daum.Postcode) return open();
+  const sc=document.createElement("script");
+  sc.src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+  sc.onload=open;
+  sc.onerror=()=>{ $("#regMsg").className="err"; $("#regMsg").textContent="우편번호 검색을 불러오지 못했어요. 우편번호와 주소를 직접 적어 주세요."; };
+  document.head.appendChild(sc);
+});
+$("#reg-biz").addEventListener("input", e=>{
+  const d=e.target.value.replace(/\D/g,"").slice(0,10);
+  e.target.value = d.length>5 ? `${d.slice(0,3)}-${d.slice(3,5)}-${d.slice(5)}` : d.length>3 ? `${d.slice(0,3)}-${d.slice(3)}` : d;
+});
+$("#regForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const msg=$("#regMsg"), btn=$("#regSubmit"), v=id=>$("#reg-"+id).value.trim();
+  const f=regFile.files[0];
+  const checks = [
+    [!f,"cert","사업자등록증 파일을 선택해 주세요."],
+    [f && f.size>10*1024*1024,"cert","파일은 10MB 이하로 올려 주세요."],
+    [!v("company"),"company","업체명을 적어 주세요."],
+    [v("biz").replace(/\D/g,"").length!==10,"biz","사업자번호 10자리를 적어 주세요."],
+    [!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email")),"email","이메일 주소를 확인해 주세요."],
+    [!v("manager"),"manager","담당자 성함을 적어 주세요."],
+    [v("phone").replace(/\D/g,"").length<9,"phone","담당자 연락처를 확인해 주세요."],
+    [v("zip").replace(/\D/g,"").length!==5,"zip","우편번호 5자리를 적거나 검색해 주세요."],
+    [!v("address"),"address","제품 받으실 주소를 적어 주세요."],
+    [!v("detail"),"detail","상세주소를 적어 주세요."],
+    [!$("#reg-agree").checked,"agree","정보 수집·이용에 동의해 주세요."]
+  ];
+  document.querySelectorAll("#regForm [aria-invalid]").forEach(el=>el.removeAttribute("aria-invalid"));
+  const bad = checks.find(c=>c[0]);
+  if(bad){ msg.className="err"; msg.textContent=bad[2]; const el=$("#reg-"+bad[1]); if(el && bad[1]!=="cert"){ el.setAttribute("aria-invalid","true"); el.focus(); } return; }
+  const fd = new FormData();
+  fd.append("cert", f); fd.append("company",v("company")); fd.append("biz_no",v("biz")); fd.append("email",v("email"));
+  fd.append("manager",v("manager")); fd.append("phone",v("phone")); fd.append("industry",$("#reg-industry").value); fd.append("ceo",v("ceo"));
+  fd.append("zipcode",v("zip")); fd.append("address",v("address")); fd.append("address_detail",v("detail")); fd.append("memo",v("memo"));
+  fd.append("website",v("website")); fd.append("consent","true");
+  btn.disabled=true; msg.className="cap"; msg.textContent="보내는 중이에요…";
+  try{
+    const res = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/register-client`, {method:"POST", body:fd});
+    const j = await res.json().catch(()=>({ok:false}));
+    if(res.ok && j.ok){
+      track("registration",{ok:true});
+      $("#regPanel").innerHTML = `<div><p class="eyebrow">STEP 1</p><h2 class="h-sec">등록 신청을 받았어요</h2></div>
+        <p class="lead">${esc(v("company"))} 담당자님, 확인 후 남겨 주신 연락처로 거래처 등록과 발주 프로그램 사용 방법을 안내해 드릴게요. 급하시면 <span data-phone></span>로 문자 주세요.</p>`;
+      fillPhones();
+    } else { msg.className="err"; msg.textContent = (j && j.error) || `보내지 못했어요. 잠시 후 다시 시도하거나 ${CONFIG.PHONE}로 문자 주세요.`; btn.disabled=false; }
+  }catch(err){ msg.className="err"; msg.textContent=`보내지 못했어요. 인터넷 연결을 확인하거나 ${CONFIG.PHONE}로 문자 주세요.`; btn.disabled=false; }
+});
+
+/* =====================================================================
+   클릭 처리
+   ===================================================================== */
+document.addEventListener("click", e=>{
+  const t=e.target;
+  if(t.id==="modal"){ closeModal(); return; }
+  if(t.closest("[data-close]")){ closeModal(); return; }
+  const goB=t.closest("[data-go]"); if(goB){ e.preventDefault(); closeModal(); go(goB.dataset.go); return; }
+  const op=t.closest("[data-open]"); if(op){ openProduct(op.dataset.open); return; }
+  const gr=t.closest("[data-group]"); if(gr){ group=gr.dataset.group; renderCatalog(); return; }
+  const bk=t.closest("[data-bake]"); if(bk){ closeModal(); bakeSel=bk.dataset.bake; renderBake(); go("bake"); return; }
+  const bp=t.closest("[data-bp]"); if(bp){ bakeSel=bp.dataset.bp; renderBake(); track("bake_guide",{product:bakeSel}); return; }
+  const pick=t.closest("[data-pick]");
+  if(pick){ const st=STEPS[stepIdx], prev=sel[st.id]; sel[st.id]=pick.dataset.pick;
+    if(st.id==="symptom" && prev!==sel.symptom){ const ok=byId(SYMPTOMS,sel.symptom).products; if(sel.product && ok!=="all" && !ok.includes(sel.product)) delete sel.product; }
+    let n=stepIdx+1; while(n<STEPS.length && sel[STEPS[n].id] && prev===undefined) n++;
+    stepIdx=n; renderStage(); $("#stage").scrollIntoView({block:"nearest"}); return; }
+  const sb=t.closest("[data-step]"); if(sb && !sb.disabled){ stepIdx=+sb.dataset.step; renderStage(); return; }
+  if(t.closest("[data-back]")){ stepIdx=Math.max(0,Math.min(stepIdx,STEPS.length)-1); renderStage(); return; }
+  if(t.closest("[data-reset]")){ Object.keys(sel).forEach(k=>delete sel[k]); stepIdx=0; renderStage(); return; }
+  const h=t.closest("[data-helped]");
+  if(h){ const fb=$("#feedback");
+    if(h.dataset.helped==="yes"){ save("customer_questions",{diagnosis_id:diagId,visitor_id:VISITOR,helped:true}); fb.innerHTML=`<div class="okbox">다행이에요. 알려 주셔서 감사합니다.</div>`; }
+    else fb.innerHTML=`<b>무엇이 문제였는지 남겨 주세요</b>`+questionForm("diag");
+    return; }
+  if(t.closest("[data-copy]")) copyText($("#summary").textContent, $("#toast"), $("#summary"));
+  if(t.closest("[data-copyphone]")) copyText(CONFIG.PHONE, $("#phoneToast"));
+});
+document.addEventListener("submit", e=>{ const f=e.target.closest("[data-qform]"); if(f){ e.preventDefault(); submitQuestion(f); } });
+function copyText(text, toast, node){
+  const fallback=()=>{ if(node){ const r=document.createRange(); r.selectNodeContents(node); const s=getSelection(); s.removeAllRanges(); s.addRange(r); } toast.textContent="직접 선택해서 복사해 주세요"; };
+  try{ navigator.clipboard.writeText(text).then(()=>toast.textContent="복사했어요", fallback); }catch(err){ fallback(); }
+}
+function fillPhones(){ document.querySelectorAll("[data-phone]").forEach(el=>el.textContent=CONFIG.PHONE); }
+function setLink(a,url){ if(!a) return; if(!a.dataset.label) a.dataset.label=a.textContent; if(url){ a.href=url; a.removeAttribute("aria-disabled"); a.textContent=a.dataset.label; } else { a.removeAttribute("href"); a.setAttribute("aria-disabled","true"); a.textContent=a.dataset.label+" (준비 중)"; } }
+
+/* =====================================================================
+   커뮤니티 (네이버 카페)
+   ===================================================================== */
+const BOARDS = [
+  {id:"recipe", name:"연구소 공식 레시피", sub:"실패 원인과 해결법, 검증된 레시피"},
+  {id:"oven", name:"오븐별 굽기 기록", sub:"우녹스 · 스메그 · 광파 · 에어프라이어 · 데크"},
+  {id:"frozen", name:"냉동생지로 굽기", sub:"해동 · 보관 · 굽기 기록"},
+  {id:"qna", name:"궁금해요", sub:"굽다가 막히면 사진과 함께 질문"},
+  {id:"diary", name:"베린이 성장일기", sub:"오늘 구운 것 자랑"},
+  {id:"notice", name:"공지", sub:"카페 소식과 이벤트"}
+];
+const OVEN_IDS = ["conv","home","lw","air","deck","etc"];
+const boardUrl = id => CONFIG.CAFE_BOARDS[OVEN_IDS.includes(id) ? "oven" : id] || CONFIG.CAFE_URL || "";
+let feed = null, feedLoading = false;
+function renderCommunity(){
+  setLink($("#cafeLink"), CONFIG.CAFE_URL, true);
+  $("#boardGrid").innerHTML = BOARDS.map(b=>{
+    const url = boardUrl(b.id), items = feed ? (feed.boards[b.id]||[]) : null;
+    const list = items===null ? `<li><div class="skel"></div><div class="skel" style="width:70%"></div></li>`
+      : items.length ? items.map(p=>`<li><a href="${esc(p.url)}" target="_blank" rel="noopener"><b>${p.pick?`<span class="pk">추천</span>`:""}${esc(p.title)}</b>${p.desc?`<small>${esc(p.desc)}</small>`:""}</a></li>`).join("")
+      : `<li class="empty">아직 올라온 글이 없어요. 첫 후기를 남겨 주세요.</li>`;
+    return `<div class="board"><div class="hd"><div><h3>${b.name}</h3><span>${b.sub}</span></div>${url?`<a class="btn small" href="${esc(url)}" target="_blank" rel="noopener">게시판</a>`:`<span class="badge">준비 중</span>`}</div><ul class="posts">${list}</ul></div>`;
+  }).join("");
+}
+async function loadFeed(){
+  if(feed || feedLoading) return; feedLoading = true;
+  try{ const r = await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/cafe-feed`); const j = await r.json(); feed = j.ok ? j : {boards:{}}; }
+  catch(e){ feed = {boards:{}}; }
+  renderCommunity();
+}
+
+/* =====================================================================
+   시작
+   ===================================================================== */
+$("#year").textContent = new Date().getFullYear();
+$("#faq").innerHTML = FAQ.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("");
+$("#contactForm").innerHTML = questionForm("general");
+setLink($("#kakaoLink"), CONFIG.KAKAO_URL);
+fillPhones(); renderHome(); renderCatalog(); renderBake(); renderStage(); renderCommunity();
+go(location.hash.slice(1)||"home", false);
+</script>
+</body>
+</html>
