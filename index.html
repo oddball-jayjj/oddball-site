@@ -217,6 +217,8 @@ tr:last-child td{border-bottom:0}
 @media (max-width:480px){.cause{grid-template-columns:1fr;gap:8px}.cause .rank{justify-self:start}.stage{padding:16px}}
 .cause-list{display:grid;gap:10px}
 .okbox{padding:16px;border-radius:12px;background:var(--soft)}
+.cafe-ask{border:2px solid var(--butter);background:var(--soft)}
+.cafe-ask .btn.primary{font-size:16px}
 .box{display:grid;gap:10px;padding:16px;border-radius:12px;border:1px solid var(--line)}
 .box pre{margin:0;white-space:pre-wrap;font-family:var(--f-body);font-size:14px;background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:12px;color:var(--muted)}
 .toast{font-size:14px;color:var(--ok)}
@@ -531,9 +533,11 @@ const CONFIG = {
     recipe: "https://cafe.naver.com/f-e/cafes/31811540/menus/11",   // 연구소 공식 레시피
     oven:   "https://cafe.naver.com/f-e/cafes/31811540/menus/17",   // 오븐별 굽기 기록
     frozen: "https://cafe.naver.com/f-e/cafes/31811540/menus/10",   // 냉동생지로 굽기
-    qna:    "",   // 궁금해요 - 베이킹 실패 (주소 생기면 입력)
-    diary:  ""    // 베린이 성장일기 (주소 생기면 입력)
+    qna:    "https://cafe.naver.com/f-e/cafes/31811540/menus/19",   // 궁금해요 - 베이킹 실패
+    diary:  "https://cafe.naver.com/f-e/cafes/31811540/menus/9"     // 베린이 성장일기
   },
+  /* 진단 결과의 "카페에 사진 올리고 물어보기" 버튼 → 궁금해요-베이킹 실패 글쓰기 */
+  CAFE_ASK_URL: "https://cafe.naver.com/ca-fe/cafes/31811540/articles/write?boardType=L&menuId=19",
   SUPABASE_URL: "https://gtmpahrfruujzwaddulf.supabase.co",
   SUPABASE_KEY: "sb_publishable_ZIW91D3Fq6EbM8YTYenYVw_kQHWRrkZ"   // 공개용 키 (기록 추가만 가능)
 };
@@ -1083,6 +1087,10 @@ function renderResult(){
     <p class="tip">${oven.tip}</p>
     <div class="row"><span class="cap">같은 오븐을 쓰는 다른 매장은 어떻게 구웠을까요?</span>${boardUrl(sel.oven)?`<a class="btn small" href="${esc(boardUrl(sel.oven))}" target="_blank" rel="noopener">카페 후기 보기</a>`:`<button class="btn small" data-go="community">커뮤니티 보기</button>`}</div>
     <div class="box" id="feedback"><b>이 방법으로 해결됐나요?</b><div class="row"><button class="btn small" data-helped="yes">네, 해결됐어요</button><button class="btn small" data-helped="no">아니요</button></div></div>
+    <div class="box cafe-ask"><b>해결이 안 되면 오븐 연구소 카페에 물어보세요</b>
+      <p class="cap">같은 오븐을 쓰는 사장님들과 연구소가 답해 드려요. 버튼을 누르면 진단 내용이 복사돼요. 글쓰기 창에 붙여넣고 구운 사진만 올리면 끝이에요.</p>
+      <div class="row"><a class="btn primary" data-cafeask href="${esc(CONFIG.CAFE_ASK_URL||boardUrl("qna"))}" target="_blank" rel="noopener">카페에 사진 올리고 물어보기</a><span class="toast" id="cafeToast"></span></div>
+      <pre id="cafeText" hidden>[굽기 질문] ${b.name} · ${nameOf("symptom")}\n${summary}\n\n사이트 진단에서 나온 원인: ${(r.causes.find(c=>!c.info)||{title:"권장 범위 안"}).title}\n\n(여기에 구운 사진을 올려 주세요. 단면 사진이 있으면 더 정확해요)</pre></div>
     <div class="box"><b>문자로 문의하기</b><p class="cap">아래 내용을 복사해 구운 사진과 함께 보내 주세요. <span data-phone></span></p>
       <pre id="summary">[오드볼 굽기 문의]\n${summary}</pre>
       <div class="row"><button class="btn small" data-copy>내용 복사</button><span class="toast" id="toast"></span></div></div>
@@ -1201,6 +1209,7 @@ document.addEventListener("click", e=>{
     if(h.dataset.helped==="yes"){ save("customer_questions",{diagnosis_id:diagId,visitor_id:VISITOR,helped:true}); fb.innerHTML=`<div class="okbox">다행이에요. 알려 주셔서 감사합니다.</div>`; }
     else fb.innerHTML=`<b>무엇이 문제였는지 남겨 주세요</b>`+questionForm("diag");
     return; }
+  if(t.closest("[data-cafeask]")){ copyText($("#cafeText").textContent, $("#cafeToast")); track("cafe_ask", `${sel.product}|${sel.symptom}|${sel.oven}`); }
   if(t.closest("[data-copy]")) copyText($("#summary").textContent, $("#toast"), $("#summary"));
   if(t.closest("[data-copyphone]")) copyText(CONFIG.PHONE, $("#phoneToast"));
 });
