@@ -482,7 +482,7 @@ footer .logo{font-size:26px}
         <ol class="steps">
           <li><div><b>거래처 등록</b><span>사업자등록증과 기본 정보를 홈페이지에서 보내 주세요.</span></div></li>
           <li><div><b>마켓봄 앱으로 주문</b><span>등록이 끝나면 발주 프로그램 사용법을 안내해 드려요.</span></div></li>
-          <li><div><b>냉동 택배 수령</b><span>드라이아이스와 보냉박스로 얼린 상태 그대로 보내 드려요.</span></div></li>
+          <li><div><b>택배 수령</b><span>보온박스·보온재·아이스팩으로 포장해 보내 드려요.</span></div></li>
         </ol>
         <button class="btn primary" data-go="order" style="justify-self:start">거래처 등록하기</button>
       </div>
@@ -511,7 +511,7 @@ footer .logo{font-size:26px}
 
   <!-- 제품 -->
   <section data-page="catalog" hidden>
-    <div><p class="eyebrow">Catalog</p><h1 class="h-page">제품</h1><p class="lead">모든 제품은 냉동 상태로 배송돼요. 받은 즉시 -18°C 이하 냉동실에 보관해 주세요. 가격은 거래처 등록 후 마켓봄 앱에서 확인할 수 있어요.</p></div>
+    <div><p class="eyebrow">Catalog</p><h1 class="h-page">제품</h1><p class="lead">모든 제품은 냉동 상태로 출고돼요. 받은 즉시 -18°C 이하 냉동실에 보관해 주세요. 가격은 거래처 등록 후 마켓봄 앱에서 확인할 수 있어요.</p></div>
     <div class="filters" id="filters" role="group" aria-label="제품 분류"></div>
     <div class="grid" id="catalogGrid"></div>
     <div class="banner">
@@ -590,7 +590,7 @@ footer .logo{font-size:26px}
 
     <div class="panel" id="shipPanel">
       <div><p class="eyebrow">Shipping</p><h2 class="h-sec">주문 · 출고 안내</h2>
-        <p class="cap">주문하신 시간과 재고 여부에 따라 출고일이 달라져요. 냉동 택배로 보내 드려요.</p></div>
+        <p class="cap">주문하신 시간과 재고 여부에 따라 출고일이 달라져요. 택배로 보내 드려요.</p></div>
       <div class="tablebox"><table class="ship">
         <thead><tr><th>주문 시간</th><th>재고 있음</th><th>재고 없음 (주문 후 제조)</th></tr></thead>
         <tbody>
@@ -620,7 +620,7 @@ footer .logo{font-size:26px}
         <dl class="kv">
           <dt>결제</dt><dd>계좌이체, 네이버페이(예치금 충전)</dd>
           <dt>세금계산서</dt><dd>월말 일괄 발행</dd>
-          <dt>배송</dt><dd>냉동 택배 (드라이아이스 · 보냉박스)</dd>
+          <dt>배송</dt><dd>택배 (보온박스 · 보온재 · 아이스팩 포장, 드라이아이스 선택)</dd>
           <dt>샘플</dt><dd>스콘 · 르뱅쿠키 · 스모어쿠키 샘플 세트로 먼저 맛보실 수 있어요</dd>
         </dl>
         <div class="tip">주문이 어려우시면 문자나 전화 주세요.<br><span class="phone" data-phone></span></div>
@@ -990,7 +990,7 @@ function renderHome(){
     <div><b>화성 자체 공장</b><span>직접 생산 · 냉동 보관</span></div>
     <div><b>${lines.length}개 라인 · ${flavors}가지 맛</b><span>스콘 · 쿠키 · 구움과자 · 케이크</span></div>
     <div><b>제품별 굽기 가이드</b><span>매장 테스트 기준 온도·시간</span></div>
-    <div><b>냉동 택배</b><span>드라이아이스 · 보냉박스 포장</span></div>`;
+    <div><b>택배 배송</b><span>보온박스 · 보온재 · 아이스팩 포장</span></div>`;
   $("#lineup").innerHTML = lines.map(p=>`<button data-open="${p.id}">${art(p.shape, p.flavors[0])}<b>${p.name}</b><span>${p.flavors.length}가지</span></button>`).join("");
 }
 
