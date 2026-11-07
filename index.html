@@ -180,6 +180,15 @@ tr:last-child td{border-bottom:0}
 .adj td:first-child{font-weight:600;white-space:nowrap}
 .badge{font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .badge.real{border-color:var(--ok);color:var(--ok)}
+.ship td,.ship th{vertical-align:top}
+.ship td:first-child{font-weight:600;min-width:84px}
+.ship td,.ship th{word-break:keep-all}
+.ship .no{color:var(--warn);font-weight:600}
+.renew-box{background:var(--surface);color:var(--ink);border-radius:16px;padding:28px 24px;max-width:360px;width:100%;display:grid;gap:12px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.renew-box b{font-size:20px}
+.reg-done{background:var(--surface);color:var(--ink);border-radius:16px;padding:24px;max-width:460px;width:100%;max-height:calc(100vh - 32px);overflow:auto;display:grid;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.reg-done p{margin:0;line-height:1.6}
+.renew-box p{margin:0;color:var(--muted);line-height:1.6}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px}
 .kv dt{color:var(--muted)}
 .kv dd{margin:0}
@@ -437,6 +446,20 @@ footer .logo{font-size:22px;cursor:default}
       </form>
     </div>
 
+    <div class="panel" id="shipPanel">
+      <div><p class="eyebrow">SHIPPING</p><h2 class="h-sec">주문 · 출고 안내</h2>
+        <p class="cap">주문하신 시간과 재고 여부에 따라 출고일이 달라져요. 냉동 택배로 보내 드려요.</p></div>
+      <div class="tablebox"><table class="ship">
+        <thead><tr><th>주문 시간</th><th>재고 있음</th><th>재고 없음 (주문 후 제조)</th></tr></thead>
+        <tbody>
+          <tr><td>월~목<br>오후 2시 전</td><td><b>당일 출고</b></td><td>당일 제조 → <b>다음 날 출고</b></td></tr>
+          <tr><td>금요일<br>오전 11시 전</td><td><b>당일 출고</b></td><td>월요일 제조 → <b>화요일 출고</b></td></tr>
+          <tr><td>금 오전 11시 후<br>~ 일요일</td><td><b>월요일 출고</b></td><td>월요일 제조 → <b>화요일 출고</b></td></tr>
+        </tbody>
+      </table></div>
+      <div class="tip"><span class="no">주말·공휴일은 제조와 출고를 하지 않아요.</span><br>공휴일이 끼면 그다음 영업일에 제조·출고돼요. 금요일에는 제조를 하지 않으니, 재고가 없는 제품은 목요일 오후 2시 전에 주문해 주세요.</div>
+    </div>
+
     <div class="two">
       <div class="panel">
         <p class="eyebrow">STEP 2</p>
@@ -527,6 +550,9 @@ const CONFIG = {
   KAKAO_URL: "",   // 카카오톡 채널 주소 (예: https://pf.kakao.com/_xxxxx)
   /* 네이버 카페: 카페 주소와 게시판 주소를 넣으면 버튼이 연결됩니다.
      게시판 주소는 카페에서 게시판을 열고 주소창을 복사하세요. */
+  /* 리뉴얼 잠금: true 면 거래처 등록(및 출고 안내) 외 모든 버튼·링크가 "리뉴얼 중" 팝업 후 거래처 등록으로 이동. 풀 때 false */
+  RENEWAL_LOCK: true,
+  GUIDE_URL: "https://root-axolotl-cef.notion.site/28ba83e400a2803c99aee219d6109f2f",   // 마켓봄·상품 이용 안내 (노션)
   CAFE_URL: "https://cafe.naver.com/ovenlabkr",
   CAFE_BOARDS: {
     notice: "https://cafe.naver.com/f-e/cafes/31811540/menus/13",   // 공지사항
@@ -1182,8 +1208,27 @@ $("#regForm").addEventListener("submit", async e=>{
     const j = await res.json().catch(()=>({ok:false}));
     if(res.ok && j.ok){
       track("registration",{ok:true});
-      $("#regPanel").innerHTML = `<div><p class="eyebrow">STEP 1</p><h2 class="h-sec">등록 신청을 받았어요</h2></div>
-        <p class="lead">${esc(v("company"))} 담당자님, 확인 후 남겨 주신 연락처로 거래처 등록과 발주 프로그램 사용 방법을 안내해 드릴게요. 급하시면 <span data-phone></span>로 문자 주세요.</p>`;
+      const bizD=v("biz").replace(/\D/g,"");
+      const doneHtml = `<p class="eyebrow">REGISTERED</p><h2 class="h-sec">등록 신청이 접수됐어요</h2>
+        <p>안녕하세요, 주식회사 오드볼입니다.<br><b>${esc(v("company"))}</b> 거래처 등록을 진행하고 있어요.</p>
+        <div class="okbox"><b>보통 30분 안에 마켓봄 거래처 등록이 끝나요.</b><br>등록되면 담당자 휴대폰(${esc(v("phone"))})으로 마켓봄 아이디 안내 문자가 가요.</div>
+        <dl class="kv">
+          <dt>최초 아이디</dt><dd><b>${bizD}</b> (사업자번호)</dd>
+          <dt>비밀번호</dt><dd><b>${bizD.slice(-6)}</b> (사업자번호 뒷 6자리)</dd>
+          <dt>세금계산서</dt><dd>월말 일괄 발급</dd>
+        </dl>
+        <ol class="steps">
+          <li><div><b>마켓봄 앱 설치</b><span>플레이스토어·앱스토어에서 '마켓봄'을 받아 위 아이디로 로그인해 주세요.</span></div></li>
+          <li><div><b>정보 확인</b><span>로그인 후 잘못된 정보가 있으면 바로 알려 주세요.</span></div></li>
+        </ol>
+        <p class="cap">궁금하신 점은 네이버 톡톡이나 문자(<span data-phone></span>)로 주시면 답변드릴게요. 30분이 지나도 문자가 오지 않으면 연락 주세요.</p>
+        <div class="row" style="justify-content:center"><a class="btn primary" href="${esc(CONFIG.GUIDE_URL)}" target="_blank" rel="noopener">마켓봄·상품 이용 방법 보기</a><button class="btn" type="button" id="regDoneClose">닫기</button></div>
+        <p class="cap">감사합니다. 좋은 하루 보내세요!</p>`;
+      $("#regPanel").innerHTML = doneHtml.replace('<div class="row" style="justify-content:center">','<div class="row">').replace('<button class="btn" type="button" id="regDoneClose">닫기</button>','');
+      const dlg=document.createElement("div"); dlg.id="regDone"; dlg.className="modal";
+      dlg.innerHTML=`<div class="reg-done" role="dialog" aria-modal="true">${doneHtml}</div>`;
+      document.body.appendChild(dlg);
+      dlg.addEventListener("click", ev=>{ if(ev.target===dlg || ev.target.closest("#regDoneClose")) dlg.remove(); });
       fillPhones();
     } else { msg.className="err"; msg.textContent = (j && j.error) || `보내지 못했어요. 잠시 후 다시 시도하거나 ${CONFIG.PHONE}로 문자 주세요.`; btn.disabled=false; }
   }catch(err){ msg.className="err"; msg.textContent=`보내지 못했어요. 인터넷 연결을 확인하거나 ${CONFIG.PHONE}로 문자 주세요.`; btn.disabled=false; }
@@ -1265,7 +1310,29 @@ $("#faq").innerHTML = FAQ.map(([q,a])=>`<details><summary>${q}</summary><p>${a}<
 $("#contactForm").innerHTML = questionForm("general");
 setLink($("#kakaoLink"), CONFIG.KAKAO_URL);
 fillPhones(); renderHome(); renderCatalog(); renderBake(); renderStage(); renderCommunity();
-go(location.hash.slice(1)||"home", false);
+go(CONFIG.RENEWAL_LOCK ? "order" : (location.hash.slice(1)||"home"), false);
+
+/* 리뉴얼 잠금 (CONFIG.RENEWAL_LOCK) */
+if(CONFIG.RENEWAL_LOCK){
+  const ALLOW = "#regPanel, #shipPanel, #renewPop, #regDone";
+  const CLICKABLE = "a, button, input, select, textarea, label, summary, [data-go], [data-open], [data-bake], [role=button], [tabindex]";
+  const toReg = () => { if(current!=="order") go("order"); setTimeout(()=>{ try{ $("#regPanel").scrollIntoView({behavior:"smooth", block:"start"}); }catch(e){} }, 60); };
+  const pop = document.createElement("div");
+  pop.id="renewPop"; pop.className="modal"; pop.hidden=true;
+  pop.innerHTML = `<div class="renew-box" role="alertdialog" aria-labelledby="renewT"><b id="renewT">홈페이지 리뉴얼 중입니다</b><p>지금은 거래처 등록만 이용하실 수 있어요.<br>잠시 후 거래처 등록으로 이동합니다.</p><button class="btn primary" type="button" id="renewGo">거래처 등록으로 돌아가기</button></div>`;
+  document.body.appendChild(pop);
+  let timer;
+  const close = () => { clearTimeout(timer); pop.hidden=true; toReg(); };
+  const show = () => { pop.hidden=false; clearTimeout(timer); timer=setTimeout(close, 1800); };
+  document.addEventListener("click", e=>{
+    const t=e.target;
+    if(t.closest("#renewPop")){ if(t.closest("#renewGo") || t===pop) { e.preventDefault(); close(); } return; }
+    if(t.closest(ALLOW)) return;
+    if(!t.closest(CLICKABLE)) return;
+    e.preventDefault(); e.stopPropagation(); show();
+  }, true);
+  window.addEventListener("hashchange", ()=>{ if(location.hash.slice(1)!=="order") toReg(); });
+}
 </script>
 </body>
 </html>
