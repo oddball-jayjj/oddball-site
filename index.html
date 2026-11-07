@@ -7,12 +7,13 @@
 <meta property="og:title" content="오드볼 디저트 · 냉동생지">
 <meta property="og:description" content="냉동실에서 꺼내 오븐에 넣기만 하세요. 카페·베이커리 납품, OEM, 제품별 굽기 가이드.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#F4C342">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23F4C342'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' font-family='sans-serif' font-weight='700' fill='%23352600'%3Eo%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#F6F3EE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231C1915'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' font-family='sans-serif' font-weight='700' fill='%23F6F3EE'%3Eo%3C/text%3E%3C/svg%3E">
 <title>오드볼 디저트</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 /* Layout: sticky tab bar over one column; each tab is a page section. The oven readout (dark panel, amber digits) is the signature element. */
 :root{
@@ -282,6 +283,147 @@ footer .logo{font-size:22px;cursor:default}
 .fnav button:hover{color:var(--ink)}
 @media (max-width:640px){footer .foot{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ===== 리디자인 2026-11 : 차분한 에디토리얼 톤 (이 블록이 위 스타일을 덮어씀) ===== */
+:root{
+  --bg:#F6F3EE; --surface:#FFFFFF; --ink:#1C1915; --muted:#6F675E; --line:#E3DDD3;
+  --butter:#1C1915; --butter-ink:#F6F3EE; --crust:#7A4A2B; --soft:#EFEAE2;
+  --dough:#E9DCC6; --dough-edge:#1C1915;
+  --ok:#2F6B45; --warn:#A44A1C; --scrim:rgba(20,17,14,.5);
+  --f-display:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-body:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-serif:"Cormorant Garamond","Times New Roman",serif;
+  --f-mono:"Pretendard Variable",Pretendard,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#151311; --surface:#1C1A17; --ink:#EEE8DF; --muted:#A79E93; --line:#2E2A25;
+  --butter:#EEE8DF; --butter-ink:#151311; --crust:#D9A57C; --soft:#24211D; --dough:#3A332B; --dough-edge:#EEE8DF}}
+:root[data-theme="dark"]{
+  --bg:#151311; --surface:#1C1A17; --ink:#EEE8DF; --muted:#A79E93; --line:#2E2A25;
+  --butter:#EEE8DF; --butter-ink:#151311; --crust:#D9A57C; --soft:#24211D; --dough:#3A332B; --dough-edge:#EEE8DF}
+
+body{font-size:16px;letter-spacing:-.01em;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-weight:650;letter-spacing:-.035em;line-height:1.18}
+.wrap{max-width:1120px;padding-inline:20px}
+main{padding-block:48px 96px}
+section[data-page]{gap:40px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+/* 상단 바 */
+.bar{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{min-height:64px}
+.logo{font-family:var(--f-serif);font-size:30px;font-weight:500;letter-spacing:-.01em;font-style:italic}
+.logo span{color:var(--crust)}
+.tab{border-radius:0;padding:8px 2px;margin-inline:9px;font-size:15px;font-weight:500;color:var(--muted)}
+.tab:hover{background:none;color:var(--ink)}
+.tab[aria-current="page"]{background:none;color:var(--ink);box-shadow:inset 0 -1.5px 0 var(--ink)}
+
+/* 공통 */
+.eyebrow{font-family:var(--f-serif);font-style:italic;font-size:17px;font-weight:500;letter-spacing:0;color:var(--crust);text-transform:none}
+.h-page{font-size:clamp(34px,5vw,48px)}
+.h-sec{font-size:24px}
+.lead{font-size:17px;line-height:1.75}
+.btn{border-radius:2px;padding:13px 22px;font-weight:600;font-size:15px;letter-spacing:-.01em;border-color:var(--ink);background:transparent;transition:background .15s,color .15s}
+.btn:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.primary:hover{filter:none;background:var(--crust);border-color:var(--crust);color:#fff}
+.btn.small{padding:9px 16px;font-size:14px}
+.panel,.card,.board,.stage,.trail,.banner,.faq details,.lineup button{border-radius:4px;border-color:var(--line);box-shadow:none}
+.panel{padding:28px}
+.tablebox{border-radius:4px}
+th{background:transparent;color:var(--muted);font-weight:600;letter-spacing:0;border-bottom:1px solid var(--ink)}
+.tip,.plain li{border-left:1px solid var(--ink)}
+.okbox{border-radius:4px;background:var(--soft)}
+
+/* 그림: 단색 선화 */
+.lineup svg *, .gal .slide svg *, .thumbs svg *, .hero-photo svg *{fill:none!important;stroke:var(--ink)!important;stroke-width:1.15px!important;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+.gal{background:var(--soft)}
+.gal .slide svg{width:38%}
+.gal .slide .fl{border-radius:0;background:transparent;color:var(--muted);font-size:12px;letter-spacing:.02em;padding:0}
+.gal .nav{box-shadow:none;border:1px solid var(--line);background:var(--surface);width:32px;height:32px}
+.gal .dots span{background:var(--ink);opacity:.2}
+.gal .dots span.on{background:var(--ink);opacity:.9}
+.thumbs button{border-radius:2px;border-width:1px}
+.thumbs button[aria-current="true"]{border-color:var(--ink)}
+
+/* 소개 히어로 */
+.hero{gap:56px;align-items:end;padding-block:24px 8px}
+.hero h1{font-size:clamp(40px,6.6vw,72px);font-weight:700;letter-spacing:-.05em;line-height:1.08}
+.hero h1 em{color:var(--ink);font-family:var(--f-serif);font-style:italic;font-weight:500;letter-spacing:-.02em}
+.hero .lead{margin-top:22px}
+.hero .cta{margin-top:30px;gap:12px}
+.hero-photo{aspect-ratio:auto;background:none;border-radius:0;overflow:visible}
+.hero-index{border-top:1px solid var(--ink)}
+.hero-index .h{display:flex;justify-content:space-between;padding:12px 0;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line)}
+.hero-index .h i{font-family:var(--f-serif);font-size:16px;color:var(--ink)}
+.hero-index ol{list-style:none;margin:0;padding:0}
+.hero-index li{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line)}
+.hero-index li span{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.hero-index li b{font-weight:600;font-size:16px}
+.hero-index li b em{font-family:var(--f-serif);font-style:italic;font-weight:500;color:var(--muted);margin-left:8px;font-size:15px}
+.hero-index li i{font-style:normal;font-size:13px;color:var(--muted)}
+.lcd{background:transparent;color:var(--ink);border-radius:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);box-shadow:none;padding:14px 0;font-family:var(--f-body)}
+.lcd .k{color:var(--muted);letter-spacing:.06em;font-size:11px}
+.lcd .v{font-size:26px;font-weight:600;text-shadow:none;letter-spacing:-.03em}
+.lcd .sub,.lcd .cut{color:var(--muted)}
+.strip{background:transparent;border:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);border-radius:0;gap:0}
+.strip>div{background:transparent;padding:20px 20px 20px 0}
+.strip>div+div{padding-left:20px;border-left:1px solid var(--line)}
+.strip b{font-family:var(--f-body);font-weight:650;font-size:17px;letter-spacing:-.02em}
+@media (max-width:760px){.strip>div:nth-child(3){padding-left:0;border-left:0}.strip>div:nth-child(n+3){border-top:1px solid var(--line)}}
+.lineup{gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.lineup button{border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:22px 8px 18px;transition:background .15s}
+.lineup button:hover{background:var(--surface)}
+.lineup svg{width:52px;height:52px}
+.lineup b{font-weight:600}
+.banner{background:transparent;border:0;border-top:1px solid var(--ink);border-radius:0;padding:28px 0 0}
+.steps li::before{background:none;border:1px solid var(--ink);color:var(--ink);font-family:var(--f-serif);font-size:16px;font-style:italic}
+
+/* 카탈로그 */
+.filters{gap:0 18px;border-bottom:1px solid var(--line)}
+.filters button,.seg button{border:0;border-radius:0;background:none;padding:10px 0;font-size:15px;color:var(--muted)}
+.filters button[aria-pressed="true"]{background:none;color:var(--ink);box-shadow:inset 0 -1.5px 0 var(--ink)}
+.seg{gap:6px}
+.seg button{border:1px solid var(--line);padding:7px 14px;border-radius:2px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{gap:28px 20px}
+.card{background:transparent;border:0;border-radius:0}
+.card .gal{border-radius:2px}
+.card .body{padding:16px 0 0;gap:8px}
+.card h3{font-size:21px;font-weight:650}
+.card h3 small{font-family:var(--f-serif);font-style:italic;font-size:15px;letter-spacing:0;font-weight:500;text-transform:capitalize}
+.chips{gap:4px 12px}
+.chip{background:none;padding:0;font-size:13px;color:var(--muted);gap:5px}
+.chip i{width:7px;height:7px;border:0}
+.card .actions .btn{padding:8px 14px;font-size:14px}
+.sheet{border-radius:4px}
+.sheet .close{box-shadow:none;border:1px solid var(--line)}
+
+/* 문제 해결 · 굽는 법 */
+.opt{border-radius:2px;background:var(--surface)}
+.opt[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.cause{border-radius:2px;background:var(--surface)}
+.cause .rank{border-radius:2px;font-family:var(--f-body);font-size:12px}
+.cause.top .rank{background:var(--ink);color:var(--bg)}
+.cause .fix{color:var(--ink)}
+.trail .cur .dot{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.count{font-family:var(--f-body);letter-spacing:.04em}
+.box{border-radius:2px}
+.cafe-ask{border:1px solid var(--ink);background:var(--surface)}
+
+/* 폼 */
+.f input:not([type=checkbox]):not([type=file]),.f textarea,.f select{border-radius:2px;background:var(--surface);padding:12px 14px}
+.f input:focus,.f textarea:focus,.f select:focus{outline:none;border-color:var(--ink)}
+.drop{border-radius:2px;background:var(--surface)}
+.posts .pk{background:var(--ink);color:var(--bg);border-radius:2px}
+.phone{font-family:var(--f-body);font-weight:600;letter-spacing:-.01em}
+.renew-box,.reg-done{border-radius:4px;box-shadow:0 24px 60px rgba(0,0,0,.18)}
+footer{padding-block:40px;border-top:1px solid var(--ink)}
+.hero h1 em{font-family:var(--f-body);font-style:normal;font-weight:300;color:var(--ink);letter-spacing:-.05em}
+section[data-page="home"] .two .panel{background:transparent;border:0;border-top:1px solid var(--ink);border-radius:0;padding:24px 0 0}
+section[data-page="home"] .two{gap:40px}
+.sheet .media .gal{border-radius:2px}
+@media (max-width:560px){.lcd{grid-template-columns:repeat(3,1fr)}.lcd .v{font-size:22px}.panel{padding:20px}.hero{gap:32px}main{padding-block:28px 72px}}
+footer .logo{font-size:26px}
 </style>
 </head>
 <body>
@@ -307,7 +449,7 @@ footer .logo{font-size:22px;cursor:default}
   <section data-page="home">
     <div class="hero">
       <div>
-        <p class="eyebrow">ODDBALL DESSERT · FROZEN DOUGH</p>
+        <p class="eyebrow">Oddball dessert — frozen dough</p>
         <h1>냉동실에서 꺼내<br><em>오븐에 넣기만</em> 하세요</h1>
         <p class="lead">오드볼 디저트는 경기도 화성 공장에서 스콘, 쿠키, 휘낭시에, 마들렌, 에그타르트, 바스크 치즈케이크 반죽을 만듭니다. 카페와 베이커리가 매장 오븐으로 바로 구울 수 있게, 굽는 법까지 함께 드려요.</p>
         <div class="cta">
@@ -335,7 +477,7 @@ footer .logo{font-size:22px;cursor:default}
 
     <div class="two">
       <div class="panel">
-        <p class="eyebrow">FOR CAFÉS &amp; BAKERIES</p>
+        <p class="eyebrow">For cafés &amp; bakeries</p>
         <h2 class="h-sec">거래는 이렇게 시작해요</h2>
         <ol class="steps">
           <li><div><b>거래처 등록</b><span>사업자등록증과 기본 정보를 홈페이지에서 보내 주세요.</span></div></li>
@@ -345,7 +487,7 @@ footer .logo{font-size:22px;cursor:default}
         <button class="btn primary" data-go="order" style="justify-self:start">거래처 등록하기</button>
       </div>
       <div class="panel">
-        <p class="eyebrow">WHY FROZEN DOUGH</p>
+        <p class="eyebrow">Why frozen dough</p>
         <h2 class="h-sec">매장에서는 굽기만</h2>
         <ul class="plain">
           <li><b>인건비와 시간 절약</b><span>반죽, 휴지, 성형 없이 해동 후 바로 굽습니다.</span></li>
@@ -369,7 +511,7 @@ footer .logo{font-size:22px;cursor:default}
 
   <!-- 제품 -->
   <section data-page="catalog" hidden>
-    <div><p class="eyebrow">CATALOG</p><h1 class="h-page">제품</h1><p class="lead">모든 제품은 냉동 상태로 배송돼요. 받은 즉시 -18°C 이하 냉동실에 보관해 주세요. 가격은 거래처 등록 후 마켓봄 앱에서 확인할 수 있어요.</p></div>
+    <div><p class="eyebrow">Catalog</p><h1 class="h-page">제품</h1><p class="lead">모든 제품은 냉동 상태로 배송돼요. 받은 즉시 -18°C 이하 냉동실에 보관해 주세요. 가격은 거래처 등록 후 마켓봄 앱에서 확인할 수 있어요.</p></div>
     <div class="filters" id="filters" role="group" aria-label="제품 분류"></div>
     <div class="grid" id="catalogGrid"></div>
     <div class="banner">
@@ -380,7 +522,7 @@ footer .logo{font-size:22px;cursor:default}
 
   <!-- 굽는 법 -->
   <section data-page="bake" hidden>
-    <div><p class="eyebrow">HOW TO BAKE</p><h1 class="h-page">굽는 법</h1><p class="lead">오드볼 매장 테스트 기준(우녹스 컨벡션오븐)이에요. 오븐마다 화력이 달라서 첫 판은 상태를 보며 조절해 주세요.</p></div>
+    <div><p class="eyebrow">How to bake</p><h1 class="h-page">굽는 법</h1><p class="lead">오드볼 매장 테스트 기준(우녹스 컨벡션오븐)이에요. 오븐마다 화력이 달라서 첫 판은 상태를 보며 조절해 주세요.</p></div>
     <div class="panel">
       <div class="picker"><div class="label">제품</div><div class="seg" id="bakeProduct"></div></div>
       <div class="lcd" id="bakeLcd"></div>
@@ -401,7 +543,7 @@ footer .logo{font-size:22px;cursor:default}
 
   <!-- 문제 해결 -->
   <section data-page="help" hidden>
-    <div><p class="eyebrow">TROUBLESHOOTING</p><h1 class="h-page">문제 해결</h1><p class="lead">구울 때 했던 그대로 골라 주세요. 마지막에 원인과 해결 방법이 나와요.</p></div>
+    <div><p class="eyebrow">Troubleshooting</p><h1 class="h-page">문제 해결</h1><p class="lead">구울 때 했던 그대로 골라 주세요. 마지막에 원인과 해결 방법이 나와요.</p></div>
     <div class="diag">
       <div class="trail" id="trail"></div>
       <div class="stage" id="stage" aria-live="polite"></div>
@@ -410,10 +552,10 @@ footer .logo{font-size:22px;cursor:default}
 
   <!-- 거래·주문 -->
   <section data-page="order" hidden>
-    <div><p class="eyebrow">WHOLESALE</p><h1 class="h-page">거래·주문</h1><p class="lead">처음 거래하시는 매장은 거래처 등록부터 해 주세요. 등록이 끝나면 발주 프로그램(마켓봄) 사용 방법을 안내해 드려요.</p></div>
+    <div><p class="eyebrow">Wholesale</p><h1 class="h-page">거래·주문</h1><p class="lead">처음 거래하시는 매장은 거래처 등록부터 해 주세요. 등록이 끝나면 발주 프로그램(마켓봄) 사용 방법을 안내해 드려요.</p></div>
 
     <div class="panel" id="regPanel">
-      <div><p class="eyebrow">STEP 1</p><h2 class="h-sec">신규 거래처 등록</h2></div>
+      <div><p class="eyebrow">Step one</p><h2 class="h-sec">신규 거래처 등록</h2></div>
       <form class="f" id="regForm" novalidate>
         <div class="fld">
           <label for="reg-cert">사업자등록증 <span class="req">*</span></label>
@@ -447,7 +589,7 @@ footer .logo{font-size:22px;cursor:default}
     </div>
 
     <div class="panel" id="shipPanel">
-      <div><p class="eyebrow">SHIPPING</p><h2 class="h-sec">주문 · 출고 안내</h2>
+      <div><p class="eyebrow">Shipping</p><h2 class="h-sec">주문 · 출고 안내</h2>
         <p class="cap">주문하신 시간과 재고 여부에 따라 출고일이 달라져요. 냉동 택배로 보내 드려요.</p></div>
       <div class="tablebox"><table class="ship">
         <thead><tr><th>주문 시간</th><th>재고 있음</th><th>재고 없음 (주문 후 제조)</th></tr></thead>
@@ -462,7 +604,7 @@ footer .logo{font-size:22px;cursor:default}
 
     <div class="two">
       <div class="panel">
-        <p class="eyebrow">STEP 2</p>
+        <p class="eyebrow">Step two</p>
         <h2 class="h-sec">마켓봄으로 주문하기</h2>
         <ol class="steps">
           <li><div><b>마켓봄 앱 설치</b><span>플레이스토어나 앱스토어에서 '마켓봄'을 받아 로그인해 주세요.</span></div></li>
@@ -473,7 +615,7 @@ footer .logo{font-size:22px;cursor:default}
         </ol>
       </div>
       <div class="panel">
-        <p class="eyebrow">PAYMENT</p>
+        <p class="eyebrow">Payment</p>
         <h2 class="h-sec">결제와 배송</h2>
         <dl class="kv">
           <dt>결제</dt><dd>계좌이체, 네이버페이(예치금 충전)</dd>
@@ -489,7 +631,7 @@ footer .logo{font-size:22px;cursor:default}
   <!-- 커뮤니티 -->
   <section data-page="community" hidden>
     <div class="row" style="justify-content:space-between;align-items:end;gap:16px">
-      <div><p class="eyebrow">COMMUNITY · NAVER CAFE</p><h1 class="h-page">오븐 연구소</h1><p class="lead">오븐별 굽기 기록, 베이킹 실패 원인, 레시피를 함께 모으는 네이버 카페예요. 글을 누르면 카페로 이동해요.</p></div>
+      <div><p class="eyebrow">Community — Naver cafe</p><h1 class="h-page">오븐 연구소</h1><p class="lead">오븐별 굽기 기록, 베이킹 실패 원인, 레시피를 함께 모으는 네이버 카페예요. 글을 누르면 카페로 이동해요.</p></div>
       <a class="btn primary" id="cafeLink" target="_blank" rel="noopener">카페 바로가기</a>
     </div>
     <div class="grid" id="boardGrid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))"></div>
@@ -498,7 +640,7 @@ footer .logo{font-size:22px;cursor:default}
 
   <!-- 문의 -->
   <section data-page="contact" hidden>
-    <div><p class="eyebrow">CONTACT</p><h1 class="h-page">문의</h1><p class="lead">자주 묻는 질문을 먼저 확인해 주세요. 주문제작, 납품, 재료 대량 구매는 문자나 전화가 가장 빨라요.</p></div>
+    <div><p class="eyebrow">Contact</p><h1 class="h-page">문의</h1><p class="lead">자주 묻는 질문을 먼저 확인해 주세요. 주문제작, 납품, 재료 대량 구매는 문자나 전화가 가장 빨라요.</p></div>
     <div class="two">
       <div class="panel">
         <h2 class="h-sec">문자 · 전화</h2>
@@ -841,7 +983,7 @@ document.addEventListener("touchend", e=>{ const g=e.target.closest(".gal"); if(
    ===================================================================== */
 function renderHome(){
   $("#heroPhoto").innerHTML = HERO_PHOTO ? `<img src="${HERO_PHOTO}" alt="오드볼 디저트 제품">`
-    : `<div class="art">${[["scone","플레인"],["cookie","초코"],["financier","플레인"],["madeleine","레몬"],["eggtart","필링"],["smore","말차"],["basque","플레인"],["biscotti","피스타치오"],["cake","쇼콜라"]].map(([sh,f])=>art(sh,f)).join("")}</div>`;
+    : `<div class="hero-index"><div class="h"><span>제품 라인업</span><i>Index</i></div><ol>${CATALOG.filter(p=>p.g!=="material"&&p.g!=="etc").slice(0,8).map((p,i)=>`<li><span>${String(i+1).padStart(2,"0")}</span><b>${p.name}<em>${p.en.toLowerCase()}</em></b><i>${p.flavors.length}가지 맛</i></li>`).join("")}</ol></div>`;
   const lines = CATALOG.filter(p=>p.g!=="material" && p.g!=="etc");
   const flavors = lines.reduce((n,p)=>n+p.flavors.length,0);
   $("#strip").innerHTML = `
@@ -1209,7 +1351,7 @@ $("#regForm").addEventListener("submit", async e=>{
     if(res.ok && j.ok){
       track("registration",{ok:true});
       const bizD=v("biz").replace(/\D/g,"");
-      const doneHtml = `<p class="eyebrow">REGISTERED</p><h2 class="h-sec">등록 신청이 접수됐어요</h2>
+      const doneHtml = `<p class="eyebrow">Registered</p><h2 class="h-sec">등록 신청이 접수됐어요</h2>
         <p>안녕하세요, 주식회사 오드볼입니다.<br><b>${esc(v("company"))}</b> 거래처 등록을 진행하고 있어요.</p>
         <div class="okbox"><b>보통 30분 안에 마켓봄 거래처 등록이 끝나요.</b><br>등록되면 담당자 휴대폰(${esc(v("phone"))})으로 마켓봄 아이디 안내 문자가 가요.</div>
         <dl class="kv">
