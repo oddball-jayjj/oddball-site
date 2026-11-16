@@ -561,6 +561,19 @@ footer .logo{font-size:26px}
     <div><p class="eyebrow">Catalog</p><h1 class="h-page">제품</h1><p class="lead">모든 제품은 냉동 상태로 출고돼요. 받은 즉시 -18°C 이하 냉동실에 보관해 주세요. 가격은 거래처 등록 후 마켓봄 앱에서 확인할 수 있어요.</p></div>
     <div class="filters" id="filters" role="group" aria-label="제품 분류"></div>
     <div class="grid" id="catalogGrid"></div>
+    <div class="panel" id="labelPanel">
+      <div><p class="eyebrow">Nutrition facts</p><h2 class="h-sec">영양정보 · 표시사항</h2>
+        <p class="cap">제품별 원재료명, 알레르기 유발물질, 100g당 영양정보를 확인하세요. 오드볼 생산 시스템의 최신 배합 기준으로 자동 계산돼요.</p></div>
+      <div class="lbl-tools">
+        <div class="lbl-grp" id="lblGrp" role="toolbar" aria-label="제품군"></div>
+        <input id="lblSearch" type="search" placeholder="제품 이름으로 찾기 (예: 휘낭시에 초코)" autocomplete="off">
+      </div>
+      <div class="lbl-wrap">
+        <div class="lbl-list" id="lblList" role="listbox" aria-label="제품 목록"><div class="lbl-empty">불러오는 중…</div></div>
+        <div id="lblView"><div class="lbl-empty">불러오는 중…</div></div>
+      </div>
+    </div>
+
     <div class="banner">
       <div><h2 class="h-sec">찾는 제품이 없나요?</h2><p>쓰시던 반죽의 OEM 주문제작과 기성품 추가 의뢰도 상담해 드려요.</p></div>
       <button class="btn" data-go="contact">주문제작 문의</button>
@@ -604,7 +617,7 @@ footer .logo{font-size:26px}
       <button type="button" data-jump="regPanel">거래처 등록</button>
       <button type="button" data-jump="shipPanel">출고 안내</button>
       <button type="button" data-jump="guidePanel">마켓봄 사용법</button>
-      <button type="button" data-jump="labelPanel">영양정보 · 표시사항</button>
+      <button type="button" data-jump="labelPanel" data-jump-page="catalog">영양정보 · 표시사항</button>
     </nav>
 
     <div class="panel" id="regPanel">
@@ -679,19 +692,6 @@ footer .logo{font-size:26px}
         </ol></div>
       </div>
       <div class="row"><a class="btn" id="guideNotion" target="_blank" rel="noopener">사진으로 자세히 보기 (노션)</a><span class="cap">어려우시면 문자·전화 주세요 · <span data-phone></span></span></div>
-    </div>
-
-    <div class="panel" id="labelPanel">
-      <div><p class="eyebrow">Labels</p><h2 class="h-sec">영양정보 · 표시사항</h2>
-        <p class="cap">제품별 원재료명, 알레르기 유발물질, 100g당 영양정보를 확인하세요. 오드볼 생산 시스템의 최신 배합 기준으로 자동 계산돼요.</p></div>
-      <div class="lbl-tools">
-        <div class="lbl-grp" id="lblGrp" role="toolbar" aria-label="제품군"></div>
-        <input id="lblSearch" type="search" placeholder="제품 이름으로 찾기 (예: 휘낭시에 초코)" autocomplete="off">
-      </div>
-      <div class="lbl-wrap">
-        <div class="lbl-list" id="lblList" role="listbox" aria-label="제품 목록"><div class="lbl-empty">불러오는 중…</div></div>
-        <div id="lblView"><div class="lbl-empty">불러오는 중…</div></div>
-      </div>
     </div>
 
     <div class="panel" id="payPanel">
@@ -1534,7 +1534,7 @@ setLink($("#kakaoLink"), CONFIG.KAKAO_URL);
 fillPhones(); renderHome(); renderCatalog(); renderBake(); renderStage(); renderCommunity();
 
 /* 바로가기 · 마켓봄 사용법 · 영양정보 라벨 (이알피 실시간) */
-document.addEventListener("click", e=>{ const b=e.target.closest("[data-jump]"); if(!b) return; e.preventDefault(); const el=document.getElementById(b.dataset.jump); if(el) el.scrollIntoView({behavior:"smooth", block:"start"}); });
+document.addEventListener("click", e=>{ const b=e.target.closest("[data-jump]"); if(!b) return; e.preventDefault(); const pg=b.dataset.jumpPage||"order"; if(current!==pg) go(pg); setTimeout(()=>{ const el=document.getElementById(b.dataset.jump); if(el) el.scrollIntoView({behavior:"smooth", block:"start"}); }, 60); });
 { const a=$("#guideNotion"); if(a) a.href=CONFIG.GUIDE_URL; }
 const LBL = { data:null, grp:"전체", q:"", sel:null };
 function lblItems(){
@@ -1590,12 +1590,12 @@ go(CONFIG.RENEWAL_LOCK ? "order" : (location.hash.slice(1)||"home"), false);
 
 /* 리뉴얼 잠금 (CONFIG.RENEWAL_LOCK) */
 if(CONFIG.RENEWAL_LOCK){
-  const ALLOW = "#regPanel, #shipPanel, #guidePanel, #labelPanel, #payPanel, #orderJump, #renewPop, #regDone";
+  const ALLOW = "#regPanel, #shipPanel, #guidePanel, #labelPanel, #payPanel, #orderJump, #renewPop, #regDone, .tab[data-go=\"catalog\"], .tab[data-go=\"order\"]";
   const CLICKABLE = "a, button, input, select, textarea, label, summary, [data-go], [data-open], [data-bake], [role=button], [tabindex]";
   const toReg = () => { if(current!=="order") go("order"); setTimeout(()=>{ try{ $("#regPanel").scrollIntoView({behavior:"smooth", block:"start"}); }catch(e){} }, 60); };
   const pop = document.createElement("div");
   pop.id="renewPop"; pop.className="modal"; pop.hidden=true;
-  pop.innerHTML = `<div class="renew-box" role="alertdialog" aria-labelledby="renewT"><b id="renewT">홈페이지 리뉴얼 중입니다</b><p>지금은 거래처 등록 · 마켓봄 사용법 · 영양정보만 이용하실 수 있어요.<br>잠시 후 거래처 등록으로 이동합니다.</p><button class="btn primary" type="button" id="renewGo">거래처 등록으로 돌아가기</button></div>`;
+  pop.innerHTML = `<div class="renew-box" role="alertdialog" aria-labelledby="renewT"><b id="renewT">홈페이지 리뉴얼 중입니다</b><p>지금은 거래처 등록 · 마켓봄 사용법 · 제품 영양정보만 이용하실 수 있어요.<br>잠시 후 거래처 등록으로 이동합니다.</p><button class="btn primary" type="button" id="renewGo">거래처 등록으로 돌아가기</button></div>`;
   document.body.appendChild(pop);
   let timer;
   const close = () => { clearTimeout(timer); pop.hidden=true; toReg(); };
@@ -1607,7 +1607,7 @@ if(CONFIG.RENEWAL_LOCK){
     if(!t.closest(CLICKABLE)) return;
     e.preventDefault(); e.stopPropagation(); show();
   }, true);
-  window.addEventListener("hashchange", ()=>{ if(location.hash.slice(1)!=="order") toReg(); });
+  window.addEventListener("hashchange", ()=>{ const h=location.hash.slice(1); if(h==="catalog"){ if(current!=="catalog") go("catalog", false); return; } if(h!=="order") toReg(); });
 }
 </script>
 </body>
