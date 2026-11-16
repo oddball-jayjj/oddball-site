@@ -31,7 +31,7 @@ h2{font-size:18px;margin:0 0 10px}
 .grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
 .side{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;align-items:start}
 @media(max-width:860px){.grid2,.side{grid-template-columns:1fr}}
-.btn{border:1px solid var(--ink);background:transparent;color:var(--ink);font:inherit;font-size:14px;font-weight:600;padding:9px 14px;cursor:pointer;border-radius:2px}
+.btn{border:1px solid var(--ink);background:transparent;color:var(--ink);font:inherit;font-size:14px;font-weight:600;padding:9px 14px;cursor:pointer;border-radius:2px;text-decoration:none;display:inline-block}
 .btn.p{background:var(--ink);color:var(--bg)}
 .btn.s{padding:5px 9px;font-size:13px;font-weight:500;border-color:var(--line)}
 .btn.x{border-color:transparent;color:var(--warn)}
@@ -88,7 +88,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 </head>
 <body>
 <header class="bar"><div class="wrap">
-  <a class="logo" href="./#resources">oddball.</a>
+  <a class="logo" href="./">oddball.</a>
   <nav id="nav"></nav>
 </div></header>
 <main class="wrap">
@@ -144,8 +144,8 @@ const DV={fat:54,sodium:2000,carb:324,protein:55,sugar:100,chol:300,sat:15};
 const NUT=["열량(kcal)","지방(g)","나트륨(mg)","탄수화물(g)","단백질(g)","당류(g)","콜레스테롤(mg)","트랜스지방(g)","포화지방(g)","식이섬유(g)"];
 
 /* ===== 화면 ===== */
-const TABS=[["recipe","레시피 원가계산"],["scale","배합 계산기"],["label","표시라벨·영양정보"],["quote","견적서"],["materials","재료 관리"],["data","저장·백업"]];
-const LEADS={recipe:"재료와 사용량만 넣으면 1개당 원가와 마진 기준 판매가가 바로 나와요.",scale:"레시피를 원하는 생산량에 맞춰 재료량을 자동으로 바꿔 드려요.",label:"재료별 영양정보만 넣어 두면 레시피로 100g당 영양정보·원재료명·알레르기를 계산해 라벨로 인쇄해요.",quote:"품목과 단가를 넣으면 공급가·부가세가 자동 계산된 견적서를 인쇄하거나 PDF로 저장해요.",materials:"자주 쓰는 재료의 구매 단가와 영양정보를 등록해 두세요. 모든 도구가 이 재료를 같이 써요.",data:"모든 데이터는 이 컴퓨터의 브라우저에만 저장돼요. 다른 컴퓨터로 옮기거나 지켜 두려면 백업 파일을 받아 두세요."};
+const TABS=[["recipe","레시피 원가계산"],["scale","배합 계산기"],["label","표시라벨·영양정보"],["quote","견적서"],["orders","주문 엑셀"],["materials","재료 관리"],["data","저장·백업"]];
+const LEADS={recipe:"재료와 사용량만 넣으면 1개당 원가와 마진 기준 판매가가 바로 나와요.",scale:"레시피를 원하는 생산량에 맞춰 재료량을 자동으로 바꿔 드려요.",label:"재료별 영양정보만 넣어 두면 레시피로 100g당 영양정보·원재료명·알레르기를 계산해 라벨로 인쇄해요.",quote:"품목과 단가를 넣으면 공급가·부가세가 자동 계산된 견적서를 인쇄하거나 PDF로 저장해요.",orders:"스마트스토어 주문 엑셀을 붙여넣기만 하면 오늘 만들 양·포장 목록·롯데택배 접수·발송처리 파일이 자동으로 만들어지는 엑셀이에요.",materials:"자주 쓰는 재료의 구매 단가와 영양정보를 등록해 두세요. 모든 도구가 이 재료를 같이 써요.",data:"모든 데이터는 이 컴퓨터의 브라우저에만 저장돼요. 다른 컴퓨터로 옮기거나 지켜 두려면 백업 파일을 받아 두세요."};
 let tab=(location.hash.slice(1)||"recipe");if(!TABS.some(t=>t[0]===tab))tab="recipe";
 const sel={recipe:null,scale:null,label:null,quote:null,materials:null};
 function nav(){ $("#nav").innerHTML=TABS.map(([k,t])=>`<button data-tab="${k}" ${k===tab?'aria-current="page"':""}>${t}</button>`).join("");}
@@ -155,6 +155,7 @@ recipe:[["재료부터 등록","'재료 관리' 탭에서 재료 이름·단위�
 scale:[["레시피 고르기","원가계산에서 만든 레시피를 골라요."],["기준 정하기","'개수 × 1개 무게'(예: 40개 × 45g), '총 반죽량'(예: 5,000g), '배수'(예: 2.5배) 중 편한 걸 골라요."],["필요량 확인","재료별 필요량·비율(%)·재료비가 바로 바뀌어요. 비율은 반죽 전체에서 그 재료가 차지하는 무게 비율이에요."],["작업지시서 인쇄","'작업지시서 인쇄'를 누르면 표만 깔끔하게 인쇄돼요. 굽기 손실이 있으면 개수를 조금 넉넉히 잡으세요."]],
 label:[["재료 영양정보 넣기","'재료 관리'에서 재료마다 100g당 영양정보 10칸을 제품 포장지 표대로 옮겨 적어요. 알레르기·원산지·라벨 표기명도 넣을 수 있어요."],["업소 정보 넣기","'저장·백업' 탭에서 업소명·소재지·연락처·식품유형·보관방법·소비기한을 한 번만 넣어요."],["레시피 고르기","라벨 탭에서 레시피를 고르면 100g당 영양정보, 많이 들어간 순서의 원재료명, 알레르기가 자동으로 채워져요."],["내용량·제조일자","내용량은 레시피 1개 무게로 자동 입력되고, 바꿀 수 있어요. 제조일자는 '별도표기일까지'나 날짜를 적어요."],["인쇄","인쇄 매수를 넣고 '라벨 인쇄'. 100×80mm 라벨지 기준이에요. 영양정보가 빠진 재료가 있으면 빨간 글씨로 알려 드려요. 표시 의무 사항은 최종으로 꼭 확인해 주세요."]],
 quote:[["업소 정보 확인","'저장·백업'에 상호·대표자·사업자번호·주소·연락처를 넣어 두면 견적서 오른쪽 위에 자동으로 들어가요."],["새 견적서","'+ 새 견적서' → 거래처·견적일·유효기간, 단가가 부가세 별도인지 포함인지 골라요."],["품목 넣기","품목·규격·수량·단가를 넣어요. 품목 이름을 레시피 이름과 같게 쓰고 '레시피 권장가로 단가 채우기'를 누르면 원가계산 권장가가 들어가요."],["인쇄 / PDF","'인쇄 / PDF 저장' → 인쇄 창에서 대상을 'PDF로 저장'으로 바꾸면 파일로 보낼 수 있어요. '복사'로 비슷한 견적을 빠르게 만들어요."]],
+orders:[["엑셀 받기","아래 '엑셀 파일 받기'로 내려받아요. 처음 한 번만 '고정정보입력' 시트에서 택배사·품목명·운임을 바꿔요."],["옵션 관리코드","스마트스토어 › 상품 수정 › 옵션 › 관리코드에 제품명,맛,중량,수량 형식으로 넣어요. (예: 르뱅,플레인,85,6)"],["주문 붙여넣기","스마트스토어 주문 조회에서 엑셀을 받아 '스마트스토어 정보 복붙' 시트 A2에 붙여넣어요. 다운로드 전 조회 항목은 초기화해 주세요."],["생산·포장","'제품생산용' 시트에서 종류별 총량을 보고 생산, '택배포장용'으로 포장 전 검토해요."],["송장·발송","'롯데택배 타입A' 시트를 일괄접수에 올리고, 송장번호를 '발송처리' 시트에 넣어 스토어 일괄 발송해요. 빨간 칸은 합포장이니 한 줄만 남겨요."]],
 materials:[["단가 넣는 법","구매한 그대로 적어요. 가격 ÷ 수량으로 1kg(1개)당 단가가 계산돼요. 레시피에는 g으로 넣으면 자동 환산돼요."],["개 단위 재료","티백·달걀처럼 개수로 쓰는 재료는 단위 '개'로 두고 1개 무게(g)를 적으면 라벨 계산에 반영돼요."],["영양정보","100g 기준 10칸. 포장지 표가 1회 제공량 기준이면 100g으로 환산해 적어요."]],
 data:[["자동 저장","입력하는 순간 이 컴퓨터 브라우저에 저장돼요. 서버로 보내지 않아요."],["백업","'백업 파일 받기'로 .json 파일을 받아 두세요. 다른 컴퓨터에서는 '백업 파일 불러오기'로 그대로 옮겨져요."],["주의","브라우저의 사이트 데이터를 지우거나 시크릿 창에서 쓰면 저장이 남지 않아요."]]};
 const guideOpen=(()=>{try{return JSON.parse(localStorage.getItem(KEY+"-guide"))||{};}catch(e){return {};}})();
@@ -271,6 +272,12 @@ function quoteEditor(q){const t=quoteTotals(q);const C=D.company;
  <div class="row" style="margin-top:10px"><button class="btn s" data-act="addQi">+ 품목 추가</button><button class="btn s" data-act="fillPrice">레시피 권장가로 단가 채우기</button></div>
  <label class="f" style="margin-top:12px">비고<textarea data-q="notes" rows="3">${esc(q.notes)}</textarea></label></div>
  ${doc}<div class="row noprint" style="margin-top:12px"><button class="btn p" onclick="print()">인쇄 / PDF 저장</button><button class="btn" data-act="dupQ">복사</button><button class="btn x" data-act="delQ">삭제</button></div>`;}
+/* --- 주문 엑셀 --- */
+V.orders=()=>`<div class="grid2"><div class="panel" style="border-color:var(--ink)"><span class="tag">무료 · 회원가입 없음</span><h2 style="margin-top:10px">스마트스토어 생산계획 · 택배 자동화 엑셀</h2><p class="note">.xlsx · 71KB · 시트 7개</p><div class="row"><a class="btn p" href="https://gtmpahrfruujzwaddulf.supabase.co/storage/v1/object/public/public-files/smartstore-production-plan.xlsx?download=%EC%98%A4%EB%93%9C%EB%B3%BC_%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%8A%A4%ED%86%A0%EC%96%B4_%EC%83%9D%EC%82%B0%EA%B3%84%ED%9A%8D_%ED%83%9D%EB%B0%B0%EC%9E%90%EB%8F%99%ED%99%94.xlsx">엑셀 파일 받기</a><a class="btn" href="https://blog.naver.com/odb_dessert/223710461172" target="_blank" rel="noopener">블로그에서 사진으로 보기</a></div></div>
+ <div class="panel"><h2>옵션 관리코드 예시</h2><p class="note" style="margin:0 0 8px">제품명,맛,중량(g),수량 — 쉼표만, 띄어쓰기 없이</p><table><tr><td>바스크치즈케이크,플레인,700,1</td></tr><tr><td>르뱅,초코,85,6</td></tr><tr><td>기저귀,이쁜기저귀,블랙,1 <span class="tag">일반 상품</span></td></tr></table></div></div>
+ <div class="panel"><h2>시트 구성</h2><div class="tbl"><table><thead><tr><th>시트</th><th>하는 일</th><th>내가 할 일</th></tr></thead><tbody>
+ ${[["스마트스토어 정보 복붙","주문 원본 데이터","매일 붙여넣기"],["주문리스트","관리코드를 종류·맛·용량·수량으로 분리","확인만 (삭제 금지)"],["제품생산용","종류·맛·용량별 총수량·총량(g)","생산 기준표"],["택배포장용","받는 분별 품목·수량·금액","포장 전 검토"],["롯데택배 타입A","일괄 주문접수 파일","합포장 정리 후 업로드"],["발송처리","상품주문번호별 송장번호","송장 넣고 일괄 발송"],["고정정보입력","택배사·품목명·운임·배송메시지","처음 한 번"]].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td><span class="tag">${r[2]}</span></td></tr>`).join("")}
+ </tbody></table></div><p class="note">다른 택배사 양식이 필요하면 문의로 보내 주세요.</p></div>`;
 /* --- 저장·백업 --- */
 V.data=()=>{const C=D.company;const size=new Blob([JSON.stringify(D)]).size;
  return `<div class="grid2"><div class="panel"><h2>내 데이터</h2><p class="note">재료 ${D.materials.length}개 · 레시피 ${D.recipes.length}개 · 견적서 ${D.quotes.length}개 · ${fmt(size/1024)}KB</p>
