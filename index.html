@@ -424,6 +424,53 @@ section[data-page="home"] .two{gap:40px}
 .sheet .media .gal{border-radius:2px}
 @media (max-width:560px){.lcd{grid-template-columns:repeat(3,1fr)}.lcd .v{font-size:22px}.panel{padding:20px}.hero{gap:32px}main{padding-block:28px 72px}}
 footer .logo{font-size:26px}
+
+/* ===== 마켓봄 사용법 · 영양정보 라벨 (2026-11-16) ===== */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin-top:-4px}
+.jump button{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:2px}
+.jump button:hover{border-color:var(--ink)}
+.guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.guide-grid h3{margin:0 0 12px;font-size:15px;font-weight:700;padding-bottom:8px;border-bottom:1px solid var(--ink)}
+.guide-grid .steps{gap:10px}
+.guide-grid .steps span{font-size:14px}
+.guide-start{counter-reset:s 0}
+.guide-mid{counter-reset:s 4}
+.guide-end{counter-reset:s 8}
+@media (max-width:820px){.guide-grid{grid-template-columns:1fr}}
+.lbl-tools{display:grid;gap:10px}
+.lbl-grp{display:flex;flex-wrap:wrap;gap:6px}
+.lbl-grp button{border:1px solid var(--line);background:transparent;color:var(--muted);padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;border-radius:999px}
+.lbl-grp button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.lbl-wrap{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:820px){.lbl-wrap{grid-template-columns:1fr}}
+.lbl-list{display:grid;gap:2px;max-height:520px;overflow:auto;border:1px solid var(--line);padding:6px}
+.lbl-list button{text-align:left;border:0;background:transparent;color:var(--ink);font:inherit;font-size:14px;padding:8px 10px;cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+.lbl-list button small{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lbl-list button[aria-selected="true"]{background:var(--soft);font-weight:700}
+@media (max-width:820px){.lbl-list{max-height:220px}}
+.lbl-card{border:1.5px solid var(--ink);background:var(--surface);font-size:14px;min-width:0}
+.lbl-card h3{margin:0;padding:10px 12px;font-size:15px;border-bottom:1.5px solid var(--ink);text-align:center;letter-spacing:-.01em}
+.lbl-card table{width:100%;border-collapse:collapse;table-layout:fixed}
+.lbl-card th,.lbl-card td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;word-break:keep-all;overflow-wrap:anywhere}
+.lbl-card th{width:92px;font-weight:600;color:var(--muted);font-size:13px;background:var(--soft)}
+.lbl-card .allergy{font-weight:700}
+.nut{border-top:1.5px solid var(--ink)}
+.nut-head{display:flex;justify-content:space-between;align-items:baseline;padding:10px 12px;border-bottom:1px solid var(--ink);gap:8px;flex-wrap:wrap}
+.nut-head b{font-size:16px}
+.nut-head span{font-size:12px;color:var(--muted)}
+.nut-head .kcal{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+.nut-rows{display:grid;grid-template-columns:1fr 1fr}
+.nut-rows div{display:flex;justify-content:space-between;gap:6px;padding:7px 12px;border-bottom:1px solid var(--line);font-size:14px}
+.nut-rows div:nth-child(odd){border-right:1px solid var(--line)}
+.nut-rows .sub{padding-left:24px}
+.nut-rows em{font-style:normal;font-variant-numeric:tabular-nums}
+.nut-rows em b{margin-left:6px}
+@media (max-width:480px){.nut-rows{grid-template-columns:1fr}.nut-rows div:nth-child(odd){border-right:0}}
+.lbl-foot{font-size:12px;color:var(--muted);padding:10px 12px;line-height:1.6}
+#lblSearch{width:100%;box-sizing:border-box;padding:11px 14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:15px;border-radius:2px}
+#lblSearch:focus{outline:none;border-color:var(--ink)}
+.nut-head .kcal{color:var(--ink)}
+.lbl-empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line)}
 </style>
 </head>
 <body>
@@ -553,6 +600,12 @@ footer .logo{font-size:26px}
   <!-- 거래·주문 -->
   <section data-page="order" hidden>
     <div><p class="eyebrow">Wholesale</p><h1 class="h-page">거래·주문</h1><p class="lead">처음 거래하시는 매장은 거래처 등록부터 해 주세요. 등록이 끝나면 발주 프로그램(마켓봄) 사용 방법을 안내해 드려요.</p></div>
+    <nav class="jump" id="orderJump" aria-label="바로가기">
+      <button type="button" data-jump="regPanel">거래처 등록</button>
+      <button type="button" data-jump="shipPanel">출고 안내</button>
+      <button type="button" data-jump="guidePanel">마켓봄 사용법</button>
+      <button type="button" data-jump="labelPanel">영양정보 · 표시사항</button>
+    </nav>
 
     <div class="panel" id="regPanel">
       <div><p class="eyebrow">Step one</p><h2 class="h-sec">신규 거래처 등록</h2></div>
@@ -602,29 +655,55 @@ footer .logo{font-size:26px}
       <div class="tip"><span class="no">주말·공휴일은 제조와 출고를 하지 않아요.</span><br>공휴일이 끼면 그다음 영업일에 제조·출고돼요. 금요일에는 제조를 하지 않으니, 재고가 없는 제품은 목요일 오후 2시 전에 주문해 주세요.</div>
     </div>
 
-    <div class="two">
-      <div class="panel">
-        <p class="eyebrow">Step two</p>
-        <h2 class="h-sec">마켓봄으로 주문하기</h2>
-        <ol class="steps">
-          <li><div><b>마켓봄 앱 설치</b><span>플레이스토어나 앱스토어에서 '마켓봄'을 받아 로그인해 주세요.</span></div></li>
+    <div class="panel" id="guidePanel">
+      <div><p class="eyebrow">Step two</p><h2 class="h-sec">마켓봄으로 주문하기</h2>
+        <p class="cap">거래처 등록이 끝나면 마켓봄 앱에서 주문하세요. 아이디는 사업자번호, 비밀번호는 사업자번호 끝 6자리예요.</p></div>
+      <div class="guide-grid">
+        <div><h3>1. 설치 · 로그인</h3><ol class="steps guide-start">
+          <li><div><b>마켓봄 앱 받기</b><span>플레이스토어 또는 앱스토어에서 '마켓봄'을 설치해 주세요.</span></div></li>
+          <li><div><b>로그인</b><span>아이디 = 사업자번호, 비밀번호 = 끝 6자리.</span></div></li>
           <li><div><b>유통사 확인</b><span>유통사가 '오드볼디저트'인지 확인하고, 아니면 유통사 변경을 눌러 주세요.</span></div></li>
-          <li><div><b>택배 주문하기</b><span>카테고리에서 원하는 품목과 수량을 담고 주문하기를 눌러 주세요.</span></div></li>
-          <li><div><b>예치금으로 결제</b><span>결제 수단에서 예치금을 고르고, 주문 금액만큼 예치금을 충전해 주세요.</span></div></li>
-          <li><div><b>입금 후 주문 계속하기</b><span>안내받은 계좌로 입금한 뒤 주문 계속하기를 누르고, 목록을 확인해 다시 결제하면 끝이에요.</span></div></li>
-        </ol>
+          <li><div><b>택배주문하기</b><span>첫 화면에서 택배주문하기를 눌러 주세요.</span></div></li>
+        </ol></div>
+        <div><h3>2. 담기 · 주문</h3><ol class="steps guide-mid">
+          <li><div><b>카테고리 선택</b><span>원하는 카테고리를 골라 주세요.</span></div></li>
+          <li><div><b>품목·수량 담기</b><span>품목과 수량을 담은 뒤 주문하기를 눌러 주세요.</span></div></li>
+          <li><div><b>확인</b><span>주문 내용을 보고 확인을 눌러 주세요.</span></div></li>
+          <li><div><b>예치금 선택</b><span>결제 수단에서 예치금을 고르고 주문하기를 눌러 주세요.</span></div></li>
+        </ol></div>
+        <div><h3>3. 충전 · 결제</h3><ol class="steps guide-end">
+          <li><div><b>예치금 충전하기</b><span>충전 금액(주문 금액)을 넣고 결제하기를 눌러 주세요.</span></div></li>
+          <li><div><b>결제 방식 선택</b><span>계좌이체 또는 네이버페이를 고르고 결제해 주세요.</span></div></li>
+          <li><div><b>입금 후 주문 계속하기</b><span>안내받은 계좌로 입금한 뒤 주문 계속하기를 눌러 주세요.</span></div></li>
+          <li><div><b>다시 결제하기</b><span>목록을 확인하고 다시 결제하기를 누르면 주문 끝이에요.</span></div></li>
+        </ol></div>
       </div>
-      <div class="panel">
-        <p class="eyebrow">Payment</p>
-        <h2 class="h-sec">결제와 배송</h2>
-        <dl class="kv">
-          <dt>결제</dt><dd>계좌이체, 네이버페이(예치금 충전)</dd>
-          <dt>세금계산서</dt><dd>월말 일괄 발행</dd>
-          <dt>배송</dt><dd>택배 (보온박스 · 보온재 · 아이스팩 포장, 드라이아이스 선택)</dd>
-          <dt>샘플</dt><dd>스콘 · 르뱅쿠키 · 스모어쿠키 샘플 세트(유료)로 먼저 맛보실 수 있어요</dd>
-        </dl>
-        <div class="tip">주문이 어려우시면 문자나 전화 주세요.<br><span class="phone" data-phone></span></div>
+      <div class="row"><a class="btn" id="guideNotion" target="_blank" rel="noopener">사진으로 자세히 보기 (노션)</a><span class="cap">어려우시면 문자·전화 주세요 · <span data-phone></span></span></div>
+    </div>
+
+    <div class="panel" id="labelPanel">
+      <div><p class="eyebrow">Labels</p><h2 class="h-sec">영양정보 · 표시사항</h2>
+        <p class="cap">제품별 원재료명, 알레르기 유발물질, 100g당 영양정보를 확인하세요. 오드볼 생산 시스템의 최신 배합 기준으로 자동 계산돼요.</p></div>
+      <div class="lbl-tools">
+        <div class="lbl-grp" id="lblGrp" role="toolbar" aria-label="제품군"></div>
+        <input id="lblSearch" type="search" placeholder="제품 이름으로 찾기 (예: 휘낭시에 초코)" autocomplete="off">
       </div>
+      <div class="lbl-wrap">
+        <div class="lbl-list" id="lblList" role="listbox" aria-label="제품 목록"><div class="lbl-empty">불러오는 중…</div></div>
+        <div id="lblView"><div class="lbl-empty">불러오는 중…</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="payPanel">
+      <p class="eyebrow">Payment</p>
+      <h2 class="h-sec">결제와 배송</h2>
+      <dl class="kv">
+        <dt>결제</dt><dd>계좌이체, 네이버페이(예치금 충전)</dd>
+        <dt>세금계산서</dt><dd>월말 일괄 발행</dd>
+        <dt>배송</dt><dd>택배 (보온박스 · 보온재 · 아이스팩 포장, 드라이아이스 선택)</dd>
+        <dt>샘플</dt><dd>스콘 · 르뱅쿠키 · 스모어쿠키 샘플 세트(유료)로 먼저 맛보실 수 있어요</dd>
+      </dl>
+      <div class="tip">주문이 어려우시면 문자나 전화 주세요.<br><span class="phone" data-phone></span></div>
     </div>
   </section>
 
@@ -694,6 +773,7 @@ const CONFIG = {
      게시판 주소는 카페에서 게시판을 열고 주소창을 복사하세요. */
   /* 리뉴얼 잠금: true 면 거래처 등록(및 출고 안내) 외 모든 버튼·링크가 "리뉴얼 중" 팝업 후 거래처 등록으로 이동. 풀 때 false */
   RENEWAL_LOCK: true,
+  LABELS_URL: "https://kupmtglquazihvbtdqyz.supabase.co/functions/v1/public-labels",   // 이알피 실시간 표시라벨(영양정보)
   GUIDE_URL: "https://root-axolotl-cef.notion.site/28ba83e400a2803c99aee219d6109f2f",   // 마켓봄·상품 이용 안내 (노션)
   CAFE_URL: "https://cafe.naver.com/ovenlabkr",
   CAFE_BOARDS: {
@@ -1452,16 +1532,70 @@ $("#faq").innerHTML = FAQ.map(([q,a])=>`<details><summary>${q}</summary><p>${a}<
 $("#contactForm").innerHTML = questionForm("general");
 setLink($("#kakaoLink"), CONFIG.KAKAO_URL);
 fillPhones(); renderHome(); renderCatalog(); renderBake(); renderStage(); renderCommunity();
+
+/* 바로가기 · 마켓봄 사용법 · 영양정보 라벨 (이알피 실시간) */
+document.addEventListener("click", e=>{ const b=e.target.closest("[data-jump]"); if(!b) return; e.preventDefault(); const el=document.getElementById(b.dataset.jump); if(el) el.scrollIntoView({behavior:"smooth", block:"start"}); });
+{ const a=$("#guideNotion"); if(a) a.href=CONFIG.GUIDE_URL; }
+const LBL = { data:null, grp:"전체", q:"", sel:null };
+function lblItems(){
+  const q = LBL.q.replace(/\s+/g,"").toLowerCase();
+  return (LBL.data?.products||[]).filter(p=>(LBL.grp==="전체"||p.grp===LBL.grp) && (!q || (p.name+p.title).replace(/\s+/g,"").toLowerCase().includes(q)));
+}
+function lblRenderList(){
+  const grps = ["전체", ...new Set((LBL.data?.products||[]).map(p=>p.grp))];
+  $("#lblGrp").innerHTML = grps.map(g=>`<button type="button" data-lgrp="${esc(g)}" aria-pressed="${g===LBL.grp}">${esc(g)}</button>`).join("");
+  const list = lblItems();
+  if(!list.length){ $("#lblList").innerHTML = `<div class="lbl-empty">찾는 제품이 없어요</div>`; return; }
+  if(!list.some(p=>p.id===LBL.sel)) LBL.sel = list[0].id;
+  $("#lblList").innerHTML = list.map(p=>`<button type="button" role="option" data-lid="${esc(p.id)}" aria-selected="${p.id===LBL.sel}"><span>${esc(p.title)}</span><small>${esc(p.net)}</small></button>`).join("");
+  lblRenderView();
+}
+function lblRenderView(){
+  const d = LBL.data, p = (d?.products||[]).find(x=>x.id===LBL.sel);
+  if(!p){ $("#lblView").innerHTML = `<div class="lbl-empty">제품을 골라 주세요</div>`; return; }
+  const I = d.info;
+  if(p.set){
+    $("#lblView").innerHTML = `<div class="lbl-card"><h3>${esc(p.title)}</h3><table><tr><th>구성</th><td>${p.set.map(esc).join("<br>")}</td></tr></table><div class="lbl-foot">여러 맛을 한 개씩 담은 샘플 세트예요. 영양정보·원재료명은 맛마다 달라 각 제품 라벨을 확인해 주세요.</div></div>`;
+    return;
+  }
+  if(p.noRecipe){ $("#lblView").innerHTML = `<div class="lbl-empty">이 제품은 표시사항을 준비 중이에요. 문의 주시면 바로 안내해 드릴게요.</div>`; return; }
+  const n = p.nut, v = (a,u)=>`<em>${a[0]}${u}${a[1]!=null?`<b>${a[1]}%</b>`:""}</em>`;
+  const nut = n ? `<div class="nut"><div class="nut-head"><div><b>영양정보</b> <span>100g당 · 1일 영양성분 기준치에 대한 비율</span></div><span class="kcal">${n.kcal}kcal</span></div>
+    <div class="nut-rows">
+      <div><span>탄수화물</span>${v(n.carb,"g")}</div><div><span>단백질</span>${v(n.protein,"g")}</div>
+      <div class="sub"><span>당류</span>${v(n.sugar,"g")}</div><div><span>콜레스테롤</span>${v(n.chol,"mg")}</div>
+      <div><span>지방</span>${v(n.fat,"g")}</div><div><span>나트륨</span>${v(n.sodium,"mg")}</div>
+      <div class="sub"><span>트랜스지방</span>${v(n.trans,"g")}</div><div class="sub"><span>포화지방</span>${v(n.sat,"g")}</div>
+    </div></div>` : "";
+  const upd = p.updated ? (d=>`${d.getFullYear()}.${d.getMonth()+1}.${d.getDate()}`)(new Date(p.updated)) : "";
+  $("#lblView").innerHTML = `<div class="lbl-card"><h3>식품 위생법에 의한 한글 표시사항</h3><table>
+    <tr><th>제품명</th><td>${esc(p.title)}</td></tr>
+    <tr><th>식품유형</th><td>${esc(I.foodType)}</td></tr>
+    <tr><th>내용량</th><td>${esc(p.net)}</td></tr>
+    <tr><th>원재료명<br>및 함량</th><td>${esc(p.ingredients||"")}</td></tr>
+    <tr><th>알레르기</th><td class="allergy">${p.allergies?.length ? esc(p.allergies.join(", "))+" 함유" : "-"}</td></tr>
+    <tr><th>보관방법</th><td>${esc(I.storage)}</td></tr>
+    <tr><th>소비기한</th><td>제조일로부터 ${I.shelfDays}일</td></tr>
+    <tr><th>업소명</th><td>${esc(I.company)} · ${esc(I.address)}</td></tr>
+  </table>${nut}<div class="lbl-foot">오드볼 생산 시스템 배합 기준 자동 계산${upd?` · 배합 기준일 ${upd}`:""}. 실제 제품에 붙은 라벨이 우선이에요.</div></div>`;
+}
+document.addEventListener("click", e=>{
+  const g=e.target.closest("[data-lgrp]"); if(g){ LBL.grp=g.dataset.lgrp; lblRenderList(); return; }
+  const it=e.target.closest("[data-lid]"); if(it){ LBL.sel=it.dataset.lid; document.querySelectorAll("#lblList [data-lid]").forEach(b=>b.setAttribute("aria-selected", b===it)); lblRenderView(); if(innerWidth<=820) $("#lblView").scrollIntoView({behavior:"smooth", block:"start"}); }
+});
+$("#lblSearch").addEventListener("input", e=>{ LBL.q=e.target.value; lblRenderList(); });
+fetch(CONFIG.LABELS_URL).then(r=>r.json()).then(d=>{ if(!d.ok) throw 0; LBL.data=d; lblRenderList(); fillPhones(); })
+  .catch(()=>{ $("#lblList").innerHTML=""; $("#lblView").innerHTML=`<div class="lbl-empty">영양정보를 불러오지 못했어요. 잠시 후 새로고침해 주세요.</div>`; });
 go(CONFIG.RENEWAL_LOCK ? "order" : (location.hash.slice(1)||"home"), false);
 
 /* 리뉴얼 잠금 (CONFIG.RENEWAL_LOCK) */
 if(CONFIG.RENEWAL_LOCK){
-  const ALLOW = "#regPanel, #shipPanel, #renewPop, #regDone";
+  const ALLOW = "#regPanel, #shipPanel, #guidePanel, #labelPanel, #payPanel, #orderJump, #renewPop, #regDone";
   const CLICKABLE = "a, button, input, select, textarea, label, summary, [data-go], [data-open], [data-bake], [role=button], [tabindex]";
   const toReg = () => { if(current!=="order") go("order"); setTimeout(()=>{ try{ $("#regPanel").scrollIntoView({behavior:"smooth", block:"start"}); }catch(e){} }, 60); };
   const pop = document.createElement("div");
   pop.id="renewPop"; pop.className="modal"; pop.hidden=true;
-  pop.innerHTML = `<div class="renew-box" role="alertdialog" aria-labelledby="renewT"><b id="renewT">홈페이지 리뉴얼 중입니다</b><p>지금은 거래처 등록만 이용하실 수 있어요.<br>잠시 후 거래처 등록으로 이동합니다.</p><button class="btn primary" type="button" id="renewGo">거래처 등록으로 돌아가기</button></div>`;
+  pop.innerHTML = `<div class="renew-box" role="alertdialog" aria-labelledby="renewT"><b id="renewT">홈페이지 리뉴얼 중입니다</b><p>지금은 거래처 등록 · 마켓봄 사용법 · 영양정보만 이용하실 수 있어요.<br>잠시 후 거래처 등록으로 이동합니다.</p><button class="btn primary" type="button" id="renewGo">거래처 등록으로 돌아가기</button></div>`;
   document.body.appendChild(pop);
   let timer;
   const close = () => { clearTimeout(timer); pop.hidden=true; toReg(); };
