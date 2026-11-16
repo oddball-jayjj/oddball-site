@@ -599,7 +599,7 @@ footer .logo{font-size:26px}
         <p class="cap">제품별 원재료명, 알레르기 유발물질, 100g당 영양정보를 확인하세요. 오드볼 생산 시스템의 최신 배합 기준으로 자동 계산돼요.</p></div>
       <div class="lbl-tools">
         <div class="lbl-grp" id="lblGrp" role="toolbar" aria-label="제품군"></div>
-        <input id="lblSearch" type="search" placeholder="제품 이름으로 찾기 (예: 휘낭시에 초코)" autocomplete="off">
+        <input id="lblSearch" type="search" placeholder="맛이나 제품으로 찾기 (예: 초코, 휘낭시에 황치즈)" autocomplete="off">
       </div>
       <div class="lbl-wrap">
         <div class="lbl-list" id="lblList" role="listbox" aria-label="제품 목록"><div class="lbl-empty">불러오는 중…</div></div>
@@ -1570,26 +1570,63 @@ fillPhones(); renderHome(); renderCatalog(); renderBake(); renderStage(); render
 /* 바로가기 · 마켓봄 사용법 · 영양정보 라벨 (이알피 실시간) */
 document.addEventListener("click", e=>{ const b=e.target.closest("[data-jump]"); if(!b) return; e.preventDefault(); const pg=b.dataset.jumpPage||"order"; if(current!==pg) go(pg); setTimeout(()=>{ const el=document.getElementById(b.dataset.jump); if(el) el.scrollIntoView({behavior:"smooth", block:"start"}); }, 60); });
 { const a=$("#guideNotion"); if(a) a.href=CONFIG.GUIDE_URL; }
-const LBL = { data:null, grp:"전체", q:"", sel:null };
-function lblItems(){
-  const q = LBL.q.replace(/\s+/g,"").toLowerCase();
-  return (LBL.data?.products||[]).filter(p=>(LBL.grp==="전체"||p.grp===LBL.grp) && (!q || (p.name+p.title).replace(/\s+/g,"").toLowerCase().includes(q)));
+const LBL = { data:null, cat:null, flavor:null, q:"", sel:null };
+const LBL_CATS=["휘낭시에","마들렌","파운드케이크","스콘","르뱅쿠키","스모어쿠키","쿠키 통반죽","크럼블","샌드쿠키","비스코티","바치케","에그타르트","샘플 세트","기타"];
+function lblParse(p){
+  const name=String(p.name||"").trim(); const i=name.indexOf("-");
+  const pre=i>0?name.slice(0,i).trim():"", rest=i>0?name.slice(i+1).trim():name;
+  let cat, extra="";
+  if(!pre) cat="기타";
+  else if(/^샘플/.test(pre)) cat="샘플 세트";
+  else if(/샌드쿠키/.test(pre)){ cat="샌드쿠키"; const m=pre.match(/샌드쿠키\s*([AB])/); if(m) extra=m[1]+" "; }
+  else if(/비스코티/.test(pre)){ cat="비스코티"; if(/초코/.test(pre)) extra="초코 "; }
+  else if(pre==="르뱅쿠키") cat="르뱅쿠키";
+  else if(pre==="스모어") cat="스모어쿠키";
+  else if(pre==="쿠키") cat="쿠키 통반죽";
+  else if(/파운드/.test(pre)) cat="파운드케이크";
+  else cat=pre;
+  const size=String(p.spec||p.net||"").replace(/(\d)\s*KG\b/gi,"$1kg").replace(/(\d)\s*G\b/g,"$1g").replace(/EA\b/g,"ea");
+  if(cat==="기타"||cat==="샘플 세트") return {cat, flavor:cat==="기타"?name:rest, size};
+  const r=rest.replace(/\((박스|용달|택배)\)/g,"").replace(/-/g," ");
+  let flavor=((r.match(/^[가-힣A-Za-z]+(?:\s+[가-힣]+)?/)||[r])[0]).trim().replace(/\s+(박스|낱개|통반죽)$/,"");
+  return {cat, flavor:(extra+flavor).trim(), size};
+}
+function lblGroups(){
+  const g=new Map();
+  (LBL.data?.products||[]).forEach(p=>{ const r=p._k||(p._k=lblParse(p)); if(!g.has(r.cat)) g.set(r.cat,new Map()); const f=g.get(r.cat); if(!f.has(r.flavor)) f.set(r.flavor,[]); f.get(r.flavor).push(p); });
+  g.forEach(f=>f.forEach(arr=>arr.sort((a,b)=>(parseFloat(a.net)||0)-(parseFloat(b.net)||0))));
+  // 영양정보가 같은 규격 묶음은 대표 1개만 표시: 샌드쿠키는 맛별 1개(낱개 4kg 우선), 바치케는 700g만, 제주샌드 숨김
+  const pickOne=(f,pref)=>f.forEach((arr,k)=>{ const keep=arr.find(p=>pref.test(p.name))||arr[0]; f.set(k,[keep]); });
+  if(g.has("샌드쿠키")){ const f=g.get("샌드쿠키"); f.delete("제주샌드"); pickOne(f,/낱개\s*4kg/i); }
+  if(g.has("바치케")){ const f=g.get("바치케"); f.forEach((arr,k)=>{ const keep=arr.filter(p=>/700G/i.test(p.name)&&!/박스/.test(p.name)); if(keep.length) f.set(k,keep.slice(0,1)); else f.delete(k); }); }
+  const order=[...g.keys()].sort((a,b)=>{const w=c=>c==="기타"?99:(LBL_CATS.indexOf(c)<0?50:LBL_CATS.indexOf(c));return w(a)-w(b)||a.localeCompare(b,"ko");});
+  return {g,order};
 }
 function lblRenderList(){
-  const grps = ["전체", ...new Set((LBL.data?.products||[]).map(p=>p.grp))];
-  $("#lblGrp").innerHTML = grps.map(g=>`<button type="button" data-lgrp="${esc(g)}" aria-pressed="${g===LBL.grp}">${esc(g)}</button>`).join("");
-  const list = lblItems();
-  if(!list.length){ $("#lblList").innerHTML = `<div class="lbl-empty">찾는 제품이 없어요</div>`; return; }
-  if(!list.some(p=>p.id===LBL.sel)) LBL.sel = list[0].id;
-  $("#lblList").innerHTML = list.map(p=>`<button type="button" role="option" data-lid="${esc(p.id)}" aria-selected="${p.id===LBL.sel}"><span>${esc(p.title)}</span><small>${esc(p.net)}</small></button>`).join("");
+  const {g,order}=lblGroups(); if(!order.length) return;
+  if(!LBL.cat||!g.has(LBL.cat)) LBL.cat=order[0];
+  const q=LBL.q.replace(/\s+/g,"").toLowerCase();
+  $("#lblGrp").innerHTML = order.map(c=>`<button type="button" data-lgrp="${esc(c)}" aria-pressed="${!q&&c===LBL.cat}">${esc(c)}</button>`).join("");
+  let rows=[];
+  if(q){ order.forEach(c=>g.get(c).forEach((arr,f)=>{ if(arr.some(p=>(c+f+p.name+p.title).replace(/\s+/g,"").toLowerCase().includes(q))) rows.push({c,f,arr}); })); }
+  else g.get(LBL.cat).forEach((arr,f)=>rows.push({c:LBL.cat,f,arr}));
+  if(!rows.length){ $("#lblList").innerHTML = `<div class="lbl-empty">찾는 제품이 없어요</div>`; $("#lblView").innerHTML=""; return; }
+  const key=r=>r.c+"|"+r.f;
+  let cur=rows.find(r=>key(r)===LBL.flavor); if(!cur){ cur=rows[0]; LBL.flavor=key(cur); }
+  if(!cur.arr.some(p=>p.id===LBL.sel)) LBL.sel=cur.arr[0].id;
+  $("#lblList").innerHTML = rows.map(r=>`<button type="button" role="option" data-lfl="${esc(key(r))}" aria-selected="${key(r)===LBL.flavor}"><span>${q?`<small style="margin-right:6px">${esc(r.c)}</small>`:""}${esc(r.f)}</span><small>${r.arr.length>1?r.arr.length+"가지 규격":esc(r.arr[0]._k.size)}</small></button>`).join("");
   lblRenderView();
+}
+function lblSizes(){
+  const {g}=lblGroups(); const [c,f]=(LBL.flavor||"").split("|"); const arr=g.get(c)?.get(f)||[];
+  return arr.length>1?`<div class="lbl-grp" style="margin-bottom:10px">${arr.map(p=>`<button type="button" data-lid="${esc(p.id)}" aria-pressed="${p.id===LBL.sel}">${esc(p._k.size)}</button>`).join("")}</div>`:"";
 }
 function lblRenderView(){
   const d = LBL.data, p = (d?.products||[]).find(x=>x.id===LBL.sel);
   if(!p){ $("#lblView").innerHTML = `<div class="lbl-empty">제품을 골라 주세요</div>`; return; }
   const I = d.info;
   if(p.set){
-    $("#lblView").innerHTML = `<div class="lbl-card"><h3>${esc(p.title)}</h3><table><tr><th>구성</th><td>${p.set.map(esc).join("<br>")}</td></tr></table><div class="lbl-foot">여러 맛을 한 개씩 담은 샘플 세트예요. 영양정보·원재료명은 맛마다 달라 각 제품 라벨을 확인해 주세요.</div></div>`;
+    $("#lblView").innerHTML = lblSizes()+`<div class="lbl-card"><h3>${esc(p.title)}</h3><table><tr><th>구성</th><td>${p.set.map(esc).join("<br>")}</td></tr></table><div class="lbl-foot">여러 맛을 한 개씩 담은 샘플 세트예요. 영양정보·원재료명은 맛마다 달라 각 제품 라벨을 확인해 주세요.</div></div>`;
     return;
   }
   if(p.noRecipe){ $("#lblView").innerHTML = `<div class="lbl-empty">이 제품은 표시사항을 준비 중이에요. 문의 주시면 바로 안내해 드릴게요.</div>`; return; }
@@ -1602,7 +1639,7 @@ function lblRenderView(){
       <div class="sub"><span>트랜스지방</span>${v(n.trans,"g")}</div><div class="sub"><span>포화지방</span>${v(n.sat,"g")}</div>
     </div></div>` : "";
   const upd = p.updated ? (d=>`${d.getFullYear()}.${d.getMonth()+1}.${d.getDate()}`)(new Date(p.updated)) : "";
-  $("#lblView").innerHTML = `<div class="lbl-card"><h3>식품 위생법에 의한 한글 표시사항</h3><table>
+  $("#lblView").innerHTML = lblSizes()+`<div class="lbl-card"><h3>식품 위생법에 의한 한글 표시사항</h3><table>
     <tr><th>제품명</th><td>${esc(p.title)}</td></tr>
     <tr><th>식품유형</th><td>${esc(I.foodType)}</td></tr>
     <tr><th>내용량</th><td>${esc(p.net)}</td></tr>
@@ -1614,8 +1651,9 @@ function lblRenderView(){
   </table>${nut}<div class="lbl-foot">오드볼 생산 시스템 배합 기준 자동 계산${upd?` · 배합 기준일 ${upd}`:""}. 실제 제품에 붙은 라벨이 우선이에요.</div></div>`;
 }
 document.addEventListener("click", e=>{
-  const g=e.target.closest("[data-lgrp]"); if(g){ LBL.grp=g.dataset.lgrp; lblRenderList(); return; }
-  const it=e.target.closest("[data-lid]"); if(it){ LBL.sel=it.dataset.lid; document.querySelectorAll("#lblList [data-lid]").forEach(b=>b.setAttribute("aria-selected", b===it)); lblRenderView(); if(innerWidth<=820) $("#lblView").scrollIntoView({behavior:"smooth", block:"start"}); }
+  const g=e.target.closest("[data-lgrp]"); if(g){ LBL.cat=g.dataset.lgrp; LBL.flavor=null; LBL.q=""; $("#lblSearch").value=""; lblRenderList(); return; }
+  const fl=e.target.closest("[data-lfl]"); if(fl){ LBL.flavor=fl.dataset.lfl; LBL.sel=null; lblRenderList(); if(innerWidth<=820) $("#lblView").scrollIntoView({behavior:"smooth", block:"start"}); return; }
+  const it=e.target.closest("[data-lid]"); if(it){ LBL.sel=it.dataset.lid; lblRenderView(); }
 });
 $("#lblSearch").addEventListener("input", e=>{ LBL.q=e.target.value; lblRenderList(); });
 fetch(CONFIG.LABELS_URL).then(r=>r.json()).then(d=>{ if(!d.ok) throw 0; LBL.data=d; lblRenderList(); fillPhones(); })
