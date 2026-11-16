@@ -497,6 +497,11 @@ footer .logo{font-size:26px}
 .sheets th{font-size:13px;color:var(--muted);font-weight:600}
 .sheets td:first-child{font-weight:600;white-space:nowrap}
 .sheets .tag{font-size:12px;padding:2px 7px;border:1px solid var(--line);white-space:nowrap}
+.res-tools{display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--ink);color:var(--bg);padding:22px 24px;text-decoration:none}
+.res-tools b{display:block;font-size:19px;margin:2px 0 4px}
+.res-tools span{font-size:14px;opacity:.75}
+.res-tools .eyebrow{color:#D9B48F}
+.res-tools i{font-style:normal;font-weight:700;white-space:nowrap}
 .sheets .tag.main{border-color:var(--ink);font-weight:700}
 </style>
 </head>
@@ -513,6 +518,7 @@ footer .logo{font-size:26px}
       <button class="tab" data-go="order">거래·주문</button>
       <button class="tab" data-go="community">커뮤니티</button>
       <button class="tab" data-go="resources">자료실</button>
+      <a class="tab" href="tools.html" style="text-decoration:none">사장님 도구</a>
       <button class="tab" data-go="contact">문의</button>
     </nav>
   </div>
@@ -759,6 +765,8 @@ footer .logo{font-size:26px}
         <a class="btn" href="https://blog.naver.com/odb_dessert/223710461172" target="_blank" rel="noopener">블로그에서 사진으로 보기</a>
       </div>
     </div>
+
+    <a class="res-tools" href="tools.html"><div><p class="eyebrow">Free tools</p><b>사장님 도구 — 설치 없이 바로 쓰는 프로그램</b><span>레시피 원가계산 · 배합 계산기 · 표시라벨·영양정보 · 견적서. 데이터는 내 컴퓨터에만 저장돼요.</span></div><i>열기 →</i></a>
 
     <div class="res-gain">
       <div><b>하루 30분</b><span>주문서 보고 손으로 세던 생산량 계산이 사라져요</span></div>
@@ -1693,7 +1701,7 @@ go(CONFIG.RENEWAL_LOCK ? (["resources","catalog"].includes(location.hash.slice(1
 
 /* 리뉴얼 잠금 (CONFIG.RENEWAL_LOCK) */
 if(CONFIG.RENEWAL_LOCK){
-  const ALLOW = "#regPanel, #shipPanel, #guidePanel, #labelPanel, #payPanel, #orderJump, #renewPop, #regDone, #resPanel, .tab[data-go=\"catalog\"], .tab[data-go=\"order\"], .tab[data-go=\"resources\"]";
+  const ALLOW = "#regPanel, #shipPanel, #guidePanel, #labelPanel, #payPanel, #orderJump, #renewPop, #regDone, #resPanel, .tab[data-go=\"catalog\"], .tab[data-go=\"order\"], .tab[data-go=\"resources\"], a[href=\"tools.html\"]";
   const CLICKABLE = "a, button, input, select, textarea, label, summary, [data-go], [data-open], [data-bake], [role=button], [tabindex]";
   const toReg = () => { if(current!=="order") go("order"); setTimeout(()=>{ try{ $("#regPanel").scrollIntoView({behavior:"smooth", block:"start"}); }catch(e){} }, 60); };
   const pop = document.createElement("div");
