@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카페·베이커리 냉동생지 납품 | 오드볼 디저트</title>
+<meta name="description" content="계량이 끝난 디저트 반죽을 굽기만 하면 됩니다. 스콘·르뱅쿠키·휘낭시에·마들렌·에그타르트 냉동생지를 카페·베이커리에 택배로 납품합니다. 거래처 등록 후 바로 주문하세요.">
+<meta property="og:title" content="카페·베이커리 냉동생지 납품 | 오드볼 디저트">
+<meta property="og:description" content="굽기만 하면 완성되는 디저트 생지. 거래처 등록 후 바로 주문하세요.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231C1915'/%3E%3Ctext x='32' y='43' font-size='34' text-anchor='middle' font-family='sans-serif' font-weight='700' fill='%23F6F3EE'%3Eo%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#F6F3EE; --surface:#FFFFFF; --ink:#1C1915; --muted:#6F675E; --line:#E3DDD3;
+  --crust:#7A4A2B; --soft:#EFEAE2; --dough:#E9DCC6; --ok:#2F6B45; --warn:#A44A1C;
+  --f:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-serif:"Cormorant Garamond","Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.65;word-break:keep-all;overflow-wrap:anywhere;padding-bottom:76px}
+h1,h2,h3{margin:0;font-weight:700;line-height:1.25;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-size:24px;font-weight:700;letter-spacing:-.03em;text-decoration:none}
+.logo span{color:var(--crust)}
+.tel{font-size:14px;color:var(--muted);text-decoration:none}
+.eyebrow{font-family:var(--f-serif);font-style:italic;font-size:18px;color:var(--crust)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:2px;padding:14px 24px;font:inherit;font-weight:600;font-size:16px;border:1px solid var(--ink);background:transparent;color:var(--ink);text-decoration:none;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.primary:hover{background:var(--crust);border-color:var(--crust);color:#fff}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,.drop:focus-within{outline:2px solid var(--crust);outline-offset:2px}
+.btn[disabled]{opacity:.5;cursor:default}
+.btn.small{padding:10px 14px;font-size:14px}
+
+.hero{padding:36px 0 56px;display:grid;gap:22px}
+.hero h1{font-size:clamp(34px,7vw,60px);max-width:14em}
+.hero h1 em{font-style:normal;color:var(--crust)}
+.hero .lead{font-size:clamp(17px,2.4vw,20px);color:var(--muted);max-width:32em}
+.cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.cta small{color:var(--muted);font-size:14px}
+
+section{padding:52px 0;border-top:1px solid var(--line)}
+.sec-h{display:grid;gap:6px;margin-bottom:26px}
+.sec-h h2{font-size:clamp(26px,4.4vw,36px)}
+.sec-h p{color:var(--muted)}
+
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+.why>div{padding:24px;display:grid;gap:8px;align-content:start;border-bottom:1px solid var(--line)}
+@media (min-width:800px){.why>div{border-bottom:0;border-right:1px solid var(--line)}.why>div:last-child{border-right:0}}
+.why>div:last-child{border-bottom:0}
+.why b{font-size:19px;letter-spacing:-.02em}
+.why p{color:var(--muted);font-size:15px}
+.why .n{font-family:var(--f-serif);font-style:italic;font-size:22px;color:var(--crust)}
+
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.item{background:var(--surface);border:1px solid var(--line);padding:18px;display:grid;gap:6px;align-content:start}
+.item .en{font-family:var(--f-serif);font-style:italic;color:var(--crust);font-size:15px}
+.item h3{font-size:19px}
+.item p{font-size:14px;color:var(--muted)}
+.note{margin-top:14px;font-size:14px;color:var(--muted)}
+
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;counter-reset:s}
+.flow li{counter-increment:s;background:var(--surface);border:1px solid var(--line);padding:18px;display:grid;gap:6px;align-content:start}
+.flow li::before{content:"0" counter(s);font-family:var(--f-serif);font-style:italic;font-size:26px;color:var(--crust);line-height:1}
+.flow b{font-size:17px}
+.flow span{font-size:14px;color:var(--muted)}
+
+.two{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}.two>*{min-width:0}
+@media (min-width:860px){.two{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:start}}
+.tablebox{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:15px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--muted);font-weight:600;background:var(--soft)}
+tr:last-child td{border-bottom:0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;font-size:15px;margin:0;background:var(--surface);border:1px solid var(--line);padding:20px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+
+.formbox{background:var(--surface);border:1px solid var(--ink);padding:clamp(20px,4vw,34px);display:grid;gap:18px}
+.f{display:grid;gap:16px}
+.f label{font-size:14px;font-weight:600}
+.req{color:var(--warn)}
+.f input:not([type=checkbox]):not([type=file]),.f textarea,.f select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:12px}
+.f [aria-invalid="true"]{border-color:var(--warn)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.fgrid>div,.fld{display:grid;gap:5px;min-width:0}
+.drop{border:1.5px dashed var(--muted);padding:20px;display:grid;gap:4px;justify-items:center;text-align:center;background:var(--bg);cursor:pointer}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+.drop b{font-size:16px}
+.drop span{font-size:13px;font-weight:400;color:var(--muted)}
+.drop.has{border-style:solid;border-color:var(--ok)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.consent{display:flex;gap:8px;align-items:flex-start;font-weight:400!important;color:var(--muted)}
+.consent input{margin-top:5px;flex:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.err{color:var(--warn);font-size:15px}
+.cap{color:var(--muted);font-size:14px}
+.okbox{padding:16px;background:var(--soft)}
+.done{display:grid;gap:14px}
+.done h2{font-size:28px}
+.steps{margin:0;padding-left:20px;display:grid;gap:8px}
+
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);padding:10px 16px;display:flex;gap:10px;align-items:center;justify-content:center;z-index:10}
+.bar span{color:var(--bg);font-size:14px}
+.bar .btn{background:var(--bg);color:var(--ink);border-color:var(--bg);padding:11px 20px}
+@media (max-width:520px){.bar span{display:none}.bar .btn{flex:1}}
+.bar[hidden]{display:none}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="logo" href="./" aria-label="오드볼 디저트 홈">oddball<span>.</span></a>
+  <a class="tel" data-tel>문자·전화 <b data-phone></b></a>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Frozen dough for cafés</p>
+    <h1>계량 끝난 반죽,<br><em>굽기만 하면</em> 매장 디저트가 됩니다</h1>
+    <p class="lead">스콘·르뱅쿠키·휘낭시에·마들렌·에그타르트 냉동생지를 카페와 베이커리에 택배로 보내 드려요. 거래처 등록만 하면 앱으로 바로 주문할 수 있어요.</p>
+    <div class="cta">
+      <a class="btn primary" href="#register" data-cta="hero">거래처 등록하기</a>
+      <small>등록 무료 · 보통 30분 안에 주문 아이디 문자 발송</small>
+    </div>
+  </div>
+
+  <section><div class="wrap">
+    <div class="sec-h"><p class="eyebrow">Why oddball</p><h2>매장에서 반죽하지 않아도 되는 이유</h2></div>
+    <div class="why">
+      <div><span class="n">01</span><b>굽기만 하면 끝</b><p>계량과 반죽이 끝난 상태로 보내 드려요. 개별 성형 생지는 팬에 올려 굽고, 통반죽은 짜거나 떠서 구우면 됩니다.</p></div>
+      <div><span class="n">02</span><b>누가 구워도 같은 맛</b><p>같은 배합으로 만든 반죽이라 직원이 바뀌어도 결과가 일정해요. 제품별 굽는 온도와 시간도 안내해 드려요.</p></div>
+      <div><span class="n">03</span><b>필요한 만큼만 주문</b><p>팩 단위로 주문하고 냉동 보관하면서 필요한 만큼만 꺼내 구워요. 평일 오후 2시 전 주문은 재고가 있으면 당일 출고됩니다.</p></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="sec-h"><p class="eyebrow">Line-up</p><h2>납품 품목</h2><p>맛 구성과 규격은 거래처 등록 후 주문 앱에서 가격과 함께 확인할 수 있어요.</p></div>
+    <div class="items">
+      <div class="item"><span class="en">Scone</span><h3>스콘</h3><p>플레인·초코칩·더블초코·얼그레이. 개별 생지(80g·100g)와 1kg 통반죽.</p></div>
+      <div class="item"><span class="en">Levain cookie</span><h3>르뱅쿠키</h3><p>플레인·초코·말차·오레오·로투스·황치즈 등 9가지 맛. 개별 생지 85g, 1kg 통반죽.</p></div>
+      <div class="item"><span class="en">S'more cookie</span><h3>스모어쿠키</h3><p>구운 직후 마시멜로로 완성하는 쿠키. 7가지 맛, 개별 생지 85g.</p></div>
+      <div class="item"><span class="en">Financier</span><h3>휘낭시에</h3><p>태운 버터 향이 진한 반죽. 몰드에 짜서 굽기만 하면 돼요. 10가지 맛.</p></div>
+      <div class="item"><span class="en">Madeleine</span><h3>마들렌</h3><p>배꼽이 봉긋 솟는 마들렌 반죽. 플레인·초코·얼그레이·말차·레몬·황치즈.</p></div>
+      <div class="item"><span class="en">Egg tart</span><h3>에그타르트</h3><p>페이스트리 쉘 생지와 커스터드 필링을 따로 보내 드려요. 매장에서 채워 구워요.</p></div>
+      <div class="item"><span class="en">Biscotti</span><h3>비스코티</h3><p>두 번 구워 단단하고 고소한 견과 비스코티. 아몬드·피스타치오·호두 등 9가지.</p></div>
+      <div class="item"><span class="en">Basque cheesecake</span><h3>바스크 치즈케이크</h3><p>겉은 진하게 그을리고 속은 크리미한 반죽. 플레인·초코.</p></div>
+      <div class="item"><span class="en">And more</span><h3>그 밖의 품목</h3><p>샌드쿠키(주문제작 가능), 쇼콜라, 파운드케이크, 소보로가루(크럼블).</p></div>
+    </div>
+    <p class="note">처음이라면 스콘·르뱅쿠키·스모어쿠키 샘플 세트(유료)로 먼저 구워 보실 수 있어요.</p>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="sec-h"><p class="eyebrow">How it works</p><h2>등록부터 첫 주문까지</h2></div>
+    <ol class="flow">
+      <li><b>거래처 등록</b><span>아래 양식에 사업자등록증과 매장 정보를 보내 주세요.</span></li>
+      <li><b>주문 아이디 문자 수신</b><span>보통 30분 안에 발주 앱(마켓봄) 아이디가 문자로 가요.</span></li>
+      <li><b>앱에서 주문</b><span>마켓봄 앱에서 품목을 담고 계좌이체나 네이버페이로 결제해요.</span></li>
+      <li><b>택배 수령</b><span>보온박스에 아이스팩과 함께 포장해 보내 드려요.</span></li>
+    </ol>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="sec-h"><p class="eyebrow">Shipping &amp; payment</p><h2>출고와 결제</h2></div>
+    <div class="two">
+      <div>
+        <div class="tablebox"><table>
+          <thead><tr><th>주문 시간</th><th>재고 있음</th><th>재고 없음 (주문 후 제조)</th></tr></thead>
+          <tbody>
+            <tr><td>월~목 오후 2시 전</td><td><b>당일 출고</b></td><td>당일 제조 → <b>다음 날 출고</b></td></tr>
+            <tr><td>금요일 오전 11시 전</td><td><b>당일 출고</b></td><td>월요일 제조 → <b>화요일 출고</b></td></tr>
+            <tr><td>금 오전 11시 후 ~ 일요일</td><td><b>월요일 출고</b></td><td>월요일 제조 → <b>화요일 출고</b></td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">주말·공휴일에는 제조와 출고를 하지 않아요.</p>
+      </div>
+      <dl class="kv">
+        <dt>결제</dt><dd>계좌이체, 네이버페이 (예치금 충전)</dd>
+        <dt>세금계산서</dt><dd>월말 일괄 발행</dd>
+        <dt>배송</dt><dd>택배 · 보온박스, 보온재, 아이스팩 포장 (드라이아이스 선택)</dd>
+        <dt>문의</dt><dd>문자·전화 <span data-phone></span></dd>
+      </dl>
+    </div>
+  </div></section>
+
+  <section id="register"><div class="wrap">
+    <div class="formbox" id="regPanel">
+      <div class="sec-h" style="margin:0"><p class="eyebrow">Register</p><h2>신규 거래처 등록</h2><p>등록은 무료예요. 접수되면 보통 30분 안에 주문 아이디를 문자로 보내 드려요.</p></div>
+      <form class="f" id="regForm" novalidate>
+        <div class="fld">
+          <label for="reg-cert">사업자등록증 <span class="req">*</span></label>
+          <label class="drop" id="regDrop" for="reg-cert">
+            <input type="file" id="reg-cert" accept="image/*,application/pdf">
+            <b id="regFileName">사진이나 PDF를 선택해 주세요</b>
+            <span>휴대폰으로 찍은 사진도 괜찮아요 · 10MB 이하</span>
+          </label>
+        </div>
+        <div class="fgrid">
+          <div><label for="reg-company">업체명 <span class="req">*</span></label><input id="reg-company" maxlength="100" autocomplete="organization"></div>
+          <div><label for="reg-industry">업종 <span class="req">*</span></label><select id="reg-industry"><option>한식</option><option>중식</option><option>일식</option><option>양식</option><option>패스트푸드</option><option>주점</option><option selected>카페/베이커리</option><option>대형식당</option><option>숙박</option><option>급식</option><option>비식당</option></select></div>
+          <div><label for="reg-ceo">대표자명</label><input id="reg-ceo" maxlength="30"></div>
+          <div><label for="reg-biz">사업자번호 <span class="req">*</span></label><input id="reg-biz" inputmode="numeric" maxlength="12" placeholder="000-00-00000"></div>
+          <div><label for="reg-email">이메일 <span class="req">*</span></label><input id="reg-email" type="email" maxlength="200" autocomplete="email" placeholder="세금계산서 받으실 주소"></div>
+          <div><label for="reg-manager">담당자 성함 <span class="req">*</span></label><input id="reg-manager" maxlength="50" autocomplete="name"></div>
+          <div><label for="reg-phone">담당자 연락처 <span class="req">*</span></label><input id="reg-phone" type="tel" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="010-0000-0000"></div>
+        </div>
+        <div class="fld">
+          <label for="reg-zip">제품 받으실 주소 <span class="req">*</span></label>
+          <div class="row"><input id="reg-zip" inputmode="numeric" maxlength="5" placeholder="우편번호" style="max-width:140px"><button class="btn small" type="button" id="zipBtn">우편번호 검색</button></div>
+          <div id="zipLayer" hidden style="border:1px solid var(--line);overflow:hidden;height:420px;position:relative"></div>
+          <input id="reg-address" maxlength="300" autocomplete="address-line1" placeholder="도로명 또는 지번 주소">
+          <input id="reg-detail" maxlength="200" autocomplete="address-line2" placeholder="상세주소 (동·호수, 층)">
+        </div>
+        <div class="fld"><label for="reg-memo">요청 사항 (선택)</label><textarea id="reg-memo" rows="2" maxlength="1000" placeholder="관심 있는 제품, 예상 주문량 등"></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="reg-website">웹사이트</label><input id="reg-website" tabindex="-1" autocomplete="off"></div>
+        <label class="consent" for="reg-agree"><input type="checkbox" id="reg-agree"> <span>거래처 등록과 세금계산서 발행을 위해 위 정보와 사업자등록증을 수집·이용하는 데 동의합니다. (보관: 거래 종료 후 5년 또는 관련 법령에서 정한 기간)</span></label>
+        <div class="row"><button class="btn primary" type="submit" id="regSubmit">등록 신청 보내기</button><span class="err" id="regMsg" role="status"></span></div>
+      </form>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="wrap foot">
+  <div><b style="color:var(--ink)">주식회사 오드볼</b><br>냉동생지 제조 · 카페·베이커리 납품 · OEM</div>
+  <div>대표 정유경 · 사업자등록번호 467-81-03567<br>경기도 화성시 정남면 · <span data-phone></span></div>
+  <div><a href="./">오드볼 디저트 홈페이지</a></div>
+</div></footer>
+
+<div class="bar" id="bar"><span>거래처 등록은 무료예요</span><a class="btn" href="#register" data-cta="bar">거래처 등록하기</a></div>
+
+<script>
+const CONFIG = {
+  PHONE: "010-4680-6804",
+  SUPABASE_URL: "https://gtmpahrfruujzwaddulf.supabase.co",
+  SUPABASE_KEY: "sb_publishable_ZIW91D3Fq6EbM8YTYenYVw_kQHWRrkZ",   // 공개용 키 (기록 추가만 가능)
+  /* 네이버 검색광고 전환 추적 공통 ID. 비즈채널 등록 후 발급받은 값을 넣으면 켜집니다. 비어 있으면 동작하지 않습니다. */
+  NAVER_WA: ""
+};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function uuid(){ try{ return crypto.randomUUID(); }catch(e){ return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{const r=Math.random()*16|0;return (c==="x"?r:(r&3|8)).toString(16);}); } }
+const VISITOR = (()=>{ let v=null; try{ v=localStorage.getItem("ob_vid"); if(!v){ v=uuid(); localStorage.setItem("ob_vid",v); } }catch(e){ v=v||uuid(); } return v; })();
+async function save(table,row){
+  try{ const res=await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/${table}`,{method:"POST",headers:{"apikey":CONFIG.SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(row)}); return res.ok; }catch(e){ return false; }
+}
+const track = (event,detail) => save("page_events",{visitor_id:VISITOR,event,detail});
+function fillPhones(){
+  document.querySelectorAll("[data-phone]").forEach(el=>el.textContent=CONFIG.PHONE);
+  document.querySelectorAll("[data-tel]").forEach(el=>el.href="tel:"+CONFIG.PHONE.replace(/\D/g,""));
+}
+fillPhones();
+
+/* 광고 유입 정보: 네이버가 붙여 주는 n_keyword(키워드) 등을 기억해 두었다가 등록 신청과 함께 기록합니다. */
+const AD = (()=>{
+  const q=new URLSearchParams(location.search), a={};
+  ["n_media","n_query","n_rank","n_ad_group","n_ad","n_keyword_id","n_keyword","n_campaign_type","utm_source","utm_medium","utm_campaign","utm_term"].forEach(k=>{ const v=q.get(k); if(v) a[k]=v.slice(0,120); });
+  if(q.get("NaPm")) a.naver_ad=true;
+  try{
+    if(Object.keys(a).length) sessionStorage.setItem("ob_ad",JSON.stringify(a));
+    else return JSON.parse(sessionStorage.getItem("ob_ad")||"{}");
+  }catch(e){}
+  return a;
+})();
+track("b2b_landing_view",{page:"b2b",ref:(document.referrer||"").slice(0,200),...AD});
+document.querySelectorAll("[data-cta]").forEach(el=>el.addEventListener("click",()=>track("b2b_cta",{where:el.dataset.cta,...AD})));
+
+/* 네이버 전환 추적 (NAVER_WA 값이 있을 때만) */
+let naverReady=false;
+if(CONFIG.NAVER_WA){
+  const s=document.createElement("script"); s.src="https://wcs.naver.net/wcslog.js";
+  s.onload=()=>{ try{ window.wcs_add=window.wcs_add||{}; wcs_add["wa"]=CONFIG.NAVER_WA; window._nasa=window._nasa||{}; if(window.wcs){ wcs.inflow(); wcs_do(_nasa); naverReady=true; } }catch(e){} };
+  document.head.appendChild(s);
+}
+function naverConversion(){ try{ if(naverReady && window.wcs){ window._nasa={}; _nasa["cnv"]=wcs.cnv("4","1"); wcs_do(_nasa); } }catch(e){} }
+
+/* 하단 고정 버튼: 양식이 보이면 숨김 */
+if("IntersectionObserver" in window){
+  new IntersectionObserver(es=>{ $("#bar").hidden=es[0].isIntersecting; },{threshold:.05}).observe($("#register"));
+}
+
+/* 거래처 등록 (홈페이지 거래·주문 탭과 같은 양식, 같은 접수 경로) */
+const regFile=$("#reg-cert");
+regFile.addEventListener("change",()=>{ const f=regFile.files[0]; $("#regFileName").textContent=f?f.name:"사진이나 PDF를 선택해 주세요"; $("#regDrop").classList.toggle("has",!!f); });
+$("#zipBtn").addEventListener("click",()=>{
+  const layer=$("#zipLayer");
+  const open=()=>{ layer.hidden=false; layer.innerHTML="";
+    new daum.Postcode({width:"100%",height:"100%",oncomplete:d=>{ $("#reg-zip").value=d.zonecode; $("#reg-address").value=d.roadAddress||d.jibunAddress; layer.hidden=true; $("#reg-detail").focus(); }}).embed(layer); };
+  if(window.daum && daum.Postcode) return open();
+  const sc=document.createElement("script");
+  sc.src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+  sc.onload=open;
+  sc.onerror=()=>{ $("#regMsg").className="err"; $("#regMsg").textContent="우편번호 검색을 불러오지 못했어요. 우편번호와 주소를 직접 적어 주세요."; };
+  document.head.appendChild(sc);
+});
+$("#reg-biz").addEventListener("input",e=>{
+  const d=e.target.value.replace(/\D/g,"").slice(0,10);
+  e.target.value = d.length>5 ? `${d.slice(0,3)}-${d.slice(3,5)}-${d.slice(5)}` : d.length>3 ? `${d.slice(0,3)}-${d.slice(3)}` : d;
+});
+let started=false;
+$("#regForm").addEventListener("input",()=>{ if(!started){ started=true; track("b2b_form_start",AD); } });
+$("#regForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const msg=$("#regMsg"), btn=$("#regSubmit"), v=id=>$("#reg-"+id).value.trim();
+  const f=regFile.files[0];
+  const checks=[
+    [!f,"cert","사업자등록증 파일을 선택해 주세요."],
+    [f && f.size>10*1024*1024,"cert","파일은 10MB 이하로 올려 주세요."],
+    [!v("company"),"company","업체명을 적어 주세요."],
+    [v("biz").replace(/\D/g,"").length!==10,"biz","사업자번호 10자리를 적어 주세요."],
+    [!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email")),"email","이메일 주소를 확인해 주세요."],
+    [!v("manager"),"manager","담당자 성함을 적어 주세요."],
+    [v("phone").replace(/\D/g,"").length<9,"phone","담당자 연락처를 확인해 주세요."],
+    [v("zip").replace(/\D/g,"").length!==5,"zip","우편번호 5자리를 적거나 검색해 주세요."],
+    [!v("address"),"address","제품 받으실 주소를 적어 주세요."],
+    [!v("detail"),"detail","상세주소를 적어 주세요."],
+    [!$("#reg-agree").checked,"agree","정보 수집·이용에 동의해 주세요."]
+  ];
+  document.querySelectorAll("#regForm [aria-invalid]").forEach(el=>el.removeAttribute("aria-invalid"));
+  const bad=checks.find(c=>c[0]);
+  if(bad){ msg.className="err"; msg.textContent=bad[2]; const el=$("#reg-"+bad[1]); if(el && bad[1]!=="cert"){ el.setAttribute("aria-invalid","true"); el.focus(); } return; }
+  const fd=new FormData();
+  fd.append("cert",f); fd.append("company",v("company")); fd.append("biz_no",v("biz")); fd.append("email",v("email"));
+  fd.append("manager",v("manager")); fd.append("phone",v("phone")); fd.append("industry",$("#reg-industry").value); fd.append("ceo",v("ceo"));
+  fd.append("zipcode",v("zip")); fd.append("address",v("address")); fd.append("address_detail",v("detail")); fd.append("memo",v("memo"));
+  fd.append("website",v("website")); fd.append("consent","true");
+  btn.disabled=true; msg.className="cap"; msg.textContent="보내는 중이에요…";
+  try{
+    const res=await fetch(`${CONFIG.SUPABASE_URL}/functions/v1/register-client`,{method:"POST",body:fd});
+    const j=await res.json().catch(()=>({ok:false}));
+    if(res.ok && j.ok){
+      track("registration",{ok:true,page:"b2b",...AD});
+      naverConversion();
+      const bizD=v("biz").replace(/\D/g,"");
+      $("#regPanel").innerHTML=`<div class="done" tabindex="-1" id="regDone"><p class="eyebrow">Registered</p><h2>등록 신청이 접수됐어요</h2>
+        <p>안녕하세요, 주식회사 오드볼입니다.<br><b>${esc(v("company"))}</b> 거래처 등록을 진행하고 있어요.</p>
+        <div class="okbox"><b>보통 30분 안에 마켓봄 거래처 등록이 끝나요.</b><br>등록되면 담당자 휴대폰(${esc(v("phone"))})으로 마켓봄 아이디 안내 문자가 가요.</div>
+        <dl class="kv"><dt>최초 아이디</dt><dd><b>${bizD}</b> (사업자번호)</dd><dt>비밀번호</dt><dd><b>${bizD.slice(-6)}</b> (사업자번호 뒷 6자리)</dd><dt>세금계산서</dt><dd>월말 일괄 발급</dd></dl>
+        <ol class="steps"><li><b>마켓봄 앱 설치</b> — 플레이스토어·앱스토어에서 '마켓봄'을 받아 위 아이디로 로그인해 주세요.</li><li><b>정보 확인</b> — 로그인 후 잘못된 정보가 있으면 바로 알려 주세요.</li></ol>
+        <p class="cap">30분이 지나도 문자가 오지 않으면 문자·전화(<span data-phone></span>)로 연락 주세요.</p>
+        <div class="row"><a class="btn primary" href="./#order">마켓봄 주문 방법 보기</a></div></div>`;
+      fillPhones(); $("#bar").hidden=true; $("#regDone").focus(); $("#register").scrollIntoView();
+    } else { msg.className="err"; msg.textContent=(j && j.error) || `보내지 못했어요. 잠시 후 다시 시도하거나 ${CONFIG.PHONE}로 문자 주세요.`; btn.disabled=false; }
+  }catch(err){ msg.className="err"; msg.textContent=`보내지 못했어요. 인터넷 연결을 확인하거나 ${CONFIG.PHONE}로 문자 주세요.`; btn.disabled=false; }
+});
+</script>
+</body>
+</html>
