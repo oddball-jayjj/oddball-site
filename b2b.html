@@ -296,7 +296,7 @@ $("#zipBtn").addEventListener("click",()=>{
     new daum.Postcode({width:"100%",height:"100%",oncomplete:d=>{ $("#reg-zip").value=d.zonecode; $("#reg-address").value=d.roadAddress||d.jibunAddress; layer.hidden=true; $("#reg-detail").focus(); }}).embed(layer); };
   if(window.daum && daum.Postcode) return open();
   const sc=document.createElement("script");
-  sc.src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+  sc.src="https://t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
   sc.onload=open;
   sc.onerror=()=>{ $("#regMsg").className="err"; $("#regMsg").textContent="우편번호 검색을 불러오지 못했어요. 우편번호와 주소를 직접 적어 주세요."; };
   document.head.appendChild(sc);
